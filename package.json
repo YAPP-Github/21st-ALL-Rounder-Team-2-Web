@@ -1,0 +1,21 @@
+{
+  "name": "21st-all-rounder-team-2-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "swagger-codegen3": "java -jar ./scripts/swagger-codegen-cli-3.0.35.jar generate -i https://petstore.swagger.io/v2/swagger.json -l typescript-axios -o ./__generate__",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YAPP-Github/21st-ALL-Rounder-Team-2-Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YAPP-Github/21st-ALL-Rounder-Team-2-Web/issues"
+  },
+  "homepage": "https://github.com/YAPP-Github/21st-ALL-Rounder-Team-2-Web#readme"
+}
