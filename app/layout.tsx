@@ -1,3 +1,6 @@
+import QueryClientWrapper from "./QueryClientWrapper";
+import RootStyleRegistry from "./RootStyleRegistry";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +8,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <QueryClientWrapper>
+          <RootStyleRegistry>{children}</RootStyleRegistry>
+        </QueryClientWrapper>
+      </body>
     </html>
   );
 }
