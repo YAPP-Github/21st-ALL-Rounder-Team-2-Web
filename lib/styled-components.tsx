@@ -10,7 +10,7 @@ export function useStyledComponentsRegistry() {
     const styles = styledComponentsStyleSheet.getStyleElement();
     // Alternatively, you can use `styledComponentsStyleSheet.seal()`
     // But when using Suspense boundaries, the styles should be cleared:
-    styledComponentsStyleSheet.instance.clearTag();
+    // styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
   };
 
