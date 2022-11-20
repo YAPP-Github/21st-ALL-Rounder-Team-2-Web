@@ -1,4 +1,4 @@
-# bbl-nx
+# YAPP-Github/21st-ALL-Rounder-Team-2-Web
 
 ![build](https://github.com/YAPP-Github/21st-ALL-Rounder-Team-2-Web/actions/workflows/ci-cd.yml/badge.svg)
 ![GitHub deployments](https://img.shields.io/github/deployments/YAPP-Github/21st-ALL-Rounder-Team-2-Web/production?label=vercel&logo=vercel&logoColor=white)
