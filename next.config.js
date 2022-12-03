@@ -2,8 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
-    appDir: true,
+    appDir: false,
   },
   webpack(config) {
     config.module.rules.push({
