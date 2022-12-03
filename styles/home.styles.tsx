@@ -21,4 +21,6 @@ export const Filter = styled.div`
     padding: 0px 16px;
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+    margin-top: 13px;
+`;
