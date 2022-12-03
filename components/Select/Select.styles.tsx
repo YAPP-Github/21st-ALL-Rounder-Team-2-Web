@@ -31,7 +31,7 @@ export const OptionWrapper = styled.div`
   border-radius: 12px;
 `;
 
-export const Item = styled.div`
+export const Item = styled.div<{ active: boolean; }>`
   width: 94px;
   padding: 12px 0;
   margin: 0 16px;
