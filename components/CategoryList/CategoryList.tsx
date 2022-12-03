@@ -1,26 +1,34 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useCallback } from "react";
 import { Category } from "../Category/Category";
+import * as S from "./CategoryList.styles";
+import { ReactComponent as PlusIcon } from "../Icon/plus.svg"
 
 interface Props {
+  className?: string;
+  activeIndex?: number;
   items: Array<{ text: string; active: boolean; }>;
+  onSelected: (index: number) => void;
+  onRegister: () => void;
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const CategoryList = (props: Props) => {
-  const { items = [] } = props;
+  const { className, activeIndex, items = [], onSelected, onRegister } = props;
+
+  const handleSelectCategory = useCallback((index: number) => {
+    return () => {
+      onSelected(index)
+    }
+  }, [onSelected])
 
   return (
-    <Wrapper>
-      {items.map((item) => {
-        const { text, active } = item
-        return <Category key={text} active={active} text={text} />;
+    <S.Wrapper className={className}>
+      {items.map((item, index) => {
+        const { text } = item
+        return <Category key={text} active={activeIndex === index} text={text} onClick={handleSelectCategory(index)} />;
       })}
-    </Wrapper>
+      <S.PlusButton onClick={onRegister}>
+        <PlusIcon />
+      </S.PlusButton>
+    </S.Wrapper>
   );
 };

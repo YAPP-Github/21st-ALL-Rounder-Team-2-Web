@@ -9,7 +9,6 @@ export const Wrapper = styled.div<{ $active: boolean }>`
   gap: 10px;
 
   border-radius: 71px;
-  box-sizing: border-box;
 
   ${({ $active }) =>
     $active
