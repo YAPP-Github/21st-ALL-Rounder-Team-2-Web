@@ -1,6 +1,5 @@
 import React from "react";
 import * as S from "./Category.styles";
-// import { Wrapper } from "./Category.styles";
 
 interface Props {
   text?: string;
