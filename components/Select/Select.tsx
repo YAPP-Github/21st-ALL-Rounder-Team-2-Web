@@ -18,7 +18,7 @@ export const Select = (props: Props) => {
     setIsActive((prev: boolean) => !prev);
   };
 
-  useClickOutside(ref, toggleSelectBox);
+  useClickOutside(ref, toggleSelectBox, isActive);
 
   return (
     <S.Wrapper ref={ref}>
@@ -33,7 +33,6 @@ export const Select = (props: Props) => {
               key={i}
               active={activeIndex === i}
               onClick={() => {
-                console.log(i);
                 onSelected(i);
               }}
             >
