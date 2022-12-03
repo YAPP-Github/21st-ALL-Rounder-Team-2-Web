@@ -4,15 +4,17 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   align-items: flex-end;
-  width: 175px;
-  height: 200px;
+  width: calc(50% - 4px);
+  height: auto;
+  aspect-ratio: 175 / 200;
   border-radius: 8px;
   background-color: #f1f1f1;
 `;
 
 export const LargeContainer = styled(Container)`
-  width: 358px;
-  height: 358px;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
 `;
 
 export const InfoContainer = styled.div`
@@ -36,9 +38,10 @@ export const TitleTextSpan = styled(TextSpan)`
   font-size: 16px;
   font-weight: 600;
 
-  width: 143px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 `;
 

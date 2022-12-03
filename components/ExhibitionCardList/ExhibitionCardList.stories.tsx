@@ -24,7 +24,7 @@ Primary.args = {
     {
       id: 1,
       imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
+      title: "전시회명어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구",
       date: "2022. 11. 08",
     },
     {
