@@ -9,9 +9,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryClientWrapper>
-          <RootStyleRegistry>{children}</RootStyleRegistry>
-        </QueryClientWrapper>
+        <RootStyleRegistry>
+          <QueryClientWrapper>{children}</QueryClientWrapper>
+        </RootStyleRegistry>
       </body>
     </html>
   );

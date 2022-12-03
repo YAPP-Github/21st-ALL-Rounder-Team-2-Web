@@ -1,16 +1,16 @@
-import React from "react";
-import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+import React from 'react';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 export function useStyledComponentsRegistry() {
   const [styledComponentsStyleSheet] = React.useState(
-    () => new ServerStyleSheet()
+    () => new ServerStyleSheet(),
   );
 
   const styledComponentsFlushEffect = () => {
     const styles = styledComponentsStyleSheet.getStyleElement();
     // Alternatively, you can use `styledComponentsStyleSheet.seal()`
     // But when using Suspense boundaries, the styles should be cleared:
-    // styledComponentsStyleSheet.instance.clearTag();
+    styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
   };
 
