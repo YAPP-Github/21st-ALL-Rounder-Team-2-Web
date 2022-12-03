@@ -5,11 +5,12 @@ import { ReactComponent as PlusIcon } from "../Icon/plus.svg"
 
 interface Props {
   items: Array<{ text: string; active: boolean; }>;
+  onAdd: () => void
 }
 
 
 export const CategoryList = (props: Props) => {
-  const { items = [] } = props;
+  const { items = [], onAdd } = props;
 
   return (
     <S.Wrapper>
@@ -17,7 +18,9 @@ export const CategoryList = (props: Props) => {
         const { text, active } = item
         return <Category key={text} active={active} text={text} />;
       })}
-      <PlusIcon />
+      <S.PlusButton onClick={onAdd}>
+        <PlusIcon />
+      </S.PlusButton>
     </S.Wrapper>
   );
 };
