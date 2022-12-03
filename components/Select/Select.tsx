@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const Select = (props: Props) => {
-  const ref = useRef();
+  const ref = useRef<any>();
   const [isActive, setIsActive] = useState(false);
   const { activeIndex, onSelected } = props;
   const selectItems = [{ text: "최신순" }, { text: "오래된순" }];
