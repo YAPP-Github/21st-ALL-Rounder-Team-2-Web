@@ -35,8 +35,6 @@ export const Item = styled.div<{ active: boolean; }>`
   width: 94px;
   padding: 12px 0;
   margin: 0 16px;
-  font-family: "Pretendard";
-  font-style: normal;
   font-weight: ${(props) => (props.active ? 600 : 400)};
   font-size: 14px;
   line-height: 150%;
