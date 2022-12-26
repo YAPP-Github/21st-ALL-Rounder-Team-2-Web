@@ -17,7 +17,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    appDir: false,
+    appDir: true,
   },
   webpack(config) {
     config.module.rules.push({
