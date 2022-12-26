@@ -1,13 +1,14 @@
+import { isBrowser } from "../../utils/browser";
 
 
-type Actions = {
+export type Actions = {
     NAVIGATE_TO_MY: {
         payload: {
             userId: string;
         }
     },
     NAVIGATE_TO_EDIT: {
-    }
+    },
 }
 
 export type ActionNames = keyof Actions;
@@ -18,11 +19,18 @@ Actions[ActionName] extends { payload: infer TPath extends Record<string, string
     : [ActionName];
 
 
-export const makeAction = <Path extends ActionNames>(params: ActionParam<Path>) => {
+export const makeAction = <ActionName extends ActionNames>(params: ActionParam<ActionName>) => {
     const [actionName, payload] = params
     return {
         action: actionName,
         payload,
     }
+}
+
+export const postMessage = (data: unknown) => {
+    if(!isBrowser) {
+        return
+    }
+    window.postMessage(JSON.stringify(data))
 }
 
