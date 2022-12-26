@@ -1,4 +1,4 @@
-import { makeAction } from "./messages";
+import { makeAction } from "./message";
 
 describe("messages", () => {
   it("NAVIGATE_TO_EDIT", async () => {
