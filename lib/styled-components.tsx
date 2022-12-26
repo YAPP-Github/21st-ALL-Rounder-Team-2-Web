@@ -1,28 +1,29 @@
-import React from 'react';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+"use client";
 
-export function useStyledComponentsRegistry() {
-  const [styledComponentsStyleSheet] = React.useState(
-    () => new ServerStyleSheet(),
-  );
+import React, { useState } from "react";
+import { useServerInsertedHTML } from "next/navigation";
+import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
-  const styledComponentsFlushEffect = () => {
+export default function StyledComponentsRegistry({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // Only create stylesheet once with lazy initial state
+  // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+
+  useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
-    // Alternatively, you can use `styledComponentsStyleSheet.seal()`
-    // But when using Suspense boundaries, the styles should be cleared:
     styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
-  };
+  });
 
-  const StyledComponentsRegistry = ({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) => (
+  if (typeof window !== "undefined") return <>{children}</>;
+
+  return (
     <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children as React.ReactElement}
+      {children as React.ReactChild}
     </StyleSheetManager>
   );
-
-  return [StyledComponentsRegistry, styledComponentsFlushEffect] as const;
 }

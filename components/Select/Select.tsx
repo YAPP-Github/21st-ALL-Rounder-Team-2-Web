@@ -34,6 +34,7 @@ export const Select = (props: Props) => {
               active={activeIndex === i}
               onClick={() => {
                 onSelected(i);
+                toggleSelectBox()
               }}
             >
               {item.text}

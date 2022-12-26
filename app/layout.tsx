@@ -1,5 +1,6 @@
 import QueryClientWrapper from "./QueryClientWrapper";
-import RootStyleRegistry from "./RootStyleRegistry";
+import StyledComponentsRegistry from '../lib/styled-components';
+import "../styles/globals.css"
 
 export default function RootLayout({
   children,
@@ -9,9 +10,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <RootStyleRegistry>
+        <StyledComponentsRegistry>
           <QueryClientWrapper>{children}</QueryClientWrapper>
-        </RootStyleRegistry>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
