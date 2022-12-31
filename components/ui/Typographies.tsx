@@ -24,6 +24,14 @@ export const Bold20CSS = css`
   line-height: 130%;
 `;
 
+export const Medium14CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+`;
+
 export const Normal12CSS = css`
   font-family: "Pretendard";
   font-style: normal;
