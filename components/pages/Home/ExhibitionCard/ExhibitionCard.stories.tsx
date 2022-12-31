@@ -14,6 +14,7 @@ const Template: ComponentStory<typeof ExhibitionCard> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
+  isPin: false,
   imageUrl: "https://picsum.photos/358",
   title: "목조형가구학과 졸전",
   date: "2022. 11. 08",

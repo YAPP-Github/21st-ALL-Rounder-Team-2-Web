@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { colors } from "../../../../styles/colors";
+import { Bold16CSS, Normal12CSS } from "../../../ui/Typographies";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -7,14 +9,7 @@ export const Wrapper = styled.div`
   width: calc(50% - 4px);
   height: auto;
   aspect-ratio: 175 / 200;
-  border-radius: 8px;
-  background-color: #f1f1f1;
-`;
-
-export const LargeWrapper = styled(Wrapper)`
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1/1;
+  border-radius: 32px;
 `;
 
 export const InfoContainer = styled.div`
@@ -28,18 +23,9 @@ export const InfoContainer = styled.div`
   align-items: center;
 `;
 
-const TextSpan = styled.span`
-  font-family: "Pretendard";
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 130%;
+export const TitleTextSpan = styled.span`
+  ${Bold16CSS}
   color: #ffffff;
-`;
-
-export const TitleTextSpan = styled(TextSpan)`
-  font-size: 16px;
-  font-weight: 600;
-
   word-wrap: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -47,11 +33,22 @@ export const TitleTextSpan = styled(TextSpan)`
   overflow: hidden;
 `;
 
-export const LargeTitleTextSpan = styled(TextSpan)`
-  font-size: 20px;
-  font-weight: 600;
+export const DateTextSpan = styled.span`
+  ${Normal12CSS}
+  color: ${colors.gray400};
+  opacity: 0.8;
 `;
 
-export const DateTextSpan = styled(TextSpan)`
-  opacity: 0.8;
+export const PinButton = styled.div`
+  position: absolute;
+  right: 14px;
+  top: 18px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;

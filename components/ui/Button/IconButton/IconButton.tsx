@@ -16,5 +16,3 @@ export const IconButton = (props: Props) => {
     </S.Wrapper>
   );
 };
-
-export default IconButton;
