@@ -12,6 +12,7 @@
 - App
   - https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/
 - Storybook
+  - https://yapp-github.github.io/21st-ALL-Rounder-Team-2-Web/
 
 ## Feature
 
