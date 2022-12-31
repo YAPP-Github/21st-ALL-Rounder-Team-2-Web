@@ -11,6 +11,7 @@ const Template: Story<Props> = (args) => <Icon {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  name: "ARTIEIcon",
-  color: "#000"
+  name: "UserIcon",
+  color: "#000",
+  size: 20,
 };

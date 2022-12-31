@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { Category } from "../Category/Category";
 import * as S from "./CategoryList.styles";
-import { ReactComponent as PlusIcon } from "../../../ui/Icon/plus.svg"
 
 interface Props {
   className?: string;
@@ -26,9 +25,6 @@ export const CategoryList = (props: Props) => {
         const { text } = item
         return <Category key={text} active={activeIndex === index} text={text} onClick={handleSelectCategory(index)} />;
       })}
-      <S.PlusButton onClick={onRegister}>
-        <PlusIcon />
-      </S.PlusButton>
     </S.Wrapper>
   );
 };
