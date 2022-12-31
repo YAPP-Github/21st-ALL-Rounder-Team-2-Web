@@ -6,7 +6,8 @@ export interface Props {
 }
 
 export const -- PLOP COMPONENT NAME HERE -- = (props: Props) => {
-  return <S.Wrapper>hello world</S.Wrapper>;
+  const { className } = props;
+  return <S.Wrapper className={className}>hello world</S.Wrapper>;
 }
 
 export default -- PLOP COMPONENT NAME HERE --;
