@@ -1,10 +1,10 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import ExhibitionCard from "./ExhibitionCard";
+import { ExhibitionCard } from "./ExhibitionCard";
 
 export default {
-  title: 'Pages/Home/ExhibitionCard',
+  title: "Pages/Home/ExhibitionCard",
   component: ExhibitionCard,
 } as ComponentMeta<typeof ExhibitionCard>;
 

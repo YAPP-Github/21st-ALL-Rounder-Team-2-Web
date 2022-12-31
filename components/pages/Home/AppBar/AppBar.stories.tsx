@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { HomeAppBar as AppBar } from './AppBar';
+import { AppBar as AppBar } from './AppBar';
 
 export default {
   title: 'Pages/Home/AppBar',

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import * as S from "./Select.styles";
-import { ReactComponent as ArrowDownIcon } from "../Icon/arrow_down.svg";
 import useClickOutside from "../../../hooks/useClickOutside";
+import Icon from "../Icon/Icon/Icon";
 
 interface Props {
   activeIndex?: number;
@@ -24,7 +24,7 @@ export const Select = (props: Props) => {
     <S.Wrapper ref={ref}>
       <S.SelectWrapper onClick={toggleSelectBox}>
         <S.Text>{selectItems[activeIndex].text}</S.Text>
-        <ArrowDownIcon />
+        <Icon name="ArrowDownIcon" />
       </S.SelectWrapper>
       {isActive && (
         <S.OptionWrapper>
