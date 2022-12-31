@@ -14,8 +14,8 @@ export const Wrapper = styled.div`
 
 export const InfoContainer = styled.div`
   position: absolute;
-  left: 0px;
-  right: 0px;
+  left: 16px;
+  right: 16px;
   bottom: 24px;
   display: flex;
   flex-direction: column;

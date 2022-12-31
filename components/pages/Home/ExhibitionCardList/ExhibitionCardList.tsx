@@ -14,11 +14,13 @@ export const ExhibitionCardList = ({
   exhibitionList,
 }: Props) => {
   return (
-    <S.Container>
+    <S.Wrapper>
       {fixedExhibition && <MainExhibitionCard {...fixedExhibition} />}
-      {exhibitionList.map((props) => (
-        <ExhibitionCard key={props.id} {...props} />
-      ))}
-    </S.Container>
+      <S.Content>
+        {exhibitionList.map((props) => (
+          <ExhibitionCard key={props.id} {...props} />
+        ))}
+      </S.Content>
+    </S.Wrapper>
   );
 };
