@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CategoryList } from "../components/CategoryList/CategoryList";
+import { CategoryList } from "../components/pages/Home/CategoryList/CategoryList";
 
 export const Wrapper = styled.div`
   display: flex;

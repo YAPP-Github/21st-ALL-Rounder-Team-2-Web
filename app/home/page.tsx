@@ -1,10 +1,9 @@
-'use client'
+"use client";
 
 import React, { useCallback } from "react";
-import { CategoryList } from "../../components/CategoryList/CategoryList";
 import { Divider } from "../../components/ui/Divider/Divider";
-import ExhibitionCardList from "../../components/ExhibitionCardList/ExhibitionCardList";
-import { Select } from "../../components/Select/Select";
+import { ExhibitionCardList } from "../../components/pages/Home/ExhibitionCardList/ExhibitionCardList";
+import { Select } from "../../components/ui/Select/Select";
 import { useSelectCategory } from "../../hooks/useSelectCategory";
 import * as S from "../../styles/home.styles";
 

@@ -21,7 +21,7 @@ Actions[ActionName] extends { payload: infer TPath extends Record<string, string
     : [ActionName];
 
 
-const makeAction = <ActionName extends ActionNames>(params: ActionParam<ActionName>) => {
+export const makeAction = <ActionName extends ActionNames>(params: ActionParam<ActionName>) => {
     const [actionName, payload] = params
     return {
         action: actionName,
