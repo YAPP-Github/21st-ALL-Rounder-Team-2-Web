@@ -4,7 +4,7 @@ import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { ExhibitionCardList } from "../../components/pages/Home/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "../../components/ui/Select/Select";
 import { useSelectCategory } from "../../hooks/useSelectCategory";
-import * as S from "./home.styles";
+import * as S from "./page.styles";
 import { AppBar } from "../../components/pages/Home/AppBar/AppBar";
 import { Exhibition } from "../../interfaces/exhibition";
 import { useQuery } from "@tanstack/react-query";
