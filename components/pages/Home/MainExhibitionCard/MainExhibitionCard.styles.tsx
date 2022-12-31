@@ -8,8 +8,8 @@ export const Wrapper = styled.div`
   align-items: flex-end;
   background-color: #f1f1f1;
   width: 100%;
-  height: 100%;
-  aspect-ratio: 1/1;
+  height: auto;
+  aspect-ratio: 391/324;
 `;
 
 export const InfoContainer = styled.div`
