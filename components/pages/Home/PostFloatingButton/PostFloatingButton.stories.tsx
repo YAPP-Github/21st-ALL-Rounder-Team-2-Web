@@ -3,7 +3,7 @@ import { PostFloatingButton, Props } from './PostFloatingButton';
 
 export default {
   component: PostFloatingButton,
-  title: 'PostFloatingButton',
+  title: 'Pages/Home/PostFloatingButton',
   argTypes: {},
 } as Meta;
 
