@@ -2,9 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import {
   ActionNames,
   Actions,
-  postMessage,
-  makeAction,
-  ActionParam,
 } from "../libs/message/message";
 import { isBrowser } from "../utils/browser";
 
@@ -13,9 +10,6 @@ export function useMessage<ActionName extends ActionNames>(options: {
 }) {
   const { actionName } = options;
   const [payload, setPayload] = useState<Actions[ActionName] | null>(null);
-  const sendMessage = useCallback((params: ActionParam<ActionName>) => {
-    postMessage(makeAction(params));
-  }, []);
 
   const handleMessage = useCallback((message: MessageEvent) => {
     if (!message.data) {
@@ -36,6 +30,5 @@ export function useMessage<ActionName extends ActionNames>(options: {
   return {
     actionName,
     actionPayload: payload,
-    sendMessage,
   };
 }
