@@ -1,5 +1,5 @@
 import QueryClientWrapper from "./QueryClientWrapper";
-import StyledComponentsRegistry from '../lib/styled-components';
+import StyledComponentsRegistry from '../libs/styled-components';
 import "../styles/globals.css"
 
 export default function RootLayout({
