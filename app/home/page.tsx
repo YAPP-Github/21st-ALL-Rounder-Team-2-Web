@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { ExhibitionCardList } from "../../components/pages/Home/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "../../components/ui/Select/Select";
 import { useSelectCategory } from "../../hooks/useSelectCategory";
@@ -10,8 +10,17 @@ import { Exhibition } from "../../interfaces/exhibition";
 import { useQuery } from "@tanstack/react-query";
 import { getExhibitionList, togglePinById } from "../../apis/exhibition";
 import { getCategories } from "../../apis/category";
+import { PostFloatingButton } from "../../components/pages/Home/PostFloatingButton/PostFloatingButton";
 
-export default function Home() {
+export default function HomeWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <Home />
+    </Suspense>
+  );
+}
+
+function Home() {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
@@ -76,6 +85,7 @@ export default function Home() {
           onTogglePin={handleTogglePin}
         />
       </S.Content>
+      <PostFloatingButton />
     </S.Wrapper>
   );
 }
