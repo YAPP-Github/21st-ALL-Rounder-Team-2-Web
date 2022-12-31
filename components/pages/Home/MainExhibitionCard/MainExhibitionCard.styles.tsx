@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../../../styles/colors";
-import IconButton from "../../../ui/Button/IconButton/IconButton";
 import { Bold20CSS, Normal14CSS } from "../../../ui/Typographies";
 
 export const Wrapper = styled.div`
@@ -24,7 +23,7 @@ export const InfoContainer = styled.div`
   align-items: center;
 `;
 
-export const TitleTextSpan = styled.div`
+export const TitleTextSpan = styled.span`
   ${Bold20CSS}
   color: ${colors.white};
   word-wrap: break-word;
@@ -35,7 +34,7 @@ export const TitleTextSpan = styled.div`
   margin-bottom: 4px;
 `;
 
-export const DateTextSpan = styled.div`
+export const DateTextSpan = styled.span`
   ${Normal14CSS}
   color: ${colors.gray400};
   opacity: 0.8;

@@ -3,12 +3,9 @@ import { colors } from "../../../../styles/colors";
 import { Bold16CSS } from "../../../ui/Typographies";
 
 export const Wrapper = styled.div<{ $active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  text-align: center;
   padding: 10px 20px;
-  gap: 10px;
   background-color: ${colors.green900};
   ${Bold16CSS}
 

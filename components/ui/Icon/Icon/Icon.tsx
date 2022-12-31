@@ -13,8 +13,10 @@ export interface Props {
 export const Icon = (props: Props) => {
   const { name, size, color } = props;
   const TargetComponent = SvgIcons[name];
+  const fillProps = color ? { fill: color } : {}
+  const sizeProps = size ? { width: size, height: size } : {}
   return (
-    <TargetComponent fill={color ?? "transparent"} width={size} height={size} />
+    <TargetComponent {...fillProps} {...sizeProps} />
   );
 };
 

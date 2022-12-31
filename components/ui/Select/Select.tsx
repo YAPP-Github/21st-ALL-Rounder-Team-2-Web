@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import * as S from "./Select.styles";
 import useClickOutside from "../../../hooks/useClickOutside";
 import Icon from "../Icon/Icon/Icon";
+import { colors } from "../../../styles/colors";
 
 interface Props {
   activeIndex?: number;
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export const Select = (props: Props) => {
-  const ref = useRef<any>();
+  const ref = useRef<HTMLButtonElement | null>(null);
   const [isActive, setIsActive] = useState(false);
   const { activeIndex = 0, onSelected } = props;
   const selectItems = [{ text: "최신순" }, { text: "오래된순" }];
@@ -24,7 +25,7 @@ export const Select = (props: Props) => {
     <S.Wrapper ref={ref}>
       <S.SelectWrapper onClick={toggleSelectBox}>
         <S.Text>{selectItems[activeIndex].text}</S.Text>
-        <Icon name="ArrowDownIcon" />
+        <Icon name="ChevronDownIcon" />
       </S.SelectWrapper>
       {isActive && (
         <S.OptionWrapper>

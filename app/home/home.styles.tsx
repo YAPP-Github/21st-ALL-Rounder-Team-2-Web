@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { CategoryList } from "../../components/pages/Home/CategoryList/CategoryList";
+import { colors } from "../../styles/colors";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${colors.bgColor};
 `;
 
 export const CategoryListStyled = styled(CategoryList)`
-  margin-top: 16px;
-  margin-bottom: 16px;
   padding: 0px 16px;
 `;
 
@@ -17,10 +17,8 @@ export const Filter = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 26px;
+  margin-top: 29px;
   padding: 0px 16px;
 `;
 
-export const Content = styled.div`
-  padding: 16px;
-`;
+export const Content = styled.div``;

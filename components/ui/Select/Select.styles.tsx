@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
+import { colors } from "../../../styles/colors";
+import { Normal14CSS } from "../Typographies";
 
 export const Wrapper = styled.button`
   position: relative;
+  margin-bottom: 10px;
 `;
 
 export const SelectWrapper = styled.div`
@@ -11,7 +14,9 @@ export const SelectWrapper = styled.div`
 `;
 
 export const Text = styled.div`
-  margin-right: 9px;
+  ${Normal14CSS}
+  color: ${colors.gray400};
+  margin-right: 4px;
 `;
 
 export const OptionWrapper = styled.div`

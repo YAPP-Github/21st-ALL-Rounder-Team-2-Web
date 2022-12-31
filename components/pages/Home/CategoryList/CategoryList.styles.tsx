@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  overflow: auto;
+  white-space: nowrap;
 `;
 
 export const PlusButton = styled.button`

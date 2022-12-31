@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../../styles/colors";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,7 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 18px 20px;
-  background-color: #161616;
+  background-color: ${colors.bgColor};
 `;
 
 export const LogoGroup = styled.div`

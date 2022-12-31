@@ -1,108 +1,21 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { Divider } from "../../components/ui/Divider/Divider";
+import React, { useCallback, useMemo, useState } from "react";
 import { ExhibitionCardList } from "../../components/pages/Home/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "../../components/ui/Select/Select";
 import { useSelectCategory } from "../../hooks/useSelectCategory";
-import * as S from "../../styles/home.styles";
-
-const fixedExhibition = {
-  id: 123,
-  imageUrl: "https://picsum.photos/358",
-  title: "목조형가구학과 졸전",
-  date: "2022. 11. 08",
-};
-const exhibitionList = [
-  {
-    id: 1,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-  {
-    id: 2,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-  {
-    id: 3,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-  {
-    id: 4,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-  {
-    id: 5,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-  {
-    id: 6,
-    imageUrl: "https://picsum.photos/358",
-    title: "전시회명어쩌구저쩌구",
-    date: "2022. 11. 08",
-  },
-];
+import * as S from "./home.styles";
+import { AppBar } from "../../components/pages/Home/AppBar/AppBar";
+import { Exhibition } from "../../interfaces/exhibition";
+import { useQuery } from "@tanstack/react-query";
+import { getExhibitionList, togglePinById } from "../../apis/exhibition";
+import { getCategories } from "../../apis/category";
 
 export default function Home() {
-  const categoryItems = [
-    { text: "전체 기록", active: false },
-    { text: "졸업전시", active: false },
-  ];
-
-  const fixedExhibition = {
-    id: 123,
-    imageUrl: "https://picsum.photos/358",
-    title: "목조형가구학과 졸전",
-    date: "2022. 11. 08",
-  };
-
-  const exhibitionList = [
-    {
-      id: 1,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-    {
-      id: 2,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-    {
-      id: 3,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-    {
-      id: 4,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-    {
-      id: 5,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-    {
-      id: 6,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
-    },
-  ];
+  const categoriesQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
 
   const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
     useSelectCategory();
@@ -112,24 +25,55 @@ export default function Home() {
     selectCategoryByIndex: handleSelectFilter,
   } = useSelectCategory();
 
+  const exhibitionListQuery = useQuery({
+    queryKey: ["exhibitionList"],
+    queryFn: getExhibitionList,
+  });
+
+  const [pins, setPins] = useState<Record<string, boolean>>({});
+  const exhibitionListWithPin = useMemo(() => {
+    return (exhibitionListQuery.data ?? []).map((item) => {
+      return {
+        ...item,
+        isPin: Boolean(pins[item.id]),
+      };
+    });
+  }, [exhibitionListQuery.data, pins]);
+  const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
+
   const handleRegisterCategory = useCallback(() => {}, []);
+
+  const handleTogglePin = useCallback(
+    async (e: React.MouseEvent, item: Exhibition) => {
+      const id = String(item.id);
+      setPins((pins) => {
+        return {
+          ...pins,
+          [id]: !Boolean(pins[id]),
+        };
+      });
+      await togglePinById(id);
+    },
+    []
+  );
 
   return (
     <S.Wrapper>
+      <AppBar />
       <S.CategoryListStyled
         activeIndex={selectedIndex}
-        items={categoryItems}
+        items={categoriesQuery?.data ?? []}
         onSelected={handleSelectCategory}
         onRegister={handleRegisterCategory}
       />
-      <Divider />
       <S.Filter>
         <Select activeIndex={selectedFilter} onSelected={handleSelectFilter} />
       </S.Filter>
       <S.Content>
         <ExhibitionCardList
           fixedExhibition={fixedExhibition}
-          exhibitionList={exhibitionList}
+          exhibitionList={restExhibition}
+          onTogglePin={handleTogglePin}
         />
       </S.Content>
     </S.Wrapper>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Exhibition } from "../../../../interfaces/exhibition";
-import IconButton from "../../../ui/Button/IconButton/IconButton";
+import { IconButton } from "../../../ui/Button/IconButton/IconButton";
 
 import * as S from "./MainExhibitionCard.styles";
 
@@ -18,7 +18,7 @@ export const MainExhibitionCard = (props: Props) => {
         alt="thumbnail"
         src={imageUrl}
         fill
-        style={{ objectFit: "cover", borderRadius: "8px" }}
+        style={{ objectFit: "cover" }}
       />
       <S.InfoContainer>
         <S.TitleTextSpan>{title}</S.TitleTextSpan>
@@ -30,6 +30,7 @@ export const MainExhibitionCard = (props: Props) => {
             name: isPin ? "PinIcon" : "InActivePinIcon",
             size: 32,
           }}
+          onClick={onTogglePin}
         />
       </S.PinButton>
     </S.Wrapper>
