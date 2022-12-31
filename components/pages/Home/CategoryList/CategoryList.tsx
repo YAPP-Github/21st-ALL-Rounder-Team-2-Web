@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Category } from "../Category/Category";
 import * as S from "./CategoryList.styles";
-import { ReactComponent as PlusIcon } from "../Icon/plus.svg"
+import { ReactComponent as PlusIcon } from "../../../ui/Icon/plus.svg"
 
 interface Props {
   className?: string;

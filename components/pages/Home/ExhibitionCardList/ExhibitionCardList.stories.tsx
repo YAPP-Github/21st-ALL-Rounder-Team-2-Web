@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ExhibitionCardList from "./ExhibitionCardList";
 
 export default {
-  title: "Components/ExhibitionCardList",
+  title: 'Pages/Home/ExhibitionCardList',
   component: ExhibitionCardList,
 } as ComponentMeta<typeof ExhibitionCardList>;
 
