@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions"
 import { CategoryList } from './CategoryList';
 
 export default {
-  title: 'Components/CategoryList',
+  title: 'Pages/Home/CategoryList',
   component: CategoryList,
 } as ComponentMeta<typeof CategoryList>;
 

@@ -2,7 +2,7 @@
 
 import React, { useCallback } from "react";
 import { CategoryList } from "../../components/CategoryList/CategoryList";
-import { Divider } from "../../components/Divider/Divider";
+import { Divider } from "../../components/ui/Divider/Divider";
 import ExhibitionCardList from "../../components/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "../../components/Select/Select";
 import { useSelectCategory } from "../../hooks/useSelectCategory";

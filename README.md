@@ -25,6 +25,9 @@
 
     root
     ├── app
+    ├── components
+    ├──── pages 
+    ├──── ui
     ├── lib
     ├── mocks
     ├── public

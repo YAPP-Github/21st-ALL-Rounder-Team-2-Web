@@ -1,17 +1,17 @@
 import React, { useRef, useState } from "react";
 import * as S from "./Select.styles";
 import { ReactComponent as ArrowDownIcon } from "../Icon/arrow_down.svg";
-import useClickOutside from "../../hooks/useClickOutside";
+import useClickOutside from "../../../hooks/useClickOutside";
 
 interface Props {
-  activeIndex: number;
+  activeIndex?: number;
   onSelected: (index: number) => void;
 }
 
 export const Select = (props: Props) => {
   const ref = useRef<any>();
   const [isActive, setIsActive] = useState(false);
-  const { activeIndex, onSelected } = props;
+  const { activeIndex = 0, onSelected } = props;
   const selectItems = [{ text: "최신순" }, { text: "오래된순" }];
 
   const toggleSelectBox = () => {
