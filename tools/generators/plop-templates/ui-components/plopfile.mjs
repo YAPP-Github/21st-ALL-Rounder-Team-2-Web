@@ -16,15 +16,9 @@ export function uiComponentsPlop(plop) {
         ],
       },
       {
-        type: 'list',
-        name: 'pagesFolder',
-        message: 'Pages Folder: ',
-        choices: [
-          { name: 'Home', value: 'Home' },
-        ],
-        when(answers) {
-          return answers.location === 'pages';
-        },
+        type: 'input',
+        name: 'packagesFolder',
+        message: 'Folder: ',
       },
       {
         type: 'input',
@@ -35,14 +29,14 @@ export function uiComponentsPlop(plop) {
     actions: (data) => {
       const templateDir = 'tools/generators/plop-templates';
       const location = data.location;
-      const pagesFolder = data.pagesFolder;
+      const packagesFolder = data.packagesFolder;
       
       const componentFileName = data.componentName;
       const componentName = (
         data.componentName
       );
       const componentDir = `components/${location}${
-        pagesFolder ? `/${pagesFolder}` : ``
+        packagesFolder ? `/${packagesFolder}` : ``
       }/${componentFileName}`;
       const filesToAlwaysCopyOver = [
         'component.styles.txt',
