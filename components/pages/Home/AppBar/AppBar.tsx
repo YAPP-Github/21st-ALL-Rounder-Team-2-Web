@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import * as S from "./AppBar.styles";
-import { ReactComponent as ARTIEIcon } from "../../../ui/Icon/ARTIE.svg";
 import IconButton from "../../../ui/Button/IconButton/IconButton";
 import { sendMessage } from "../../../../libs/message/message";
 
@@ -24,7 +23,11 @@ export const AppBar = (props: Props) => {
   return (
     <S.Wrapper>
       <S.LogoGroup>
-        <ARTIEIcon />
+        <IconButton
+          iconProps={{
+            name: "ARTIEIcon",
+          }}
+        />
       </S.LogoGroup>
       <S.MenuGroup>
         <IconButton
