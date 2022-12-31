@@ -17,7 +17,7 @@ export const Filter = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 26px;
+  margin-top: 29px;
   padding: 0px 16px;
 `;
 

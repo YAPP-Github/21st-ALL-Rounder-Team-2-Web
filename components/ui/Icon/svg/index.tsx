@@ -6,6 +6,7 @@ import { ReactComponent as ArrowDownIcon } from "./arrow_down.svg";
 import { ReactComponent as PinIcon } from "./tabler_pin.svg";
 import { ReactComponent as InActivePinIcon } from "./inactive_tabler_pin.svg";
 import { ReactComponent as PlusIcon } from "./uil_plus.svg";
+import { ReactComponent as ChevronDownIcon } from "./chevron-down.svg";
 
 export const SvgIcons = {
   ARTIEIcon,
@@ -16,4 +17,5 @@ export const SvgIcons = {
   InActivePinIcon,
   PinIcon,
   PlusIcon,
+  ChevronDownIcon,
 } as const;
