@@ -23,11 +23,29 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
+  storybook-deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Storybook Deployment
+    runs-on: ubuntu-latest
+    needs: job_build
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: yarn
+      - name: Storybook Build
+        run: npm run build-storybook
+      - name: Publish to Storybook
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/storybook/
+
   chromatic-deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - name: Checkout the repository
+        uses: actions/checkout@v3
       - name: Install Dependencies
         run: yarn
       - name: Deploy Storybook
