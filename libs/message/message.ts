@@ -11,12 +11,26 @@ export type Actions = {
     },
     NAVIGATE_TO_EDIT: {
     },
+    EDIT_BOTTOM_SHEET_SAVE: {
+        payload: {
+            author: string;
+            name: string;
+            tags: string[];
+        }
+    },
+    EDIT_BOTTOM_SHEET_CONTINUE: {
+        payload: {
+            author: string;
+            name: string;
+            tags: string[];
+        }
+    },
 }
 
 export type ActionNames = keyof Actions;
 
 export type ActionParam<ActionName extends ActionNames> =
-Actions[ActionName] extends { payload: infer TPath extends Record<string, string> }
+Actions[ActionName] extends { payload: infer TPath extends Record<string, any> }
     ? [ActionName, TPath]
     : [ActionName];
 

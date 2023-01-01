@@ -5,7 +5,7 @@ export default {
   component: TextInput,
   title: "UI/TextInput",
   argTypes: {},
-} as Meta<Props>;
+} as Meta;
 
 const Template: Story<Props> = (args) => <TextInput {...args} />;
 

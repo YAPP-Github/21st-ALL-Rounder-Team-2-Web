@@ -40,6 +40,7 @@ __metadata:
     plop: ^3.1.1
     react: 18.2.0
     react-dom: 18.2.0
+    react-hook-form: ^7.41.3
     styled-components: 6.0.0-beta.6
     typescript: 4.9.4
   languageName: unknown
@@ -14862,6 +14863,15 @@ __metadata:
     react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
     react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
   checksum: 42bcd4423f12e9ee21b2d3f0c2a28805ff4953bd82b6be4c1f5b5f9a371115aafa36a6f3d82726d43b4912179b79e99550c2b9a772c7fe6a5cd8f7e93ff34ceb
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.41.3":
+  version: 7.41.3
+  resolution: "react-hook-form@npm:7.41.3"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 25223f3001cbd1b4e04e20144b1f71b090925feaf2f1996f268c2beb17b190562c8d80ad2a786c7feafb45eae7e1284fc42f5f886eaf7034a9532457cc9adacd
   languageName: node
   linkType: hard
 

@@ -8,9 +8,9 @@ export interface Props {
 }
 
 export const InputForm = (props: Props) => {
-  const { label, children } = props;
+  const { className, label, children } = props;
   return (
-    <S.Wrapper>
+    <S.Wrapper className={className}>
       <S.Label>{label}</S.Label>
       <S.Content>{children}</S.Content>
     </S.Wrapper>

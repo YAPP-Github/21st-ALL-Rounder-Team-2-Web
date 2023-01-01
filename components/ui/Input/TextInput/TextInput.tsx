@@ -5,17 +5,18 @@ export interface Props
   extends React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  > {
-  className?: string;
-}
+  > {}
 
-export const TextInput = (props: Props) => {
+export const TextInput = (
+  props: Props,
+  ref: React.ForwardedRef<HTMLInputElement>
+) => {
   const { className, ...restProps } = props;
   return (
     <S.Wrapper className={className}>
-      <S.Input {...restProps} />
+      <S.Input ref={ref} {...restProps} />
     </S.Wrapper>
   );
 };
 
-export default TextInput;
+export default React.forwardRef(TextInput);
