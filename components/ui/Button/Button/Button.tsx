@@ -3,18 +3,28 @@ import * as S from "./Button.styles";
 
 export interface Props {
   className?: string;
-  type: "primary";
+  type: "primary" | "default";
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export const Button = (props: Props) => {
-  const { className, type, children } = props;
+  const { className, type, children, onClick } = props;
 
   switch (type) {
     case "primary":
-      return <S.Primary className={className}>{children}</S.Primary>;
+      return (
+        <S.Primary className={className} onClick={onClick}>
+          {children}
+        </S.Primary>
+      );
+    case "default":
     default:
-      return <S.Wrapper className={className}>{children}</S.Wrapper>;
+      return (
+        <S.Default className={className} onClick={onClick}>
+          {children}
+        </S.Default>
+      );
   }
 };
 

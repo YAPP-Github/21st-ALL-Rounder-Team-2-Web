@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
   ${Normal16CSS}
   width: 100%;
-  color: ${colors.gray700};
+  color: ${colors.white};
   ::placeholder {
     color: ${colors.gray700};
   }

@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { colors } from "../../../../styles/colors";
-import { Bold18CSS } from "../../Typographies";
+import { Bold18CSS, Medium16CSS } from "../../Typographies";
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+export const Default = styled.button`
+  ${Medium16CSS}
+  color: ${colors.gray400};
 `;
 
 export const Primary = styled.button`
