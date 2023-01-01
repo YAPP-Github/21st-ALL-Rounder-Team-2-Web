@@ -10,7 +10,8 @@
 ## Links
 
 - App
-  - https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/
+  - 홈: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/home
+  - 편집 바텀시트: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/edit/bottom-sheet
 - Storybook
   - https://yapp-github.github.io/21st-ALL-Rounder-Team-2-Web/
 
