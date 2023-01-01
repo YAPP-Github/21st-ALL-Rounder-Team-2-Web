@@ -16,6 +16,7 @@ export const Bold18CSS = css`
   line-height: 21px;
 `;
 
+
 export const Bold20CSS = css`
   font-family: "Pretendard";
   font-style: normal;
