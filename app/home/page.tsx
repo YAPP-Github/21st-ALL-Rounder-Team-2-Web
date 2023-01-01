@@ -12,15 +12,15 @@ import { getExhibitionList, togglePinById } from "../../apis/exhibition";
 import { getCategories } from "../../apis/category";
 import { PostFloatingButton } from "../../components/pages/Home/PostFloatingButton/PostFloatingButton";
 
-export default function HomeWrapper() {
+export default function PageWrapper() {
   return (
     <Suspense fallback={null}>
-      <Home />
+      <Page />
     </Suspense>
   );
 }
 
-function Home() {
+function Page() {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,

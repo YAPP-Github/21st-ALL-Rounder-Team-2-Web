@@ -1,4 +1,5 @@
 import { Story, Meta } from "@storybook/react";
+import { TextInput } from "../../Input/TextInput/TextInput";
 import { InputForm, Props } from "./InputForm";
 
 export default {
@@ -12,5 +13,5 @@ const Template: Story<Props> = (args) => <InputForm {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   label: "작가이름",
-  children: <input placeholder="testtest" />,
+  children: <TextInput placeholder="작가 이름을 적어주세요." />,
 };

@@ -32,6 +32,14 @@ export const Medium14CSS = css`
   line-height: 17px;
 `;
 
+export const Medium16CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+`;
+
 export const Normal12CSS = css`
   font-family: "Pretendard";
   font-style: normal;
