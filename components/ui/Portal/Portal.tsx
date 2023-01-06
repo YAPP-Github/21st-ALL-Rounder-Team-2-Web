@@ -8,13 +8,13 @@ type Props = {
 };
 
 const Portal = ({ children }: Props) => {
-  const [isTarget, setIsTarget] = useState(false);
+  const [isMount, setIsMount] = useState(false);
 
   useEffect(() => {
-    setIsTarget(true);
+    setIsMount(true);
   }, []);
 
-  if (!isTarget) return null;
+  if (!isMount) return null;
 
   const backdrop = document.getElementById("backdrop") as HTMLElement;
   const overlay = document.getElementById("overlay") as HTMLElement;
