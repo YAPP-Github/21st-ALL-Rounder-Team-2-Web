@@ -7,5 +7,4 @@ export const Dimmed = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(22, 22, 22, 0.6);
-  z-index: 1000;
 `;
