@@ -3,18 +3,18 @@ import * as S from "./NavigationBar.styles";
 
 export interface Props {
   current?: string;
-  onGoBack: () => void;
-  onEdit?: () => void;
+  onGoBackClick: () => void;
+  onEditClick?: () => void;
 }
 
-const NavigationBar = ({ current, onGoBack, onEdit }: Props) => {
+const NavigationBar = ({ current, onGoBackClick, onEditClick }: Props) => {
   return (
     <S.Wrapper>
-      <S.Button onClick={onGoBack}>
+      <S.Button onClick={onGoBackClick}>
         <Icon name="ChevronLeftIcon" size={12} />
       </S.Button>
       <S.Title>{current}</S.Title>
-      <S.Button onClick={onEdit}>편집</S.Button>
+      <S.Button onClick={onEditClick}>편집</S.Button>
     </S.Wrapper>
   );
 };
