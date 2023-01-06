@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Dimmed from "../Dimmed/Dimmed";
-import * as S from "./Portal.styles";
 
 type Props = {
   children: React.ReactNode;
@@ -16,13 +14,12 @@ const Portal = ({ children }: Props) => {
 
   if (!isMount) return null;
 
-  const backdrop = document.getElementById("backdrop") as HTMLElement;
-  const overlay = document.getElementById("overlay") as HTMLElement;
-
   return (
     <>
-      {createPortal(<Dimmed />, backdrop)}
-      {createPortal(<S.OverlayWrapper>{children}</S.OverlayWrapper>, overlay)}
+      {createPortal(
+        children,
+        document.getElementById("overlay-root") as HTMLElement
+      )}
     </>
   );
 };
