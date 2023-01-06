@@ -4,11 +4,11 @@ import * as S from "./Modal.styles";
 
 type Props = {
   headline: string;
-  onCloseClick?: () => void;
+  onClose?: () => void;
   children: React.ReactNode;
 };
 
-const Modal = ({ headline, children }: Props) => {
+const Modal = ({ headline, onClose, children }: Props) => {
   return (
     <S.Container>
       <S.Headline>
@@ -19,6 +19,7 @@ const Modal = ({ headline, children }: Props) => {
               color: colors.gray400,
               size: 20,
             }}
+            onClick={onClose}
           />
         </div>
         <span>{headline}</span>

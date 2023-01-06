@@ -6,6 +6,8 @@ import { sendMessage } from "../../../libs/message/message";
 import * as S from "./ImageUploadSelectModal.styles";
 
 const ImageUploadSelectModal = () => {
+  const handleClose = useCallback(() => {}, []);
+
   const handleCameraSelect = useCallback(() => {
     sendMessage(["NAVIGATE_TO_CAMERA"]);
   }, []);
@@ -15,7 +17,7 @@ const ImageUploadSelectModal = () => {
   }, []);
 
   return (
-    <Modal headline="무엇으로 기록할까요?">
+    <Modal headline="무엇으로 기록할까요?" onClose={handleClose}>
       <S.SelectList>
         <S.SelectItem onClick={handleCameraSelect}>
           <Icon name="CameraIcon" />
