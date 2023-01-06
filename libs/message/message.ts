@@ -1,6 +1,5 @@
 import { isBrowser } from "../../utils/browser";
 
-
 export type Actions = {
     NAVIGATE_TO_BELL: {},
     NAVIGATE_TO_CALENDAR: {},
@@ -25,6 +24,8 @@ export type Actions = {
             tags: string[];
         }
     },
+    NAVIGATE_TO_CAMERA: {},
+    NAVIGATE_TO_GALLERY: {},
 }
 
 export type ActionNames = keyof Actions;
