@@ -1,6 +1,6 @@
 import { Story, Meta } from "@storybook/react";
-import { TextInput } from "../../Input/TextInput/TextInput";
-import { InputForm, Props } from "./InputForm";
+import TextInput from "../../Input/TextInput/TextInput";
+import InputForm, { Props } from "./InputForm";
 
 export default {
   component: InputForm,
