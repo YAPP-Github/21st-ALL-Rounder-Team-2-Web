@@ -1,20 +1,25 @@
-import { useCallback } from "react";
 import Modal from "../../ui/Modal/Modal";
 import Icon from "../../ui/Icon/Icon/Icon";
 import { Divider } from "../../ui/Divider/Divider";
 import { sendMessage } from "../../../libs/message/message";
 import * as S from "./ImageUploadSelectModal.styles";
 
-const ImageUploadSelectModal = () => {
-  const handleClose = useCallback(() => {}, []);
+type Props = {
+  onClose: () => void;
+};
 
-  const handleCameraSelect = useCallback(() => {
+const ImageUploadSelectModal = ({ onClose }: Props) => {
+  const handleClose = () => {
+    onClose();
+  };
+
+  const handleCameraSelect = () => {
     sendMessage(["NAVIGATE_TO_CAMERA"]);
-  }, []);
+  };
 
-  const handleGallerySelect = useCallback(() => {
+  const handleGallerySelect = () => {
     sendMessage(["NAVIGATE_TO_GALLERY"]);
-  }, []);
+  };
 
   return (
     <Modal headline="무엇으로 기록할까요?" onClose={handleClose}>

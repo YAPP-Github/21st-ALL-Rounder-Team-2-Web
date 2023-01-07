@@ -2,6 +2,8 @@ import Image from "next/image";
 import NavigationBar from "../../ui/NavigationBar/NavigationBar";
 import Icon from "../../ui/Icon/Icon/Icon";
 import { colors } from "../../../styles/colors";
+import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
+import useModal from "../../../hooks/useModal";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 const ExhibitionInfoHeader = ({
@@ -9,14 +11,19 @@ const ExhibitionInfoHeader = ({
 }: {
   mainImageUrl: string | null;
 }) => {
+  const { isShow, showModal, hideModal } = useModal();
+
   const handleGoBackClick = () => {};
 
   const handleEditClick = () => {};
 
-  const handleExhibitionWorkAdd = () => {};
+  const handleExhibitionWorkAdd = () => {
+    showModal();
+  };
 
   return (
     <>
+      {isShow && <ImageUploadSelectModal onClose={hideModal} />}
       <S.Header>
         {mainImageUrl && (
           <Image
