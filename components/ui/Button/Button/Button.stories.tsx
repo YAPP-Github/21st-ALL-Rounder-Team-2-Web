@@ -3,7 +3,7 @@ import { Button, Props } from "./Button";
 
 export default {
   component: Button,
-  title: "Button",
+  title: "UI/Button",
   argTypes: {},
 } as Meta;
 
