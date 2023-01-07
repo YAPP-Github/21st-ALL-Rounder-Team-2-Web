@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getExhibitionList, togglePinById } from "../../apis/exhibition";
 import { getCategories } from "../../apis/category";
 import { PostFloatingButton } from "../../components/pages/Home/PostFloatingButton/PostFloatingButton";
+import { sendMessage } from "../../libs/message/message";
 
 export default function PageWrapper() {
   return (
@@ -66,6 +67,11 @@ function Page() {
     []
   );
 
+  const handleEditButton = useCallback((e: React.MouseEvent) => {
+    sendMessage(["NAVIGATE_TO_EDIT"]);
+  }, []);
+
+
   return (
     <S.Wrapper>
       <AppBar />
@@ -85,7 +91,7 @@ function Page() {
           onTogglePin={handleTogglePin}
         />
       </S.Content>
-      <PostFloatingButton />
+      <PostFloatingButton onClick={handleEditButton} />
     </S.Wrapper>
   );
 }
