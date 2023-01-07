@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import ExhibitionWorkCardList from "../../../components/pages/ExhibitionWorkCardList/ExhibitionWorkCardList";
 import ExhibitionInfoHeader from "../../../components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
 import { getExhibitionWorkDraftList } from "../../../apis/exhibition";
+import { GradientDimmed } from "../[slug]/page.styles";
 import * as S from "./page.styles";
 
 export default function Page() {
@@ -26,11 +27,10 @@ export default function Page() {
           exhibitionWorkList={exhibitionWorkDraftList ?? []}
         />
       </S.Content>
-      <S.Dimmed>
-        <S.SaveButton type="primary" onClick={handleSaveBtnClick}>
-          전시기록 완성
-        </S.SaveButton>
-      </S.Dimmed>
+      <GradientDimmed />
+      <S.SaveButton type="primary" onClick={handleSaveBtnClick}>
+        전시기록 완성
+      </S.SaveButton>
     </S.Wrapper>
   );
 }

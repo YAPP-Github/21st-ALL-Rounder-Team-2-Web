@@ -22,6 +22,7 @@ export default function Page() {
       <S.Content>
         <ExhibitionWorkCardList exhibitionWorkList={exhibitionWorkList ?? []} />
       </S.Content>
+      <S.GradientDimmed />
     </S.Wrapper>
   );
 }

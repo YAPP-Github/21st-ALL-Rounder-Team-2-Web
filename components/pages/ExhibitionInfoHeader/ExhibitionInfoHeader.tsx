@@ -1,6 +1,7 @@
 import Image from "next/image";
 import NavigationBar from "../../ui/NavigationBar/NavigationBar";
 import Icon from "../../ui/Icon/Icon/Icon";
+import { colors } from "../../../styles/colors";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 const ExhibitionInfoHeader = ({
@@ -27,24 +28,20 @@ const ExhibitionInfoHeader = ({
         )}
         <S.GradientOverlay>
           <NavigationBar
-            current="전시정보"
             onGoBackClick={handleGoBackClick}
             onEditClick={handleEditClick}
           />
-          <S.Category>
-            <Icon name="BookmarkTagIcon" />
-            <span>카테고리 명</span>
-          </S.Category>
-          <S.Exhibition>
+          <S.Content>
             <S.ExhibitionInfo>
-              <h2>목조형가구학과 졸전</h2>
-              <span>2022년 12월 9일</span>
+              <S.Category>카테고리 명</S.Category>
+              <S.Title>목조형가구학과 졸전</S.Title>
+              <S.Date>2022년 12월 9일</S.Date>
             </S.ExhibitionInfo>
             <S.ExhibitionWorkAddButton onClick={handleExhibitionWorkAdd}>
-              작품 추가
-              <Icon name="PlusIcon" size={18} color="#ffffff" />
+              작품추가
+              <Icon name="PlusIcon" size={18} color={colors.blue} />
             </S.ExhibitionWorkAddButton>
-          </S.Exhibition>
+          </S.Content>
         </S.GradientOverlay>
       </S.Header>
     </>
