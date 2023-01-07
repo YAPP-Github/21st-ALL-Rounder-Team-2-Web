@@ -23,6 +23,9 @@ export const IconWrapper = styled.div`
 export const Title = styled.span`
   ${Bold18CSS}
   color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const Artist = styled.span`
