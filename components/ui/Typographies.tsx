@@ -63,3 +63,11 @@ export const Normal16CSS = css`
   font-size: 16px;
   line-height: 19px;
 `;
+
+export const ExtraBold24CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+`;
