@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-  width: calc(50% - 8px);
 `;
 
 export const ImageWrapper = styled.div`

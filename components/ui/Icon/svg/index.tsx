@@ -9,6 +9,7 @@ import { ReactComponent as PlusIcon } from "./uil_plus.svg";
 import { ReactComponent as ChevronDownIcon } from "./chevron-down.svg";
 import { ReactComponent as XCircleIcon } from "./x-circle.svg";
 import { ReactComponent as ChevronLeftIcon } from "./chevron-left.svg";
+import { ReactComponent as MoreVerticalIcon } from "./more-vertical.svg";
 
 export const SvgIcons = {
   ARTIEIcon,
@@ -22,4 +23,5 @@ export const SvgIcons = {
   ChevronDownIcon,
   XCircleIcon,
   ChevronLeftIcon,
+  MoreVerticalIcon,
 } as const;
