@@ -12,7 +12,7 @@ const ExhibitionWorkCardList = ({ exhibitionWorkList }: Props) => {
     <S.Wrapper>
       {exhibitionWorkList.map((exhibitionWork) => (
         <li key={exhibitionWork.id}>
-          <Link href="">
+          <Link href={`/exhibition-work/${exhibitionWork.id}`}>
             <ExhibitionWorkCard {...exhibitionWork} />
           </Link>
         </li>

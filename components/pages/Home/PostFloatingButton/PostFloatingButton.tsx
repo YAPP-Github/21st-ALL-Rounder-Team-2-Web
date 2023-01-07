@@ -1,5 +1,6 @@
 import React from "react";
 import { IconButton } from "../../../ui/Button/IconButton/IconButton";
+import { colors } from "../../../../styles/colors";
 import * as S from "./PostFloatingButton.styles";
 
 export interface Props {
@@ -12,6 +13,8 @@ export const PostFloatingButton = (props: Props) => {
       <IconButton
         iconProps={{
           name: "PlusIcon",
+          color: colors.black2,
+          size: 36,
         }}
       />
     </S.Wrapper>

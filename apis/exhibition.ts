@@ -50,3 +50,25 @@ export const getExhibitionList = (): Promise<Exhibition[]> => {
 export const togglePinById = (id: string) => {
   return Promise.resolve(true);
 };
+
+export const getExhibitionWorkList = () => {
+  return Promise.resolve(
+    new Array(10).fill(0).map((_, i) => ({
+      id: i,
+      imageUrl: "https://picsum.photos/300",
+      title: "나의 그대여",
+      artist: "김호연",
+    }))
+  );
+};
+
+export const getExhibitionWorkDraftList = () => {
+  return Promise.resolve(
+    new Array(10).fill(0).map((_, i) => ({
+      id: i,
+      imageUrl: "https://picsum.photos/300",
+      title: "전시 기록중",
+      artist: "김호연",
+    }))
+  );
+};
