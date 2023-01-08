@@ -1,5 +1,5 @@
 import { Story, Meta } from "@storybook/react";
-import { TextInput, Props } from "./TextInput";
+import TextInput, { Props } from "./TextInput";
 
 export default {
   component: TextInput,
@@ -7,7 +7,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-const Template: Story<Props> = (args) => <TextInput {...args} />;
+const Template: Story = (args) => <TextInput {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

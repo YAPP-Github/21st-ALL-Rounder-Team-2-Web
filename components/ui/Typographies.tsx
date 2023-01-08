@@ -1,4 +1,12 @@
-import styled, { css } from "styled-components";
+import { css } from "styled-components";
+
+export const Bold14CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+`;
 
 export const Bold16CSS = css`
   font-family: "Pretendard";
@@ -22,6 +30,14 @@ export const Bold20CSS = css`
   font-weight: 600;
   font-size: 20px;
   line-height: 130%;
+`;
+
+export const Bold24CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
 `;
 
 export const Medium14CSS = css`

@@ -1,6 +1,6 @@
 import QueryClientWrapper from "./QueryClientWrapper";
-import StyledComponentsRegistry from '../libs/styled-components';
-import "../styles/globals.css"
+import StyledComponentsRegistry from "../libs/styled-components";
+import "../styles/globals.css";
 
 export default function RootLayout({
   children,
@@ -10,6 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div id="overlay-root" />
         <StyledComponentsRegistry>
           <QueryClientWrapper>{children}</QueryClientWrapper>
         </StyledComponentsRegistry>

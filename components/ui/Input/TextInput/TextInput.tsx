@@ -7,7 +7,7 @@ export interface Props
     HTMLInputElement
   > {}
 
-export const TextInput = (
+const TextInput = (
   props: Props,
   ref: React.ForwardedRef<HTMLInputElement>
 ) => {

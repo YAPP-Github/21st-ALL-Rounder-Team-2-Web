@@ -39,3 +39,9 @@ textarea {
 
   resize: none; /*remove the resize handle on the bottom right*/
 }
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

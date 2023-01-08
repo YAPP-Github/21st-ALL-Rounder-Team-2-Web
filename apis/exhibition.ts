@@ -64,7 +64,10 @@ export const getArtworkInfo = (artworkId: string): Promise<Artwork> => {
   return Promise.resolve(ARTWORK_LIST[Number(artworkId)]);
 };
 
-// query cursor가 artworkId
 export const getArtworkList = (exhibitionId: string): Promise<Artwork[]> => {
+  return Promise.resolve(ARTWORK_LIST);
+};
+
+export const getDraftArtworkList = () => {
   return Promise.resolve(ARTWORK_LIST);
 };
