@@ -1,19 +1,19 @@
 import Link from "next/link";
-import ExhibitionWorkCard from "../ExhibitionWorkCard/ExhibitionWorkCard";
+import ArtworkCard from "../ArtworkCard/ArtworkCard";
 import { Artwork } from "../../../interfaces/artwork";
-import * as S from "./ExhibitionWorkCardList.styles";
+import * as S from "./ArtworkCardList.styles";
 
 interface Props {
   artworkList: Array<Artwork>;
 }
 
-const ExhibitionWorkCardList = ({ artworkList }: Props) => {
+const ArtworkCardList = ({ artworkList }: Props) => {
   return (
     <S.Wrapper>
       {artworkList.map((artworkList) => (
         <li key={artworkList.id}>
           <Link href={`/exhibition-work/${artworkList.id}`}>
-            <ExhibitionWorkCard {...artworkList} />
+            <ArtworkCard {...artworkList} />
           </Link>
         </li>
       ))}
@@ -21,4 +21,4 @@ const ExhibitionWorkCardList = ({ artworkList }: Props) => {
   );
 };
 
-export default ExhibitionWorkCardList;
+export default ArtworkCardList;

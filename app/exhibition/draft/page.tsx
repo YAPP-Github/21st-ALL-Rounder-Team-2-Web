@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import ExhibitionWorkCardList from "../../../components/pages/ExhibitionWorkCardList/ExhibitionWorkCardList";
+import ExhibitionWorkCardList from "../../../components/pages/ArtworkCardList/ArtworkCardList";
 import ExhibitionInfoHeader from "../../../components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
 import { getDraftArtworkList } from "../../../apis/exhibition";
 import * as S from "./page.styles";

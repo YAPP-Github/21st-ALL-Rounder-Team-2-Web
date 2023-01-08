@@ -47,7 +47,7 @@ export default function Page({
           <S.Title>{artworkInfo?.title}</S.Title>
           <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
           <S.CategoryListWrapper>
-            {artworkInfo?.tags.map((tag) => (
+            {artworkInfo?.tags?.map((tag) => (
               <li key={tag}>
                 <Tag name={tag} />
               </li>

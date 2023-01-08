@@ -3,5 +3,5 @@ export interface Artwork {
   imageUrl: string;
   title: string;
   artist: string;
-  tags: Array<string>;
+  tags?: Array<string>;
 }
