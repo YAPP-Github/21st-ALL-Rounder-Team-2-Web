@@ -48,7 +48,9 @@ const postMessage = (data: unknown) => {
     if(!isBrowser) {
         return
     }
-    window.postMessage(JSON.stringify(data))
+    const jsonData = JSON.stringify(data);
+    const appPostMessage = window.android?.postMessage ?? window.postMessage;
+    appPostMessage(jsonData);
 }
 
 export const sendMessage = <ActionName extends ActionNames>(params: ActionParam<ActionName>) => {

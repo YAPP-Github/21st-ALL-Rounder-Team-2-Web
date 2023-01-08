@@ -3,7 +3,7 @@ import { EditBottomSheet, Props } from './EditBottomSheet';
 
 export default {
   component: EditBottomSheet,
-  title: 'EditBottomSheet',
+  title: 'Pages/EditBottomSheet',
   argTypes: {},
 } as Meta;
 
