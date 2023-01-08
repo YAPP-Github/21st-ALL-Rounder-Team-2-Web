@@ -1,4 +1,5 @@
 import { Exhibition } from "../interfaces/exhibition";
+import { Artwork } from "../interfaces/artwork";
 
 export const getExhibitionList = (): Promise<Exhibition[]> => {
   return Promise.resolve([
@@ -51,24 +52,22 @@ export const togglePinById = (id: string) => {
   return Promise.resolve(true);
 };
 
-export const getExhibitionWorkList = () => {
-  return Promise.resolve(
-    new Array(10).fill(0).map((_, i) => ({
-      id: i,
-      imageUrl: "https://picsum.photos/300",
-      title: "나의 그대여",
-      artist: "김호연",
-    }))
-  );
+const ARTWORK_LIST = new Array(5).fill(0).map((_, i) => ({
+  id: `${i}`,
+  imageUrl: "https://picsum.photos/300",
+  title: "나의 그대여",
+  artist: "김호연",
+  tags: ["감정예시1", "감정예시2", "감정예시3"],
+}));
+
+export const getArtworkInfo = (artworkId: string): Promise<Artwork> => {
+  return Promise.resolve(ARTWORK_LIST[Number(artworkId)]);
 };
 
-export const getExhibitionWorkDraftList = () => {
-  return Promise.resolve(
-    new Array(10).fill(0).map((_, i) => ({
-      id: i,
-      imageUrl: "https://picsum.photos/300",
-      title: "전시 기록중",
-      artist: "김호연",
-    }))
-  );
+export const getArtworkList = (exhibitionId: string): Promise<Artwork[]> => {
+  return Promise.resolve(ARTWORK_LIST);
+};
+
+export const getDraftArtworkList = () => {
+  return Promise.resolve(ARTWORK_LIST);
 };

@@ -6,12 +6,14 @@
 
 <b>YAPP-Github/21st-ALL-Rounder-Team-2-Web</b>
 
-
 ## Links
 
 - App
   - 홈: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/home
   - 편집 바텀시트: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/edit/bottom-sheet
+  - 작품 사진 관리 페이지: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/exhibition/draft
+  - 작품 사진 조회 페이지: https://21st-all-rounder-team-2-web-bobeenlee.vercel.app/exhibition/1/1
+  -
 - Storybook
   - https://yapp-github.github.io/21st-ALL-Rounder-Team-2-Web/
 
@@ -27,7 +29,7 @@
     root
     ├── app
     ├── components
-    ├──── pages 
+    ├──── pages
     ├──── ui
     ├── lib
     ├── mocks
@@ -71,5 +73,3 @@ yarn test
 - [defaults](https://github.com/browserslist/browserslist#full-list): Browserslist’s default browsers (> 0.5%, last 2 versions, Firefox ESR, not dead).
 
 ## Contributors
-
-

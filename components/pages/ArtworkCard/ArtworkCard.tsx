@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { ExhibitionWork } from "../../../interfaces/exhibition-work";
+import { Artwork } from "../../../interfaces/artwork";
 import Icon from "../../ui/Icon/Icon/Icon";
-import * as S from "./ExhibitionWorkCard.styles";
+import * as S from "./ArtworkCard.styles";
 
-const ExhibitionWorkCard = ({ imageUrl, title, artist }: ExhibitionWork) => {
+const ArtworkCard = ({ imageUrl, title, artist }: Artwork) => {
   return (
     <S.Wrapper>
       <S.ImageWrapper>
@@ -25,4 +25,4 @@ const ExhibitionWorkCard = ({ imageUrl, title, artist }: ExhibitionWork) => {
   );
 };
 
-export default ExhibitionWorkCard;
+export default ArtworkCard;

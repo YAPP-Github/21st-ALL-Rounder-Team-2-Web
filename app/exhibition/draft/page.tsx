@@ -1,16 +1,15 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import ExhibitionWorkCardList from "../../../components/pages/ExhibitionWorkCardList/ExhibitionWorkCardList";
+import ExhibitionWorkCardList from "../../../components/pages/ArtworkCardList/ArtworkCardList";
 import ExhibitionInfoHeader from "../../../components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
-import { getExhibitionWorkDraftList } from "../../../apis/exhibition";
-import { GradientDimmed } from "../[slug]/page.styles";
+import { getDraftArtworkList } from "../../../apis/exhibition";
 import * as S from "./page.styles";
 
 export default function Page() {
-  const { data: exhibitionWorkDraftList } = useQuery({
-    queryKey: ["exhibitionWorkDraftList"],
-    queryFn: getExhibitionWorkDraftList,
+  const { data: draftArtworkList } = useQuery({
+    queryKey: ["draftArtworkList"],
+    queryFn: getDraftArtworkList,
   });
 
   const handleSaveBtnClick = () => {};
@@ -18,14 +17,12 @@ export default function Page() {
   return (
     <S.Wrapper>
       <ExhibitionInfoHeader
-        mainImageUrl={exhibitionWorkDraftList?.[0].imageUrl ?? null}
+        mainImageUrl={draftArtworkList?.[0].imageUrl ?? null}
       />
       <S.Content>
-        <ExhibitionWorkCardList
-          exhibitionWorkList={exhibitionWorkDraftList ?? []}
-        />
+        <ExhibitionWorkCardList artworkList={draftArtworkList ?? []} />
       </S.Content>
-      <GradientDimmed />
+      <S.GradientDimmed />
       <S.SaveButton type="primary" onClick={handleSaveBtnClick}>
         전시기록 완성
       </S.SaveButton>

@@ -13,12 +13,14 @@ export const Tag = (props: Props) => {
   return (
     <S.Wrapper className={className}>
       <S.TagName>{name}</S.TagName>
-      <IconButton
-        iconProps={{
-          name: "XCircleIcon",
-        }}
-        onClick={onDelete}
-      />
+      {onDelete && (
+        <IconButton
+          iconProps={{
+            name: "XCircleIcon",
+          }}
+          onClick={onDelete}
+        />
+      )}
     </S.Wrapper>
   );
 };

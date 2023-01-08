@@ -6,8 +6,8 @@ export default {
   component: ImageUploadSelectModal,
 } as ComponentMeta<typeof ImageUploadSelectModal>;
 
-const Template: ComponentStory<typeof ImageUploadSelectModal> = () => (
-  <ImageUploadSelectModal />
+const Template: ComponentStory<typeof ImageUploadSelectModal> = (args) => (
+  <ImageUploadSelectModal {...args} />
 );
 
 export const Primary = Template.bind({});
