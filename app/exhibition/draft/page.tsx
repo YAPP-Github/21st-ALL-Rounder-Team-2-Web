@@ -18,9 +18,7 @@ export default function Page() {
   return (
     <S.Wrapper>
       <ExhibitionInfoHeader
-        mainImageUrl={
-          exhibitionWorkDraftList ? exhibitionWorkDraftList[0].imageUrl : null
-        }
+        mainImageUrl={exhibitionWorkDraftList?.[0].imageUrl ?? null}
       />
       <S.Content>
         <ExhibitionWorkCardList
