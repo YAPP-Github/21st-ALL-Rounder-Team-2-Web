@@ -10,10 +10,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="overlay-root" />
         <StyledComponentsRegistry>
           <QueryClientWrapper>{children}</QueryClientWrapper>
         </StyledComponentsRegistry>
+        <div id="overlay-root" />
       </body>
     </html>
   );
