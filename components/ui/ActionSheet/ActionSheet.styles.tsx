@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   gap: 12px;
   width: calc(100% - 36px);
   color: white;
+  z-index: 1000;
 
   & > div {
     background-color: ${colors.overlay};
