@@ -11,17 +11,12 @@ export const Wrapper = styled.div`
   height: 100vh;
 `;
 
-export const Overlay = styled.div`
-  position: relative;
-  height: 100%;
+export const ArtworkInfoWrapper = styled.div`
+  position: absolute;
+  left: 24px;
+  bottom: 170px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const Content = styled.div`
-  margin-bottom: 4px;
-  padding: 75px 24px;
 `;
 
 export const Title = styled.h2`
@@ -35,7 +30,7 @@ export const Artist = styled.span`
   color: ${colors.gray300};
 `;
 
-export const CategoryListWrapper = styled.ul`
+export const CategoryList = styled.ul`
   display: flex;
   gap: 6px;
   margin-top: 14px;
@@ -43,14 +38,32 @@ export const CategoryListWrapper = styled.ul`
   list-style: none;
   padding: 0;
 `;
-
-export const ThumbnailListWrapper = styled.ul`
-  display: flex;
-  gap: 10px;
-  filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
+export const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
 `;
 
-export const ThumbnailItem = styled.li``;
+export const ThumbnailList = styled.ul`
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 75px;
+  display: flex;
+  gap: 10px;
+  padding: 20px 8px;
+  border-top: 1px solid ${colors.gray400};
+  z-index: 1000;
+  filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
+`;
+
+export const ThumbnailItem = styled.li<{ isActive: boolean }>`
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border: ${(props) =>
+    props.isActive ? `2px solid ${colors.green900}` : "none"};
+  box-shadow: 0 0 0 2px transparent;
+  filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
+  border-radius: 2px;
+`;

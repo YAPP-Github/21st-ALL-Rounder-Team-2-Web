@@ -1,0 +1,9 @@
+.swiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  background-color: black;
+}
