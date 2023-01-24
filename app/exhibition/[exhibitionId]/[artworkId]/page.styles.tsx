@@ -35,9 +35,9 @@ export const CategoryList = styled.ul`
   gap: 6px;
   margin-top: 14px;
   margin-bottom: 18px;
-  list-style: none;
   padding: 0;
 `;
+
 export const Overlay = styled.div`
   position: absolute;
   width: 100%;
@@ -54,10 +54,15 @@ export const ThumbnailList = styled.ul`
   padding: 20px 8px;
   border-top: 1px solid ${colors.gray400};
   z-index: 1000;
-  filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
+  overflow-x: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ThumbnailItem = styled.li<{ isActive: boolean }>`
+  flex-shrink: 0;
   position: relative;
   width: 52px;
   height: 52px;
