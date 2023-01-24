@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as TSwiper } from "swiper/types";
 import NavigationBar from "../../../../components/ui/NavigationBar/NavigationBar";
 import Tag from "../../../../components/ui/Tag/Tag/Tag";
 import { getArtworkInfo, getArtworkList } from "../../../../apis/exhibition";
@@ -27,7 +28,15 @@ export default function Page({
     queryFn: () => getArtworkList(exhibitionId),
   });
 
+  const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkIndex, setActiveArtworkIndex] = useState(0);
+
+  const handleThumbnailClick = (index: number) => {
+    return (e: MouseEvent) => {
+      setActiveArtworkIndex(index);
+      swiper?.slideTo(index);
+    };
+  };
 
   const handleGoBackClick = () => {};
 
@@ -42,6 +51,8 @@ export default function Page({
         />
       </S.Overlay>
       <Swiper
+        className="main-swiper"
+        onSwiper={(swiper) => setSwiper(swiper)}
         onSlideChange={({ activeIndex }) => setActiveArtworkIndex(activeIndex)}
       >
         {artworkList?.map(({ id, imageUrl }) => (
@@ -68,7 +79,11 @@ export default function Page({
       </Swiper>
       <S.ThumbnailList>
         {artworkList?.map(({ imageUrl }, i) => (
-          <S.ThumbnailItem key={i} isActive={i === activeArtworkIndex}>
+          <S.ThumbnailItem
+            key={i}
+            isActive={i === activeArtworkIndex}
+            onClick={handleThumbnailClick(i)}
+          >
             <Image
               alt="thumbnail"
               src={imageUrl}
