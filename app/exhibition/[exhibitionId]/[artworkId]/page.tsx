@@ -66,13 +66,13 @@ export default function Page({
             <S.ArtworkInfoWrapper>
               <S.Title>{artworkInfo?.title}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
-              <S.CategoryList>
+              <S.TagList>
                 {artworkInfo?.tags?.map((tag) => (
                   <li key={tag}>
                     <Tag name={tag} />
                   </li>
                 ))}
-              </S.CategoryList>
+              </S.TagList>
             </S.ArtworkInfoWrapper>
           </SwiperSlide>
         ))}

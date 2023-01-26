@@ -30,8 +30,9 @@ export const Artist = styled.span`
   color: ${colors.gray300};
 `;
 
-export const CategoryList = styled.ul`
+export const TagList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-top: 14px;
   margin-bottom: 18px;
