@@ -1,9 +1,13 @@
 import Image from "next/image";
 import { Artwork } from "@/interfaces/artwork";
-import Icon from "@/components/ui/Icon/Icon/Icon";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 import * as S from "./ArtworkCard.styles";
 
-const ArtworkCard = ({ imageUrl, title, artist }: Artwork) => {
+interface Props extends Artwork {
+  onMoreBtnClick?: (e: React.MouseEvent) => void;
+}
+
+const ArtworkCard = ({ imageUrl, title, artist, onMoreBtnClick }: Props) => {
   return (
     <S.Wrapper>
       <S.ImageWrapper>
@@ -14,7 +18,10 @@ const ArtworkCard = ({ imageUrl, title, artist }: Artwork) => {
           style={{ objectFit: "cover", borderRadius: "8px" }}
         />
         <S.IconWrapper>
-          <Icon name="MoreVerticalIcon" />
+          <IconButton
+            iconProps={{ name: "MoreVerticalIcon" }}
+            onClick={onMoreBtnClick}
+          />
         </S.IconWrapper>
       </S.ImageWrapper>
       <S.InfoWrapper>

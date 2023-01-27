@@ -10,4 +10,5 @@ export const colors = {
   gray900: "#3F3F3F",
   white: "#fff",
   bgColor: "#161616",
+  overlay: "#1F1F1F",
 };

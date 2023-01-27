@@ -7,7 +7,8 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 10px 12px 10px 16px;
-  background: ${colors.green900};
+  color: ${colors.green900};
+  border: 1px solid ${colors.green900};
   border-radius: 4px 24px 24px 4px;
 `;
 

@@ -3,7 +3,7 @@ import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import Icon from "@/components/ui/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
-import useModal from "@/hooks/useModal";
+import useOverlay from "@/hooks/useOverlay";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 const ExhibitionInfoHeader = ({
@@ -11,19 +11,19 @@ const ExhibitionInfoHeader = ({
 }: {
   mainImageUrl: string | null;
 }) => {
-  const { isShow, showModal, hideModal } = useModal();
+  const { isShow, showOverlay, hideOverlay } = useOverlay();
 
   const handleGoBackClick = () => {};
 
   const handleEditClick = () => {};
 
   const handleExhibitionWorkAdd = () => {
-    showModal();
+    showOverlay();
   };
 
   return (
     <>
-      {isShow && <ImageUploadSelectModal onClose={hideModal} />}
+      {isShow && <ImageUploadSelectModal onClose={hideOverlay} />}
       <S.Header>
         {mainImageUrl && (
           <Image
