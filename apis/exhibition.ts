@@ -1,5 +1,5 @@
-import { Exhibition } from "../interfaces/exhibition";
-import { Artwork } from "../interfaces/artwork";
+import { Exhibition } from "@/interfaces/exhibition";
+import { Artwork } from "@/interfaces/artwork";
 
 export const getExhibitionList = (): Promise<Exhibition[]> => {
   return Promise.resolve([

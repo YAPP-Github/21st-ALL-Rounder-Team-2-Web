@@ -1,9 +1,9 @@
 import Image from "next/image";
-import NavigationBar from "../../ui/NavigationBar/NavigationBar";
-import Icon from "../../ui/Icon/Icon/Icon";
-import { colors } from "../../../styles/colors";
+import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
+import Icon from "@/components/ui/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
-import useOverlay from "../../../hooks/useOverlay";
+import { colors } from "@/styles/colors";
+import useOverlay from "@/hooks/useOverlay";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 const ExhibitionInfoHeader = ({

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../../styles/colors";
-import { Normal16CSS } from "../../ui/Typographies";
+import { colors } from "@/styles/colors";
+import { Normal16CSS } from "@/components/ui/Typographies";
 
 export const SelectList = styled.ul`
   display: flex;

@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import Link from "next/link";
+import { Artwork } from "@/interfaces/artwork";
+import Dimmed from "@/components/ui/Dimmed/Dimmed";
+import Portal from "@/components/ui/Portal/Portal";
+import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
+import useOverlay from "@/hooks/useOverlay";
 import ArtworkCard from "../ArtworkCard/ArtworkCard";
-import Dimmed from "../../../components/ui/Dimmed/Dimmed";
-import Portal from "../../../components/ui/Portal/Portal";
-import ActionSheet from "../../../components/ui/ActionSheet/ActionSheet";
-import useOverlay from "../../../hooks/useOverlay";
-import { Artwork } from "../../../interfaces/artwork";
 import * as S from "./ArtworkCardList.styles";
 
 interface Props {

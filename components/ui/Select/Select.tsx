@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import * as S from "./Select.styles";
-import useClickOutside from "../../../hooks/useClickOutside";
+import useClickOutside from "@/hooks/useClickOutside";
 import Icon from "../Icon/Icon/Icon";
-import { colors } from "../../../styles/colors";
+import * as S from "./Select.styles";
 
 interface Props {
   activeIndex?: number;
@@ -35,7 +34,7 @@ export const Select = (props: Props) => {
               active={activeIndex === i}
               onClick={() => {
                 onSelected(i);
-                toggleSelectBox()
+                toggleSelectBox();
               }}
             >
               {item.text}

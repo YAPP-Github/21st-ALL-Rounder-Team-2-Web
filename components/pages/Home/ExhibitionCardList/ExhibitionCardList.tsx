@@ -1,9 +1,8 @@
-import { ExhibitionCard } from "../ExhibitionCard/ExhibitionCard";
-import { Exhibition } from "../../../../interfaces/exhibition";
-
-import * as S from "./ExhibitionCardList.styles";
-import { MainExhibitionCard } from "../MainExhibitionCard/MainExhibitionCard";
 import React, { useCallback } from "react";
+import { Exhibition } from "@/interfaces/exhibition";
+import { ExhibitionCard } from "../ExhibitionCard/ExhibitionCard";
+import { MainExhibitionCard } from "../MainExhibitionCard/MainExhibitionCard";
+import * as S from "./ExhibitionCardList.styles";
 
 interface Props {
   fixedExhibition: Exhibition;

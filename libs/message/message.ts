@@ -1,4 +1,4 @@
-import { isBrowser } from "../../utils/browser";
+import { isBrowser } from "@/utils/browser";
 
 export type Actions = {
     NAVIGATE_TO_BELL: {},

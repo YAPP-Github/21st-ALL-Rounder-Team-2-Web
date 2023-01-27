@@ -1,17 +1,17 @@
 "use client";
 
 import React, { Suspense, useCallback, useMemo, useState } from "react";
-import { ExhibitionCardList } from "../../components/pages/Home/ExhibitionCardList/ExhibitionCardList";
-import { Select } from "../../components/ui/Select/Select";
-import { useSelectCategory } from "../../hooks/useSelectCategory";
-import * as S from "./page.styles";
-import { AppBar } from "../../components/pages/Home/AppBar/AppBar";
-import { Exhibition } from "../../interfaces/exhibition";
 import { useQuery } from "@tanstack/react-query";
-import { getExhibitionList, togglePinById } from "../../apis/exhibition";
-import { getCategories } from "../../apis/category";
-import { PostFloatingButton } from "../../components/pages/Home/PostFloatingButton/PostFloatingButton";
-import { sendMessage } from "../../libs/message/message";
+import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList";
+import { Select } from "@/components/ui/Select/Select";
+import { useSelectCategory } from "@/hooks/useSelectCategory";
+import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
+import { Exhibition } from "@/interfaces/exhibition";
+import { getExhibitionList, togglePinById } from "@/apis/exhibition";
+import { getCategories } from "@/apis/category";
+import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
+import { sendMessage } from "@/libs/message/message";
+import * as S from "./page.styles";
 
 export default function PageWrapper() {
   return (
@@ -70,7 +70,6 @@ function Page() {
   const handleEditButton = useCallback((e: React.MouseEvent) => {
     sendMessage(["NAVIGATE_TO_EDIT"]);
   }, []);
-
 
   return (
     <S.Wrapper>

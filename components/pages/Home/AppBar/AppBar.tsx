@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import * as S from "./AppBar.styles";
-import { IconButton } from "../../../ui/Button/IconButton/IconButton";
-import { sendMessage } from "../../../../libs/message/message";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
+import { sendMessage } from "@/libs/message/message";
 
 interface Props {
   className?: string;

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { Exhibition } from "../../../../interfaces/exhibition";
-import { IconButton } from "../../../ui/Button/IconButton/IconButton";
+import { Exhibition } from "@/interfaces/exhibition";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 
 import * as S from "./MainExhibitionCard.styles";
 

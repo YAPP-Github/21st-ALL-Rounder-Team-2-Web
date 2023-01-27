@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { colors } from "../../../../styles/colors";
-import Button from "../../../ui/Button/Button/Button";
-import InputForm from "../../../ui/Form/InputForm/InputForm";
-import TagList from "../../../ui/Tag/TagList/TagList";
+import { colors } from "@/styles/colors";
+import Button from "@/components/ui/Button/Button/Button";
+import InputForm from "@/components/ui/Form/InputForm/InputForm";
+import TagList from "@/components/ui/Tag/TagList/TagList";
 
 export const Wrapper = styled.div`
   background: #1f1f1f;
