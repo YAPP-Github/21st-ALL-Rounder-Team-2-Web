@@ -39,7 +39,7 @@ module.exports = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": path.join(__dirname, "src"),
+      "@": path.join(__dirname, ".."),
     };
 
     return config;
