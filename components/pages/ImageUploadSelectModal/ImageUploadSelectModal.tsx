@@ -1,7 +1,7 @@
-import Modal from "../../ui/Modal/Modal";
-import Icon from "../../ui/Icon/Icon/Icon";
-import { Divider } from "../../ui/Divider/Divider";
-import { sendMessage } from "../../../libs/message/message";
+import Modal from "@/components/ui/Modal/Modal";
+import Icon from "@/components/ui/Icon/Icon/Icon";
+import { Divider } from "@/components/ui/Divider/Divider";
+import { sendMessage } from "@/libs/message/message";
 import * as S from "./ImageUploadSelectModal.styles";
 
 type Props = {

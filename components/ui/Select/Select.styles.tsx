@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { colors } from "../../../styles/colors";
+import { colors } from "@/styles/colors";
 import { Normal14CSS } from "../Typographies";
 
 export const Wrapper = styled.button`
@@ -36,7 +36,7 @@ export const OptionWrapper = styled.div`
   border-radius: 12px;
 `;
 
-export const Item = styled.div<{ active: boolean; }>`
+export const Item = styled.div<{ active: boolean }>`
   width: 94px;
   padding: 12px 0;
   margin: 0 16px;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../../styles/colors";
+import { colors } from "@/styles/colors";
 import { Bold18CSS, Medium16CSS } from "../../Typographies";
 
 export const Default = styled.button`

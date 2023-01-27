@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Artwork } from "../../../interfaces/artwork";
-import { IconButton } from "../../ui/Button/IconButton/IconButton";
+import { Artwork } from "@/interfaces/artwork";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 import * as S from "./ArtworkCard.styles";
 
 interface Props extends Artwork {

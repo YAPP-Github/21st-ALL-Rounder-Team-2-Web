@@ -1,9 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import {
-  ActionNames,
-  Actions,
-} from "../libs/message/message";
-import { isBrowser } from "../utils/browser";
+import { ActionNames, Actions } from "@/libs/message/message";
+import { isBrowser } from "@/utils/browser";
 
 export function useMessage<ActionName extends ActionNames>(options: {
   actionName: ActionName;
