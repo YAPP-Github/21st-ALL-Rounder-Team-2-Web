@@ -3,8 +3,8 @@ import {
   Bold14CSS,
   Bold24CSS,
   Normal14CSS,
-} from "../../../components/ui/Typographies";
-import { colors } from "../../../styles/colors";
+} from "@/components/ui/Typographies";
+import { colors } from "@/styles/colors";
 
 export const Header = styled.header`
   position: relative;

@@ -1,15 +1,15 @@
 import React from "react";
-import { IconButton } from "../../../ui/Button/IconButton/IconButton";
-import { colors } from "../../../../styles/colors";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
+import { colors } from "@/styles/colors";
 import * as S from "./PostFloatingButton.styles";
 
 export interface Props {
   className?: string;
-  onClick: (e: React.MouseEvent) => void
+  onClick: (e: React.MouseEvent) => void;
 }
 
 export const PostFloatingButton = (props: Props) => {
-  const { className, onClick } = props
+  const { className, onClick } = props;
   return (
     <S.Wrapper className={className}>
       <IconButton

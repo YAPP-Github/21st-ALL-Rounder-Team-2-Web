@@ -1,7 +1,7 @@
 import { IconButton } from "../Button/IconButton/IconButton";
-import { colors } from "../../../styles/colors";
-import * as S from "./Modal.styles";
 import Dimmed from "../Dimmed/Dimmed";
+import { colors } from "@/styles/colors";
+import * as S from "./Modal.styles";
 
 type Props = {
   headline: string;

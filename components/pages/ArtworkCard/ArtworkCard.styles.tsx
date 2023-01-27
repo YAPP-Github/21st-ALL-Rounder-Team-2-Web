@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Bold18CSS, Normal14CSS } from "../../ui/Typographies";
-import { colors } from "../../../styles/colors";
+import { Bold18CSS, Normal14CSS } from "@/components/ui/Typographies";
+import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
   display: flex;

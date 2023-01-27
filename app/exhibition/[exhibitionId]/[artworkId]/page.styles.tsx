@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import {
-  ExtraBold24CSS,
-  Normal16CSS,
-} from "../../../../components/ui/Typographies";
-import { colors } from "../../../../styles/colors";
+import { ExtraBold24CSS, Normal16CSS } from "@/components/ui/Typographies";
+import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
   position: relative;

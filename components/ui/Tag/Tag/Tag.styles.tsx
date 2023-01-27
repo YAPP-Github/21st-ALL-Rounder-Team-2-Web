@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../../styles/colors";
+import { colors } from "@/styles/colors";
 import { Medium14CSS } from "../../Typographies";
 
 export const Wrapper = styled.div`
@@ -12,6 +12,6 @@ export const Wrapper = styled.div`
 `;
 
 export const TagName = styled.div`
-    ${Medium14CSS}
-    margin-right: 7px;
+  ${Medium14CSS}
+  margin-right: 7px;
 `;

@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { Artwork } from "@/interfaces/artwork";
 import ArtworkCard from "../ArtworkCard/ArtworkCard";
-import { Artwork } from "../../../interfaces/artwork";
 import * as S from "./ArtworkCardList.styles";
 
 interface Props {

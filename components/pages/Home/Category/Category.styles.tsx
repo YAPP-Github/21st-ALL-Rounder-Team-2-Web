@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { colors } from "../../../../styles/colors";
-import { Bold16CSS } from "../../../ui/Typographies";
+import { colors } from "@/styles/colors";
+import { Bold16CSS } from "@/components/ui/Typographies";
 
 export const Wrapper = styled.div<{ $active: boolean }>`
   display: inline-block;

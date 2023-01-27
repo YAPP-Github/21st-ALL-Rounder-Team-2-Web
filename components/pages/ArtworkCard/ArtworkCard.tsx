@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Artwork } from "../../../interfaces/artwork";
-import Icon from "../../ui/Icon/Icon/Icon";
+import { Artwork } from "@/interfaces/artwork";
+import Icon from "@/components/ui/Icon/Icon/Icon";
 import * as S from "./ArtworkCard.styles";
 
 const ArtworkCard = ({ imageUrl, title, artist }: Artwork) => {

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import NavigationBar from "../../../../components/ui/NavigationBar/NavigationBar";
-import Tag from "../../../../components/ui/Tag/Tag/Tag";
-import { Divider } from "../../../../components/ui/Divider/Divider";
-import { getArtworkInfo, getArtworkList } from "../../../../apis/exhibition";
+import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
+import Tag from "@/components/ui/Tag/Tag/Tag";
+import { Divider } from "@/components/ui/Divider/Divider";
+import { getArtworkInfo, getArtworkList } from "@/apis/exhibition";
 import * as S from "./page.styles";
 
 export default function Page({

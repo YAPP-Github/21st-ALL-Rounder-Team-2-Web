@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
-import Button from "../../../ui/Button/Button/Button";
-import TextInput from "../../../ui/Input/TextInput/TextInput";
-import * as S from "./EditBottomSheet.styles";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Button from "@/components/ui/Button/Button/Button";
+import TextInput from "@/components/ui/Input/TextInput/TextInput";
+import * as S from "./EditBottomSheet.styles";
 
 type FormStates = {
   author: string;

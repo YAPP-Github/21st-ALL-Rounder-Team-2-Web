@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Button from "../../../components/ui/Button/Button/Button";
-import { colors } from "../../../styles/colors";
+import Button from "@/components/ui/Button/Button/Button";
+import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
   height: 100%;
