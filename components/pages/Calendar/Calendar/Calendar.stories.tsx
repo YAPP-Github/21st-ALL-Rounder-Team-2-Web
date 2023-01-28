@@ -3,7 +3,7 @@ import { Calendar, Props } from './Calendar';
 
 export default {
   component: Calendar,
-  title: 'Pages/Calendar',
+  title: 'pages/Calendar/Calendar',
   argTypes: {},
 } as Meta;
 

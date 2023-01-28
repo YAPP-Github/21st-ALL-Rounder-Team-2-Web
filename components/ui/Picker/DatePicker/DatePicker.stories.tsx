@@ -10,4 +10,6 @@ export default {
 const Template: Story<Props> = (args) => <DatePicker {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  open: true,
+};

@@ -1,7 +1,7 @@
+
 import QueryClientWrapper from "./QueryClientWrapper";
 import StyledComponentsRegistry from "../libs/styled-components";
-import { ConfigProvider } from "antd-mobile";
-import koKR from "antd-mobile/es/locales/ko-KR";
+import AntdMobileProvider from "@/libs/antd-mobile-provider";
 import "../styles/globals.css";
 
 export default function RootLayout({
@@ -12,12 +12,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-prefers-color-scheme="dark">
       <body>
-        <ConfigProvider locale={koKR}>
+        <AntdMobileProvider>
           <StyledComponentsRegistry>
             <QueryClientWrapper>{children}</QueryClientWrapper>
           </StyledComponentsRegistry>
           <div id="overlay-root" />
-        </ConfigProvider>
+        </AntdMobileProvider>
       </body>
     </html>
   );
