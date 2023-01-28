@@ -1,5 +1,6 @@
+import UICalendar from "@/components/ui/Calendar/Calendar/Calendar";
+import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import React from "react";
-import { Calendar as AntdCalendar } from 'antd-mobile'
 import * as S from "./Calendar.styles";
 
 export interface Props {
@@ -8,17 +9,18 @@ export interface Props {
 
 export const Calendar = (props: Props) => {
   const { className } = props;
+
+  const handleGoBackClick = () => {};
+
   return (
     <S.Wrapper className={className}>
-      <AntdCalendar
-        renderDate={(date) => {
-          return (
-            <div>
-              {date.toDateString()}
-            </div>
-          );
-        }}
+      <NavigationBar
+        goBack={{ name: "ArrowLeftIcon", size: 24 }}
+        onGoBackClick={handleGoBackClick}
       />
+      <S.Content>
+        <UICalendar />
+      </S.Content>
     </S.Wrapper>
   );
 };

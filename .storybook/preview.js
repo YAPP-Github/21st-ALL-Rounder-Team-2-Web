@@ -1,4 +1,9 @@
+// .storybook/preview.js
+import React from "react";
 import * as NextImage from "next/image";
+import { ConfigProvider } from "antd-mobile";
+import koKR from 'antd-mobile/es/locales/ko-KR'
+
 import "../styles/globals.css";
 
 const OriginalNextImage = NextImage.default;
@@ -17,3 +22,11 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [
+  (Story) => (
+    <ConfigProvider locale={koKR}>
+      <Story />
+    </ConfigProvider>
+  ),
+];
