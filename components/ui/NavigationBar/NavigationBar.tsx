@@ -1,20 +1,24 @@
-import Icon from "../Icon/Icon/Icon";
+import Icon, { IconType } from "../Icon/Icon/Icon";
 import * as S from "./NavigationBar.styles";
 
 export interface Props {
   current?: string;
+  goBack?: {
+    name: IconType;
+    size: number;
+  }
   onGoBackClick: () => void;
   onEditClick?: () => void;
 }
 
-const NavigationBar = ({ current, onGoBackClick, onEditClick }: Props) => {
+const NavigationBar = ({ current, goBack = { name: 'ChevronLeftIcon', size: 12 }, onGoBackClick, onEditClick }: Props) => {
   return (
     <S.Wrapper>
       <S.Button onClick={onGoBackClick}>
-        <Icon name="ChevronLeftIcon" size={12} />
+        <Icon name={goBack.name} size={goBack.size} />
       </S.Button>
       <S.Title>{current}</S.Title>
-      <S.Button onClick={onEditClick}>편집</S.Button>
+      {onEditClick && <S.Button onClick={onEditClick}>편집</S.Button>}
     </S.Wrapper>
   );
 };

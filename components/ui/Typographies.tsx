@@ -40,12 +40,28 @@ export const Bold24CSS = css`
   line-height: 29px;
 `;
 
+export const SemiBold24CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+`;
+
 export const Medium14CSS = css`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+`;
+
+export const Medium15CSS = css`
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
 `;
 
 export const Medium16CSS = css`

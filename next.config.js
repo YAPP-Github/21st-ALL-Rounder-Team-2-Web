@@ -15,6 +15,7 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     styledComponents: true,
+    transpilePackages: ['antd-mobile'],
   },
   experimental: {
     appDir: true,
