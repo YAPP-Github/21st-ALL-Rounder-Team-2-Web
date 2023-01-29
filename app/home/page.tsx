@@ -8,7 +8,7 @@ import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
 import { Exhibition } from "@/interfaces/exhibition";
 import { getExhibitionList, togglePinById } from "@/apis/exhibition";
-import { getCategories } from "@/apis/category";
+import { getMockCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
 import * as S from "./page.styles";
@@ -24,7 +24,7 @@ export default function PageWrapper() {
 function Page() {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: getMockCategories,
   });
 
   const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
