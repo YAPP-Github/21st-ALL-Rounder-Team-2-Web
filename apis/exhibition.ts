@@ -1,6 +1,15 @@
 import { Exhibition } from "@/interfaces/exhibition";
 import { Artwork } from "@/interfaces/artwork";
 
+import { axiosInstance } from "@/libs/axios";
+import { ExhibitControllerApiFactory, Pageable } from "@/__generate__/post";
+
+const factory = ExhibitControllerApiFactory(undefined, "", axiosInstance);
+
+export const getPostPage = (id: number, pageable: Pageable) => {
+  return factory.getPostPage(pageable, id);
+};
+
 export const getExhibitionList = (): Promise<Exhibition[]> => {
   return Promise.resolve([
     {

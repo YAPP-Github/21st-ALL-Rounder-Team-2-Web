@@ -22,345 +22,87 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
- * 작품 목록의 작품 썸네일 정보
+ * 카테고리 Response
  * @export
- * @interface ArtworkThumbnailDto
+ * @interface CategoryDto
  */
-export interface ArtworkThumbnailDto {
+export interface CategoryDto {
     /**
-     * 작품 ID
+     * 카테고리 아이디
      * @type {number}
-     * @memberof ArtworkThumbnailDto
+     * @memberof CategoryDto
      */
-    'id': number;
+    'id'?: number;
     /**
-     * 작품 이미지
+     * 카테고리 명
      * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'imageURL': string;
-    /**
-     * 작품명
-     * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'name': string;
-    /**
-     * 관람 날짜
-     * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'artist': string;
-}
-/**
- * 
- * @export
- * @interface ArtworkThumbnailDtoPage
- */
-export interface ArtworkThumbnailDtoPage {
-    /**
-     * 
-     * @type {Array<ArtworkThumbnailDto>}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'content'?: Array<ArtworkThumbnailDto>;
-    /**
-     * 
-     * @type {PageableObject}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'pageable'?: PageableObject;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'totalElements'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'totalPages'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'last'?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'size'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'number'?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'sort'?: Sort;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'first'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'empty'?: boolean;
-}
-/**
- * 전시 생성 Request
- * @export
- * @interface CreateArtworkRequestDto
- */
-export interface CreateArtworkRequestDto {
-    /**
-     * 전시 ID
-     * @type {number}
-     * @memberof CreateArtworkRequestDto
-     */
-    'postId': number;
-    /**
-     * s3 이미지 URI. S3 Presigned URL 발급 후 반환한 imageKey 값
-     * @type {string}
-     * @memberof CreateArtworkRequestDto
-     */
-    'imageUri': string;
-    /**
-     * 작가 이름
-     * @type {string}
-     * @memberof CreateArtworkRequestDto
-     */
-    'artist'?: string;
-    /**
-     * 작품명
-     * @type {string}
-     * @memberof CreateArtworkRequestDto
+     * @memberof CategoryDto
      */
     'name'?: string;
     /**
-     * 작품 할당 태그
-     * @type {Array<CreateArtworkTagDto>}
-     * @memberof CreateArtworkRequestDto
+     * 카테고리 순서
+     * @type {number}
+     * @memberof CategoryDto
      */
-    'tags'?: Array<CreateArtworkTagDto>;
+    'sequence'?: number;
 }
 /**
- * 전시 작품 생성 Response
+ * 카테고리 생성 Request
  * @export
- * @interface CreateArtworkResponseDto
+ * @interface CreateCategoryRequestDto
  */
-export interface CreateArtworkResponseDto {
+export interface CreateCategoryRequestDto {
     /**
-     * 전시 작품 아이디
+     * 카테고리 명
+     * @type {string}
+     * @memberof CreateCategoryRequestDto
+     */
+    'name'?: string;
+}
+/**
+ * 카테고리 생성 Response
+ * @export
+ * @interface CreateCategoryResponseDto
+ */
+export interface CreateCategoryResponseDto {
+    /**
+     * 카테고리 아이디
      * @type {number}
-     * @memberof CreateArtworkResponseDto
+     * @memberof CreateCategoryResponseDto
      */
     'id'?: number;
 }
 /**
- * 전시 작품 추가시 할당될 태그 정보
+ * 카테고리 수정 Request
  * @export
- * @interface CreateArtworkTagDto
+ * @interface UpdateCategoryRequestDto
  */
-export interface CreateArtworkTagDto {
+export interface UpdateCategoryRequestDto {
     /**
-     * 태그 ID. 기존에 존재한 태그를 작품에 추가할 경우 제공되어야함.
-     * @type {number}
-     * @memberof CreateArtworkTagDto
-     */
-    'tagId'?: number;
-    /**
-     * 태그 이름. 새롭게 태그를 생성하여 작품에 추가할 경우 태그 이름만 제공되어야함.
+     * 수정할 이름
      * @type {string}
-     * @memberof CreateArtworkTagDto
+     * @memberof UpdateCategoryRequestDto
      */
-    'tagName': string;
-}
-/**
- * 
- * @export
- * @interface ErrorResponse
- */
-export interface ErrorResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ErrorResponse
-     */
-    'message'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ErrorResponse
-     */
-    'status'?: number;
-    /**
-     * 
-     * @type {Array<FieldError>}
-     * @memberof ErrorResponse
-     */
-    'errors'?: Array<FieldError>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ErrorResponse
-     */
-    'code'?: string;
-}
-/**
- * 
- * @export
- * @interface FieldError
- */
-export interface FieldError {
-    /**
-     * 
-     * @type {string}
-     * @memberof FieldError
-     */
-    'field'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FieldError
-     */
-    'value'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FieldError
-     */
-    'reason'?: string;
-}
-/**
- * 
- * @export
- * @interface Pageable
- */
-export interface Pageable {
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'page'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'size'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Pageable
-     */
-    'sort'?: Array<string>;
-}
-/**
- * 
- * @export
- * @interface PageableObject
- */
-export interface PageableObject {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    'offset'?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageableObject
-     */
-    'sort'?: Sort;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    'pageNumber'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    'pageSize'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'paged'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'unpaged'?: boolean;
-}
-/**
- * 
- * @export
- * @interface Sort
- */
-export interface Sort {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    'empty'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    'sorted'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    'unsorted'?: boolean;
+    'name'?: string;
 }
 
 /**
- * ArtworkControllerApi - axios parameter creator
+ * CategoryControllerApi - axios parameter creator
  * @export
  */
-export const ArtworkControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CategoryControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 사용자 카테고리 생성
+         * @summary 카테고리 생성
+         * @param {CreateCategoryRequestDto} createCategoryRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork: async (createArtworkRequestDto: CreateArtworkRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createArtworkRequestDto' is not null or undefined
-            assertParamExists('createArtwork', 'createArtworkRequestDto', createArtworkRequestDto)
-            const localVarPath = `/artwork`;
+        createCategories: async (createCategoryRequestDto: CreateCategoryRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createCategoryRequestDto' is not null or undefined
+            assertParamExists('createCategories', 'createCategoryRequestDto', createCategoryRequestDto)
+            const localVarPath = `/category`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -383,7 +125,7 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createArtworkRequestDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createCategoryRequestDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -391,20 +133,85 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 기본 사용자 카테고리 생성
+         * @summary 기본 카테고리 생성
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost: async (id: number, pageable: Pageable, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createCategories1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/category/initialize`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 사용자 카테고리 삭제
+         * @summary 카테고리 삭제
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCategory: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('getArtworkPageFromPost', 'id', id)
-            // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('getArtworkPageFromPost', 'pageable', pageable)
-            const localVarPath = `/artwork/post/{id}`
+            assertParamExists('deleteCategory', 'id', id)
+            const localVarPath = `/category/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 사용자 카테고리 목록 조회
+         * @summary 카테고리 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCategories: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/category`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -420,10 +227,6 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (pageable !== undefined) {
-                localVarQueryParameter['pageable'] = pageable;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -435,103 +238,313 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 카테고리 수정
+         * @summary 카테고리 수정
+         * @param {number} id 
+         * @param {UpdateCategoryRequestDto} updateCategoryRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategory: async (id: number, updateCategoryRequestDto: UpdateCategoryRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateCategory', 'id', id)
+            // verify required parameter 'updateCategoryRequestDto' is not null or undefined
+            assertParamExists('updateCategory', 'updateCategoryRequestDto', updateCategoryRequestDto)
+            const localVarPath = `/category/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateCategoryRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * @summary 카테고리 순서 변경
+         * @param {Array<CategoryDto>} categoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategorySequence: async (categoryDto: Array<CategoryDto>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'categoryDto' is not null or undefined
+            assertParamExists('updateCategorySequence', 'categoryDto', categoryDto)
+            const localVarPath = `/category/sequence`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(categoryDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
 /**
- * ArtworkControllerApi - functional programming interface
+ * CategoryControllerApi - functional programming interface
  * @export
  */
-export const ArtworkControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ArtworkControllerApiAxiosParamCreator(configuration)
+export const CategoryControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CategoryControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 사용자 카테고리 생성
+         * @summary 카테고리 생성
+         * @param {CreateCategoryRequestDto} createCategoryRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArtworkResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createArtwork(createArtworkRequestDto, options);
+        async createCategories(createCategoryRequestDto: CreateCategoryRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateCategoryResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createCategories(createCategoryRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 기본 사용자 카테고리 생성
+         * @summary 기본 카테고리 생성
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtworkThumbnailDtoPage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, pageable, options);
+        async createCategories1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateCategoryResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createCategories1(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 사용자 카테고리 삭제
+         * @summary 카테고리 삭제
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteCategory(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCategory(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 사용자 카테고리 목록 조회
+         * @summary 카테고리 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCategories(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CategoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCategories(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 카테고리 수정
+         * @summary 카테고리 수정
+         * @param {number} id 
+         * @param {UpdateCategoryRequestDto} updateCategoryRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCategory(id: number, updateCategoryRequestDto: UpdateCategoryRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategory(id, updateCategoryRequestDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * @summary 카테고리 순서 변경
+         * @param {Array<CategoryDto>} categoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCategorySequence(categoryDto: Array<CategoryDto>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategorySequence(categoryDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * ArtworkControllerApi - factory interface
+ * CategoryControllerApi - factory interface
  * @export
  */
-export const ArtworkControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ArtworkControllerApiFp(configuration)
+export const CategoryControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CategoryControllerApiFp(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 사용자 카테고리 생성
+         * @summary 카테고리 생성
+         * @param {CreateCategoryRequestDto} createCategoryRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: any): AxiosPromise<CreateArtworkResponseDto> {
-            return localVarFp.createArtwork(createArtworkRequestDto, options).then((request) => request(axios, basePath));
+        createCategories(createCategoryRequestDto: CreateCategoryRequestDto, options?: any): AxiosPromise<CreateCategoryResponseDto> {
+            return localVarFp.createCategories(createCategoryRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 기본 사용자 카테고리 생성
+         * @summary 기본 카테고리 생성
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost(id: number, pageable: Pageable, options?: any): AxiosPromise<ArtworkThumbnailDtoPage> {
-            return localVarFp.getArtworkPageFromPost(id, pageable, options).then((request) => request(axios, basePath));
+        createCategories1(options?: any): AxiosPromise<CreateCategoryResponseDto> {
+            return localVarFp.createCategories1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 사용자 카테고리 삭제
+         * @summary 카테고리 삭제
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCategory(id: number, options?: any): AxiosPromise<string> {
+            return localVarFp.deleteCategory(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 사용자 카테고리 목록 조회
+         * @summary 카테고리 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCategories(options?: any): AxiosPromise<CategoryDto> {
+            return localVarFp.getCategories(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 카테고리 수정
+         * @summary 카테고리 수정
+         * @param {number} id 
+         * @param {UpdateCategoryRequestDto} updateCategoryRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategory(id: number, updateCategoryRequestDto: UpdateCategoryRequestDto, options?: any): AxiosPromise<string> {
+            return localVarFp.updateCategory(id, updateCategoryRequestDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * @summary 카테고리 순서 변경
+         * @param {Array<CategoryDto>} categoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategorySequence(categoryDto: Array<CategoryDto>, options?: any): AxiosPromise<string> {
+            return localVarFp.updateCategorySequence(categoryDto, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * ArtworkControllerApi - object-oriented interface
+ * CategoryControllerApi - object-oriented interface
  * @export
- * @class ArtworkControllerApi
+ * @class CategoryControllerApi
  * @extends {BaseAPI}
  */
-export class ArtworkControllerApi extends BaseAPI {
+export class CategoryControllerApi extends BaseAPI {
     /**
-     * 작품(이미지)를 전시에 추가
-     * @summary 전시 작품 추가
-     * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+     * 사용자 카테고리 생성
+     * @summary 카테고리 생성
+     * @param {CreateCategoryRequestDto} createCategoryRequestDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ArtworkControllerApi
+     * @memberof CategoryControllerApi
      */
-    public createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).createArtwork(createArtworkRequestDto, options).then((request) => request(this.axios, this.basePath));
+    public createCategories(createCategoryRequestDto: CreateCategoryRequestDto, options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).createCategories(createCategoryRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * 전시 상세 페이지의 작품 목록 조회
-     * @summary 전시의 작품 목록 조회
-     * @param {number} id 전시 ID
-     * @param {Pageable} pageable 
+     * 기본 사용자 카테고리 생성
+     * @summary 기본 카테고리 생성
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ArtworkControllerApi
+     * @memberof CategoryControllerApi
      */
-    public getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).getArtworkPageFromPost(id, pageable, options).then((request) => request(this.axios, this.basePath));
+    public createCategories1(options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).createCategories1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 사용자 카테고리 삭제
+     * @summary 카테고리 삭제
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryControllerApi
+     */
+    public deleteCategory(id: number, options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).deleteCategory(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 사용자 카테고리 목록 조회
+     * @summary 카테고리 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryControllerApi
+     */
+    public getCategories(options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).getCategories(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 카테고리 수정
+     * @summary 카테고리 수정
+     * @param {number} id 
+     * @param {UpdateCategoryRequestDto} updateCategoryRequestDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryControllerApi
+     */
+    public updateCategory(id: number, updateCategoryRequestDto: UpdateCategoryRequestDto, options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).updateCategory(id, updateCategoryRequestDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+     * @summary 카테고리 순서 변경
+     * @param {Array<CategoryDto>} categoryDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryControllerApi
+     */
+    public updateCategorySequence(categoryDto: Array<CategoryDto>, options?: AxiosRequestConfig) {
+        return CategoryControllerApiFp(this.configuration).updateCategorySequence(categoryDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

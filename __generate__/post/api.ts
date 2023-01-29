@@ -22,177 +22,42 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
- * 작품 목록의 작품 썸네일 정보
- * @export
- * @interface ArtworkThumbnailDto
- */
-export interface ArtworkThumbnailDto {
-    /**
-     * 작품 ID
-     * @type {number}
-     * @memberof ArtworkThumbnailDto
-     */
-    'id': number;
-    /**
-     * 작품 이미지
-     * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'imageURL': string;
-    /**
-     * 작품명
-     * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'name': string;
-    /**
-     * 관람 날짜
-     * @type {string}
-     * @memberof ArtworkThumbnailDto
-     */
-    'artist': string;
-}
-/**
- * 
- * @export
- * @interface ArtworkThumbnailDtoPage
- */
-export interface ArtworkThumbnailDtoPage {
-    /**
-     * 
-     * @type {Array<ArtworkThumbnailDto>}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'content'?: Array<ArtworkThumbnailDto>;
-    /**
-     * 
-     * @type {PageableObject}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'pageable'?: PageableObject;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'totalElements'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'totalPages'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'last'?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'size'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'number'?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'sort'?: Sort;
-    /**
-     * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'first'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'empty'?: boolean;
-}
-/**
  * 전시 생성 Request
  * @export
- * @interface CreateArtworkRequestDto
+ * @interface CreateExhibitRequestDto
  */
-export interface CreateArtworkRequestDto {
+export interface CreateExhibitRequestDto {
     /**
-     * 전시 ID
-     * @type {number}
-     * @memberof CreateArtworkRequestDto
-     */
-    'postId': number;
-    /**
-     * s3 이미지 URI. S3 Presigned URL 발급 후 반환한 imageKey 값
+     * 전시명
      * @type {string}
-     * @memberof CreateArtworkRequestDto
-     */
-    'imageUri': string;
-    /**
-     * 작가 이름
-     * @type {string}
-     * @memberof CreateArtworkRequestDto
-     */
-    'artist'?: string;
-    /**
-     * 작품명
-     * @type {string}
-     * @memberof CreateArtworkRequestDto
+     * @memberof CreateExhibitRequestDto
      */
     'name'?: string;
     /**
-     * 작품 할당 태그
-     * @type {Array<CreateArtworkTagDto>}
-     * @memberof CreateArtworkRequestDto
+     * 카테고리 아이디
+     * @type {number}
+     * @memberof CreateExhibitRequestDto
      */
-    'tags'?: Array<CreateArtworkTagDto>;
+    'categoryId'?: number;
+    /**
+     * 관람 날짜
+     * @type {string}
+     * @memberof CreateExhibitRequestDto
+     */
+    'postDate'?: string;
 }
 /**
- * 전시 작품 생성 Response
+ * 전시 생성 Response
  * @export
- * @interface CreateArtworkResponseDto
+ * @interface CreateExhibitResponseDto
  */
-export interface CreateArtworkResponseDto {
+export interface CreateExhibitResponseDto {
     /**
-     * 전시 작품 아이디
+     * 전시 아이디
      * @type {number}
-     * @memberof CreateArtworkResponseDto
+     * @memberof CreateExhibitResponseDto
      */
     'id'?: number;
-}
-/**
- * 전시 작품 추가시 할당될 태그 정보
- * @export
- * @interface CreateArtworkTagDto
- */
-export interface CreateArtworkTagDto {
-    /**
-     * 태그 ID. 기존에 존재한 태그를 작품에 추가할 경우 제공되어야함.
-     * @type {number}
-     * @memberof CreateArtworkTagDto
-     */
-    'tagId'?: number;
-    /**
-     * 태그 이름. 새롭게 태그를 생성하여 작품에 추가할 경우 태그 이름만 제공되어야함.
-     * @type {string}
-     * @memberof CreateArtworkTagDto
-     */
-    'tagName': string;
 }
 /**
  * 
@@ -276,91 +141,122 @@ export interface Pageable {
     'sort'?: Array<string>;
 }
 /**
- * 
+ * 전시 Response
  * @export
- * @interface PageableObject
+ * @interface PostDetailInfo
  */
-export interface PageableObject {
+export interface PostDetailInfo {
     /**
-     * 
+     * 전시 아이디
      * @type {number}
-     * @memberof PageableObject
+     * @memberof PostDetailInfo
      */
-    'offset'?: number;
+    'id': number;
     /**
-     * 
-     * @type {Sort}
-     * @memberof PageableObject
+     * 전시명
+     * @type {string}
+     * @memberof PostDetailInfo
      */
-    'sort'?: Sort;
+    'name': string;
     /**
-     * 
+     * 관람 날짜
+     * @type {string}
+     * @memberof PostDetailInfo
+     */
+    'postDate': string;
+    /**
+     * 카테고리 아이디
      * @type {number}
-     * @memberof PageableObject
+     * @memberof PostDetailInfo
      */
-    'pageNumber'?: number;
+    'categoryId': number;
     /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
+     * 카테고리 명
+     * @type {string}
+     * @memberof PostDetailInfo
      */
-    'pageSize'?: number;
+    'categoryName': string;
+    /**
+     * 대표 이미지
+     * @type {string}
+     * @memberof PostDetailInfo
+     */
+    'mainImage'?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof PageableObject
+     * @memberof PostDetailInfo
      */
-    'paged'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'unpaged'?: boolean;
+    'published'?: boolean;
 }
 /**
- * 
+ * 전시 Response
  * @export
- * @interface Sort
+ * @interface PostInfoDto
  */
-export interface Sort {
+export interface PostInfoDto {
+    /**
+     * 전시 아이디
+     * @type {number}
+     * @memberof PostInfoDto
+     */
+    'id'?: number;
+    /**
+     * 전시명
+     * @type {string}
+     * @memberof PostInfoDto
+     */
+    'name'?: string;
+    /**
+     * 관람 날짜
+     * @type {string}
+     * @memberof PostInfoDto
+     */
+    'postDate'?: string;
     /**
      * 
      * @type {boolean}
-     * @memberof Sort
+     * @memberof PostInfoDto
      */
-    'empty'?: boolean;
+    'published'?: boolean;
+}
+/**
+ * 전시 수정 Request
+ * @export
+ * @interface UpdateExhibitRequestDto
+ */
+export interface UpdateExhibitRequestDto {
     /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
+     * 수정할 이름
+     * @type {string}
+     * @memberof UpdateExhibitRequestDto
      */
-    'sorted'?: boolean;
+    'name'?: string;
     /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
+     * 수정할 날짜
+     * @type {string}
+     * @memberof UpdateExhibitRequestDto
      */
-    'unsorted'?: boolean;
+    'postDate'?: string;
 }
 
 /**
- * ArtworkControllerApi - axios parameter creator
+ * ExhibitControllerApi - axios parameter creator
  * @export
  */
-export const ArtworkControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ExhibitControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 처음 전시 정보 등록시 임시 전시로 생성됨
+         * @summary 전시 생성
+         * @param {CreateExhibitRequestDto} createExhibitRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork: async (createArtworkRequestDto: CreateArtworkRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createArtworkRequestDto' is not null or undefined
-            assertParamExists('createArtwork', 'createArtworkRequestDto', createArtworkRequestDto)
-            const localVarPath = `/artwork`;
+        createPost: async (createExhibitRequestDto: CreateExhibitRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createExhibitRequestDto' is not null or undefined
+            assertParamExists('createPost', 'createExhibitRequestDto', createExhibitRequestDto)
+            const localVarPath = `/post`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -383,7 +279,7 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createArtworkRequestDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createExhibitRequestDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -391,19 +287,129 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 임시 저장된 전시 목록 조회
+         * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost: async (id: number, pageable: Pageable, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDraftPosts: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/post/draft`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 특정 전시 정보 조회
+         * @summary 전시 조회
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPost: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('getArtworkPageFromPost', 'id', id)
+            assertParamExists('getPost', 'id', id)
+            const localVarPath = `/post/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
+         * @summary 전시 상세 정보 조회
+         * @param {number} id 전시 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostInfoWithCategory: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getPostInfoWithCategory', 'id', id)
+            const localVarPath = `/post/detail/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * @summary 홈 화면 전시 조회
+         * @param {Pageable} pageable 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostPage: async (pageable: Pageable, id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('getArtworkPageFromPost', 'pageable', pageable)
-            const localVarPath = `/artwork/post/{id}`
+            assertParamExists('getPostPage', 'pageable', pageable)
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getPostPage', 'id', id)
+            const localVarPath = `/post/home/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -435,103 +441,350 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 임시 저장 전시를 영구 저장
+         * @summary 전시 발행
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishPost: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('publishPost', 'id', id)
+            const localVarPath = `/post/publish/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 전시 수정
+         * @summary 전시 수정
+         * @param {number} id 
+         * @param {UpdateExhibitRequestDto} updateExhibitRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePost: async (id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updatePost', 'id', id)
+            // verify required parameter 'updateExhibitRequestDto' is not null or undefined
+            assertParamExists('updatePost', 'updateExhibitRequestDto', updateExhibitRequestDto)
+            const localVarPath = `/post/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateExhibitRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
 /**
- * ArtworkControllerApi - functional programming interface
+ * ExhibitControllerApi - functional programming interface
  * @export
  */
-export const ArtworkControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ArtworkControllerApiAxiosParamCreator(configuration)
+export const ExhibitControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ExhibitControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 처음 전시 정보 등록시 임시 전시로 생성됨
+         * @summary 전시 생성
+         * @param {CreateExhibitRequestDto} createExhibitRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArtworkResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createArtwork(createArtworkRequestDto, options);
+        async createPost(createExhibitRequestDto: CreateExhibitRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateExhibitResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPost(createExhibitRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 임시 저장된 전시 목록 조회
+         * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtworkThumbnailDtoPage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, pageable, options);
+        async getDraftPosts(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftPosts(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 특정 전시 정보 조회
+         * @summary 전시 조회
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPost(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPost(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
+         * @summary 전시 상세 정보 조회
+         * @param {number} id 전시 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPostInfoWithCategory(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostInfoWithCategory(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * @summary 홈 화면 전시 조회
+         * @param {Pageable} pageable 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostPage(pageable, id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 임시 저장 전시를 영구 저장
+         * @summary 전시 발행
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async publishPost(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPost(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 전시 수정
+         * @summary 전시 수정
+         * @param {number} id 
+         * @param {UpdateExhibitRequestDto} updateExhibitRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePost(id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePost(id, updateExhibitRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * ArtworkControllerApi - factory interface
+ * ExhibitControllerApi - factory interface
  * @export
  */
-export const ArtworkControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ArtworkControllerApiFp(configuration)
+export const ExhibitControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ExhibitControllerApiFp(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
-         * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+         * 처음 전시 정보 등록시 임시 전시로 생성됨
+         * @summary 전시 생성
+         * @param {CreateExhibitRequestDto} createExhibitRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: any): AxiosPromise<CreateArtworkResponseDto> {
-            return localVarFp.createArtwork(createArtworkRequestDto, options).then((request) => request(axios, basePath));
+        createPost(createExhibitRequestDto: CreateExhibitRequestDto, options?: any): AxiosPromise<CreateExhibitResponseDto> {
+            return localVarFp.createPost(createExhibitRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
-         * 전시 상세 페이지의 작품 목록 조회
-         * @summary 전시의 작품 목록 조회
-         * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * 임시 저장된 전시 목록 조회
+         * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost(id: number, pageable: Pageable, options?: any): AxiosPromise<ArtworkThumbnailDtoPage> {
-            return localVarFp.getArtworkPageFromPost(id, pageable, options).then((request) => request(axios, basePath));
+        getDraftPosts(options?: any): AxiosPromise<PostInfoDto> {
+            return localVarFp.getDraftPosts(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 특정 전시 정보 조회
+         * @summary 전시 조회
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPost(id: number, options?: any): AxiosPromise<PostInfoDto> {
+            return localVarFp.getPost(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
+         * @summary 전시 상세 정보 조회
+         * @param {number} id 전시 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostInfoWithCategory(id: number, options?: any): AxiosPromise<PostDetailInfo> {
+            return localVarFp.getPostInfoWithCategory(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * @summary 홈 화면 전시 조회
+         * @param {Pageable} pageable 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostPage(pageable: Pageable, id: number, options?: any): AxiosPromise<PostInfoDto> {
+            return localVarFp.getPostPage(pageable, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 임시 저장 전시를 영구 저장
+         * @summary 전시 발행
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishPost(id: number, options?: any): AxiosPromise<string> {
+            return localVarFp.publishPost(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 전시 수정
+         * @summary 전시 수정
+         * @param {number} id 
+         * @param {UpdateExhibitRequestDto} updateExhibitRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePost(id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options?: any): AxiosPromise<string> {
+            return localVarFp.updatePost(id, updateExhibitRequestDto, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * ArtworkControllerApi - object-oriented interface
+ * ExhibitControllerApi - object-oriented interface
  * @export
- * @class ArtworkControllerApi
+ * @class ExhibitControllerApi
  * @extends {BaseAPI}
  */
-export class ArtworkControllerApi extends BaseAPI {
+export class ExhibitControllerApi extends BaseAPI {
     /**
-     * 작품(이미지)를 전시에 추가
-     * @summary 전시 작품 추가
-     * @param {CreateArtworkRequestDto} createArtworkRequestDto 
+     * 처음 전시 정보 등록시 임시 전시로 생성됨
+     * @summary 전시 생성
+     * @param {CreateExhibitRequestDto} createExhibitRequestDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ArtworkControllerApi
+     * @memberof ExhibitControllerApi
      */
-    public createArtwork(createArtworkRequestDto: CreateArtworkRequestDto, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).createArtwork(createArtworkRequestDto, options).then((request) => request(this.axios, this.basePath));
+    public createPost(createExhibitRequestDto: CreateExhibitRequestDto, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).createPost(createExhibitRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * 전시 상세 페이지의 작품 목록 조회
-     * @summary 전시의 작품 목록 조회
-     * @param {number} id 전시 ID
-     * @param {Pageable} pageable 
+     * 임시 저장된 전시 목록 조회
+     * @summary 임시 저장 전시 조회
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ArtworkControllerApi
+     * @memberof ExhibitControllerApi
      */
-    public getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).getArtworkPageFromPost(id, pageable, options).then((request) => request(this.axios, this.basePath));
+    public getDraftPosts(options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getDraftPosts(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 특정 전시 정보 조회
+     * @summary 전시 조회
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getPost(id: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getPost(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
+     * @summary 전시 상세 정보 조회
+     * @param {number} id 전시 ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getPostInfoWithCategory(id: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getPostInfoWithCategory(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+     * @summary 홈 화면 전시 조회
+     * @param {Pageable} pageable 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getPostPage(pageable, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 임시 저장 전시를 영구 저장
+     * @summary 전시 발행
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public publishPost(id: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).publishPost(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 전시 수정
+     * @summary 전시 수정
+     * @param {number} id 
+     * @param {UpdateExhibitRequestDto} updateExhibitRequestDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public updatePost(id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).updatePost(id, updateExhibitRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
