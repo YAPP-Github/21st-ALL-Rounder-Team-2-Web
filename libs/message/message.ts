@@ -44,15 +44,14 @@ export const makeAction = <ActionName extends ActionNames>(params: ActionParam<A
     }
 }
 
-const postMessage = (data: unknown) => {
+const postAndroidMessage = (data: unknown) => {
     if(!isBrowser) {
         return
     }
     const jsonData = JSON.stringify(data);
-    const appPostMessage = window.android?.postMessage ?? window.postMessage;
-    appPostMessage(jsonData);
+    window.android?.postMessage?.(jsonData)
 }
 
 export const sendMessage = <ActionName extends ActionNames>(params: ActionParam<ActionName>) => {
-    postMessage(makeAction(params));
+    postAndroidMessage(makeAction(params));
 };
