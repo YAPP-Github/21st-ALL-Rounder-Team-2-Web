@@ -561,50 +561,6 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 작품의 작가정보, 작품명, 태그 정보 수정
-         * @summary 작품 정보 수정
-         * @param {number} id 작품 ID
-         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createArtwork2: async (id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createArtwork2', 'id', id)
-            // verify required parameter 'updateArtworkRequestDto' is not null or undefined
-            assertParamExists('createArtwork2', 'updateArtworkRequestDto', updateArtworkRequestDto)
-            const localVarPath = `/artwork/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwt token required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateArtworkRequestDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 
          * @summary 작품 삭제
          * @param {number} id 전시 ID
@@ -763,6 +719,88 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 해당 작품을 해당 전시의 대표 작품으로 설정. 기존 작품은 대표 작품에서 해제됨
+         * @summary 대표 작품 설정
+         * @param {number} id 작품 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setMainArtwork: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('setMainArtwork', 'id', id)
+            const localVarPath = `/artwork/main/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 작품의 작가정보, 작품명, 태그 정보 수정
+         * @summary 작품 정보 수정
+         * @param {number} id 작품 ID
+         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateArtwork: async (id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateArtwork', 'id', id)
+            // verify required parameter 'updateArtworkRequestDto' is not null or undefined
+            assertParamExists('updateArtwork', 'updateArtworkRequestDto', updateArtworkRequestDto)
+            const localVarPath = `/artwork/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateArtworkRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -794,18 +832,6 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
          */
         async createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArtworkBatchResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createArtwork1(id, createArtworkBatchRequestDto, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 작품의 작가정보, 작품명, 태그 정보 수정
-         * @summary 작품 정보 수정
-         * @param {number} id 작품 ID
-         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createArtwork2(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createArtwork2(id, updateArtworkRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -853,6 +879,29 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, pageable, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 해당 작품을 해당 전시의 대표 작품으로 설정. 기존 작품은 대표 작품에서 해제됨
+         * @summary 대표 작품 설정
+         * @param {number} id 작품 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setMainArtwork(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setMainArtwork(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 작품의 작가정보, 작품명, 태그 정보 수정
+         * @summary 작품 정보 수정
+         * @param {number} id 작품 ID
+         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateArtwork(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateArtwork(id, updateArtworkRequestDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -883,17 +932,6 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
          */
         createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: any): AxiosPromise<CreateArtworkBatchResponseDto> {
             return localVarFp.createArtwork1(id, createArtworkBatchRequestDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 작품의 작가정보, 작품명, 태그 정보 수정
-         * @summary 작품 정보 수정
-         * @param {number} id 작품 ID
-         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createArtwork2(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: any): AxiosPromise<void> {
-            return localVarFp.createArtwork2(id, updateArtworkRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -936,6 +974,27 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
         getArtworkPageFromPost(id: number, pageable: Pageable, options?: any): AxiosPromise<ArtworkThumbnailDtoPage> {
             return localVarFp.getArtworkPageFromPost(id, pageable, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 해당 작품을 해당 전시의 대표 작품으로 설정. 기존 작품은 대표 작품에서 해제됨
+         * @summary 대표 작품 설정
+         * @param {number} id 작품 ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setMainArtwork(id: number, options?: any): AxiosPromise<void> {
+            return localVarFp.setMainArtwork(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 작품의 작가정보, 작품명, 태그 정보 수정
+         * @summary 작품 정보 수정
+         * @param {number} id 작품 ID
+         * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateArtwork(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: any): AxiosPromise<void> {
+            return localVarFp.updateArtwork(id, updateArtworkRequestDto, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -969,19 +1028,6 @@ export class ArtworkControllerApi extends BaseAPI {
      */
     public createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig) {
         return ArtworkControllerApiFp(this.configuration).createArtwork1(id, createArtworkBatchRequestDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 작품의 작가정보, 작품명, 태그 정보 수정
-     * @summary 작품 정보 수정
-     * @param {number} id 작품 ID
-     * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ArtworkControllerApi
-     */
-    public createArtwork2(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).createArtwork2(id, updateArtworkRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1031,6 +1077,31 @@ export class ArtworkControllerApi extends BaseAPI {
      */
     public getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig) {
         return ArtworkControllerApiFp(this.configuration).getArtworkPageFromPost(id, pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 해당 작품을 해당 전시의 대표 작품으로 설정. 기존 작품은 대표 작품에서 해제됨
+     * @summary 대표 작품 설정
+     * @param {number} id 작품 ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtworkControllerApi
+     */
+    public setMainArtwork(id: number, options?: AxiosRequestConfig) {
+        return ArtworkControllerApiFp(this.configuration).setMainArtwork(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 작품의 작가정보, 작품명, 태그 정보 수정
+     * @summary 작품 정보 수정
+     * @param {number} id 작품 ID
+     * @param {UpdateArtworkRequestDto} updateArtworkRequestDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtworkControllerApi
+     */
+    public updateArtwork(id: number, updateArtworkRequestDto: UpdateArtworkRequestDto, options?: AxiosRequestConfig) {
+        return ArtworkControllerApiFp(this.configuration).updateArtwork(id, updateArtworkRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
