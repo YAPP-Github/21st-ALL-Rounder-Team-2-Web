@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/libs/axios";
 import { CategoryControllerApiFactory } from "@/__generate__/category";
 
-const factory = CategoryControllerApiFactory(undefined, "", axiosInstance);
+const factory = CategoryControllerApiFactory(undefined, undefined, axiosInstance);
 
 export const getCategories = () => {
   return factory.getCategories();

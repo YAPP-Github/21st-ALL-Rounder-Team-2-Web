@@ -4,7 +4,7 @@ import { Artwork } from "@/interfaces/artwork";
 import { axiosInstance } from "@/libs/axios";
 import { ExhibitControllerApiFactory, Pageable } from "@/__generate__/post";
 
-const factory = ExhibitControllerApiFactory(undefined, "", axiosInstance);
+const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
 
 export const getPostPage = (id: number, pageable: Pageable) => {
   return factory.getPostPage(pageable, id);
