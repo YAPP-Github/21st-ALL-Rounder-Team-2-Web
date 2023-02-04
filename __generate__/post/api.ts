@@ -32,31 +32,25 @@ export interface CalendarExhibitResponseDto {
      * @type {number}
      * @memberof CalendarExhibitResponseDto
      */
-    'year'?: number;
+    'year': number;
     /**
      * 월(month)
      * @type {number}
      * @memberof CalendarExhibitResponseDto
      */
-    'month'?: number;
+    'month': number;
     /**
      * 일(day)
      * @type {number}
      * @memberof CalendarExhibitResponseDto
      */
-    'day'?: number;
+    'day': number;
     /**
      * 대표 이미지
      * @type {string}
      * @memberof CalendarExhibitResponseDto
      */
     'imageURL'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CalendarExhibitResponseDto
-     */
-    'published'?: boolean;
 }
 /**
  * 전시 생성 Request
@@ -396,54 +390,6 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 월별로 전시 목록 조회
-         * @summary 월별 전시 조회
-         * @param {number} year yyyy
-         * @param {number} month mm
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPostByMonthly: async (year: number, month: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'year' is not null or undefined
-            assertParamExists('getPostByMonthly', 'year', year)
-            // verify required parameter 'month' is not null or undefined
-            assertParamExists('getPostByMonthly', 'month', month)
-            const localVarPath = `/post/monthly`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwt token required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (year !== undefined) {
-                localVarQueryParameter['year'] = year;
-            }
-
-            if (month !== undefined) {
-                localVarQueryParameter['month'] = month;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
          * @summary 전시 상세 정보 조회
          * @param {number} id 전시 ID
@@ -513,6 +459,54 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
 
             if (pageable !== undefined) {
                 localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 월별로 전시 목록 조회
+         * @summary 월별 전시 조회
+         * @param {number} year yyyy
+         * @param {number} month mm
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostsByMonthly: async (year: number, month: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'year' is not null or undefined
+            assertParamExists('getPostsByMonthly', 'year', year)
+            // verify required parameter 'month' is not null or undefined
+            assertParamExists('getPostsByMonthly', 'month', month)
+            const localVarPath = `/post/monthly`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (year !== undefined) {
+                localVarQueryParameter['year'] = year;
+            }
+
+            if (month !== undefined) {
+                localVarQueryParameter['month'] = month;
             }
 
 
@@ -651,18 +645,6 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 월별로 전시 목록 조회
-         * @summary 월별 전시 조회
-         * @param {number} year yyyy
-         * @param {number} month mm
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPostByMonthly(year: number, month: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CalendarExhibitResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostByMonthly(year, month, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
          * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
          * @summary 전시 상세 정보 조회
          * @param {number} id 전시 ID
@@ -681,8 +663,20 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoDto>> {
+        async getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfo>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPostPage(pageable, id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 월별로 전시 목록 조회
+         * @summary 월별 전시 조회
+         * @param {number} year yyyy
+         * @param {number} month mm
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPostsByMonthly(year: number, month: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CalendarExhibitResponseDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostsByMonthly(year, month, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -748,17 +742,6 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
             return localVarFp.getPost(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 월별로 전시 목록 조회
-         * @summary 월별 전시 조회
-         * @param {number} year yyyy
-         * @param {number} month mm
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPostByMonthly(year: number, month: number, options?: any): AxiosPromise<CalendarExhibitResponseDto> {
-            return localVarFp.getPostByMonthly(year, month, options).then((request) => request(axios, basePath));
-        },
-        /**
          * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
          * @summary 전시 상세 정보 조회
          * @param {number} id 전시 ID
@@ -776,8 +759,19 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPostPage(pageable: Pageable, id: number, options?: any): AxiosPromise<PostInfoDto> {
+        getPostPage(pageable: Pageable, id: number, options?: any): AxiosPromise<PostDetailInfo> {
             return localVarFp.getPostPage(pageable, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 월별로 전시 목록 조회
+         * @summary 월별 전시 조회
+         * @param {number} year yyyy
+         * @param {number} month mm
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostsByMonthly(year: number, month: number, options?: any): AxiosPromise<Array<CalendarExhibitResponseDto>> {
+            return localVarFp.getPostsByMonthly(year, month, options).then((request) => request(axios, basePath));
         },
         /**
          * 임시 저장 전시를 영구 저장
@@ -846,19 +840,6 @@ export class ExhibitControllerApi extends BaseAPI {
     }
 
     /**
-     * 월별로 전시 목록 조회
-     * @summary 월별 전시 조회
-     * @param {number} year yyyy
-     * @param {number} month mm
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ExhibitControllerApi
-     */
-    public getPostByMonthly(year: number, month: number, options?: AxiosRequestConfig) {
-        return ExhibitControllerApiFp(this.configuration).getPostByMonthly(year, month, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
      * 전시 상세 페이지 내 전시 상세 정보 조회. 카테고리 정보, 대표이미지 정보를 포함함.
      * @summary 전시 상세 정보 조회
      * @param {number} id 전시 ID
@@ -881,6 +862,19 @@ export class ExhibitControllerApi extends BaseAPI {
      */
     public getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig) {
         return ExhibitControllerApiFp(this.configuration).getPostPage(pageable, id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 월별로 전시 목록 조회
+     * @summary 월별 전시 조회
+     * @param {number} year yyyy
+     * @param {number} month mm
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getPostsByMonthly(year: number, month: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getPostsByMonthly(year, month, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
