@@ -12,7 +12,7 @@ export interface Props {
   className?: string;
   defaultValue?: Date;
   value?: Date;
-  bgImages?: Record<string, string>;
+  bgImages?: Record<string, { imageURL: string; }>;
   onYearMonth?: (date: Date) => void;
   onSelectedDate?: (date: Date | null) => void;
 }
