@@ -417,13 +417,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    'unsorted'?: boolean;
+    'sorted'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    'sorted'?: boolean;
+    'unsorted'?: boolean;
 }
 /**
  * 태그 Response
