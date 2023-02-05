@@ -10,13 +10,13 @@ import * as S from "./page.styles";
 export default function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
   const { data: postInfo } = useQuery({
-    queryKey: ["postInfo"],
+    queryKey: ["postInfo", exhibitionId],
     queryFn: () => getPostInfoWithCategory(exhibitionId),
   });
 
   const { data: artworkList } = useQuery({
-    queryKey: ["artworkList"],
-    queryFn: () => getArtworkPageFromPost(exhibitionId, {}),
+    queryKey: ["artworkList", exhibitionId],
+    queryFn: () => getArtworkPageFromPost(exhibitionId),
   });
 
   if (!postInfo?.data) return null;
