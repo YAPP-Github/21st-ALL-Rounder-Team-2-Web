@@ -38,7 +38,7 @@ export default function Page({
   const handleThumbnailClick = (index: number) => {
     return (e: MouseEvent) => {
       setActiveArtworkIndex(index);
-      swiper?.slideTo(index);
+      swiper?.slideTo(index - 1);
     };
   };
 
@@ -57,9 +57,9 @@ export default function Page({
       <Swiper
         className="main-swiper"
         onSwiper={(swiper) => setSwiper(swiper)}
-        initialSlide={activeArtworkIndex}
+        initialSlide={activeArtworkIndex - 1}
         onSlideChange={({ activeIndex }) => {
-          setActiveArtworkIndex(activeIndex);
+          setActiveArtworkIndex(activeIndex + 1);
         }}
       >
         {artworkThumbnailList?.map(({ id, imageURL }) => (
