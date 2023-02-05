@@ -128,10 +128,10 @@ export interface ArtworkThumbnailDtoPage {
     'pageable'?: PageableObject;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
-    'last'?: boolean;
+    'totalElements'?: number;
     /**
      * 
      * @type {number}
@@ -140,10 +140,10 @@ export interface ArtworkThumbnailDtoPage {
     'totalPages'?: number;
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof ArtworkThumbnailDtoPage
      */
-    'totalElements'?: number;
+    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -164,16 +164,16 @@ export interface ArtworkThumbnailDtoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'first'?: boolean;
-    /**
-     * 
      * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
     'numberOfElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ArtworkThumbnailDtoPage
+     */
+    'first'?: boolean;
     /**
      * 
      * @type {boolean}
@@ -860,7 +860,7 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ArtworkThumbnailDtoPage>>> {
+        async getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtworkThumbnailDtoPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -958,7 +958,7 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<ArtworkThumbnailDtoPage>> {
+        getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<ArtworkThumbnailDtoPage> {
             return localVarFp.getArtworkPageFromPost(id, size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**

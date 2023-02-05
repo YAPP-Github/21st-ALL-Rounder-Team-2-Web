@@ -147,6 +147,49 @@ export interface FieldError {
     'reason'?: string;
 }
 /**
+ * 
+ * @export
+ * @interface PageableObject
+ */
+export interface PageableObject {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'offset'?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageableObject
+     */
+    'sort'?: Sort;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageSize'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'paged'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'unpaged'?: boolean;
+}
+/**
  * 전시 Response
  * @export
  * @interface PostDetailInfo
@@ -196,6 +239,79 @@ export interface PostDetailInfo {
     'published'?: boolean;
 }
 /**
+ * 
+ * @export
+ * @interface PostDetailInfoPage
+ */
+export interface PostDetailInfoPage {
+    /**
+     * 
+     * @type {Array<PostDetailInfo>}
+     * @memberof PostDetailInfoPage
+     */
+    'content'?: Array<PostDetailInfo>;
+    /**
+     * 
+     * @type {PageableObject}
+     * @memberof PostDetailInfoPage
+     */
+    'pageable'?: PageableObject;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'totalElements'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostDetailInfoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'number'?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PostDetailInfoPage
+     */
+    'sort'?: Sort;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'numberOfElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostDetailInfoPage
+     */
+    'first'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostDetailInfoPage
+     */
+    'empty'?: boolean;
+}
+/**
  * 전시 Response
  * @export
  * @interface PostInfoDto
@@ -225,6 +341,31 @@ export interface PostInfoDto {
      * @memberof PostInfoDto
      */
     'published'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface Sort
+ */
+export interface Sort {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Sort
+     */
+    'empty'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Sort
+     */
+    'sorted'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Sort
+     */
+    'unsorted'?: boolean;
 }
 /**
  * 전시 수정 Request
@@ -664,7 +805,7 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostDetailInfo>>> {
+        async getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfoPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -710,7 +851,7 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostDetailInfo>>> {
+        async getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfoPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPostPage(id, size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -778,7 +919,7 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<PostDetailInfo>> {
+        getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<PostDetailInfoPage> {
             return localVarFp.getAllPostPage(size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**
@@ -820,7 +961,7 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<PostDetailInfo>> {
+        getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<PostDetailInfoPage> {
             return localVarFp.getPostPage(id, size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**
