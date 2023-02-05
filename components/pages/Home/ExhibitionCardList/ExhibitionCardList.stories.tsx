@@ -16,46 +16,60 @@ export const Primary = Template.bind({});
 Primary.args = {
   fixedExhibition: {
     id: 123,
-    imageUrl: "https://picsum.photos/358",
-    title: "목조형가구학과 졸전",
-    date: "2022. 11. 08",
+    mainImage: "https://picsum.photos/358",
+    name: "목조형가구학과 졸전",
+    postDate: "2022. 11. 08",
+    categoryId: 1,
+    categoryName: 'test'
   },
   exhibitionList: [
     {
       id: 1,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
     {
       id: 2,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
     {
       id: 3,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
     {
       id: 4,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
     {
       id: 5,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
     {
       id: 6,
-      imageUrl: "https://picsum.photos/358",
-      title: "전시회명어쩌구저쩌구",
-      date: "2022. 11. 08",
+      mainImage: "https://picsum.photos/358",
+      name: "전시회명어쩌구저쩌구",
+      postDate: "2022. 11. 08",
+      categoryId: 1,
+      categoryName: 'test'
     },
   ],
 };

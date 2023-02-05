@@ -6,11 +6,11 @@ import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/E
 import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
-import { Exhibition } from "@/interfaces/exhibition";
-import { getExhibitionList, togglePinById } from "@/apis/exhibition";
-import { getMockCategories } from "@/apis/category";
+import { getAllPostPage, togglePinById } from "@/apis/exhibition";
+import { getCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
+import { PostDetailInfo } from "@/__generate__/post";
 import * as S from "./page.styles";
 
 export default function PageWrapper() {
@@ -22,9 +22,9 @@ export default function PageWrapper() {
 }
 
 function Page() {
-  const categoriesQuery = useQuery({
+  const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: getMockCategories,
+    queryFn: getCategories,
   });
 
   const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
@@ -35,26 +35,27 @@ function Page() {
     selectCategoryByIndex: handleSelectFilter,
   } = useSelectCategory();
 
-  const exhibitionListQuery = useQuery({
-    queryKey: ["exhibitionList"],
-    queryFn: getExhibitionList,
+  const { data: allPostInfo } = useQuery({
+    queryKey: ["getAllPostPage"],
+    queryFn: () => getAllPostPage({ page: 0, size: 100 }),
   });
 
   const [pins, setPins] = useState<Record<string, boolean>>({});
   const exhibitionListWithPin = useMemo(() => {
-    return (exhibitionListQuery.data ?? []).map((item) => {
+    const posts = allPostInfo?.content ?? []
+    return posts.map((item) => {
       return {
         ...item,
         isPin: Boolean(pins[item.id]),
       };
     });
-  }, [exhibitionListQuery.data, pins]);
+  }, [allPostInfo, pins]);
   const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
   const handleTogglePin = useCallback(
-    async (e: React.MouseEvent, item: Exhibition) => {
+    async (e: React.MouseEvent, item: PostDetailInfo) => {
       const id = String(item.id);
       setPins((pins) => {
         return {
@@ -76,7 +77,7 @@ function Page() {
       <AppBar />
       <S.CategoryListStyled
         activeIndex={selectedIndex}
-        items={categoriesQuery?.data ?? []}
+        items={categories ?? []}
         onSelected={handleSelectCategory}
         onRegister={handleRegisterCategory}
       />

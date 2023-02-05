@@ -133,40 +133,6 @@ export const CategoryControllerApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * 기본 사용자 카테고리 생성
-         * @summary 기본 카테고리 생성
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createCategories1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/category/initialize`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication jwt token required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 사용자 카테고리 삭제
          * @summary 카테고리 삭제
          * @param {number} id 
@@ -283,7 +249,7 @@ export const CategoryControllerApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * 카테고리 순서를 변경합니다. 변경을 원하는 순서로 정렬시켜 배열에 담아 전달해주세요. 
          * @summary 카테고리 순서 변경
          * @param {Array<CategoryDto>} categoryDto 
          * @param {*} [options] Override http request option.
@@ -344,16 +310,6 @@ export const CategoryControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 기본 사용자 카테고리 생성
-         * @summary 기본 카테고리 생성
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createCategories1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateCategoryResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createCategories1(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
          * 사용자 카테고리 삭제
          * @summary 카테고리 삭제
          * @param {number} id 
@@ -370,7 +326,7 @@ export const CategoryControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCategories(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CategoryDto>> {
+        async getCategories(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CategoryDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCategories(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -387,7 +343,7 @@ export const CategoryControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * 카테고리 순서를 변경합니다. 변경을 원하는 순서로 정렬시켜 배열에 담아 전달해주세요. 
          * @summary 카테고리 순서 변경
          * @param {Array<CategoryDto>} categoryDto 
          * @param {*} [options] Override http request option.
@@ -418,15 +374,6 @@ export const CategoryControllerApiFactory = function (configuration?: Configurat
             return localVarFp.createCategories(createCategoryRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
-         * 기본 사용자 카테고리 생성
-         * @summary 기본 카테고리 생성
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createCategories1(options?: any): AxiosPromise<CreateCategoryResponseDto> {
-            return localVarFp.createCategories1(options).then((request) => request(axios, basePath));
-        },
-        /**
          * 사용자 카테고리 삭제
          * @summary 카테고리 삭제
          * @param {number} id 
@@ -442,7 +389,7 @@ export const CategoryControllerApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCategories(options?: any): AxiosPromise<CategoryDto> {
+        getCategories(options?: any): AxiosPromise<Array<CategoryDto>> {
             return localVarFp.getCategories(options).then((request) => request(axios, basePath));
         },
         /**
@@ -457,7 +404,7 @@ export const CategoryControllerApiFactory = function (configuration?: Configurat
             return localVarFp.updateCategory(id, updateCategoryRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
-         * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+         * 카테고리 순서를 변경합니다. 변경을 원하는 순서로 정렬시켜 배열에 담아 전달해주세요. 
          * @summary 카테고리 순서 변경
          * @param {Array<CategoryDto>} categoryDto 
          * @param {*} [options] Override http request option.
@@ -486,17 +433,6 @@ export class CategoryControllerApi extends BaseAPI {
      */
     public createCategories(createCategoryRequestDto: CreateCategoryRequestDto, options?: AxiosRequestConfig) {
         return CategoryControllerApiFp(this.configuration).createCategories(createCategoryRequestDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 기본 사용자 카테고리 생성
-     * @summary 기본 카테고리 생성
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CategoryControllerApi
-     */
-    public createCategories1(options?: AxiosRequestConfig) {
-        return CategoryControllerApiFp(this.configuration).createCategories1(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -536,7 +472,7 @@ export class CategoryControllerApi extends BaseAPI {
     }
 
     /**
-     * 카테고리 순서를 변경합니다. 전체 카테고리에서 기본 카테고리를 제외하고 배열에 담아 변경을 원하는 순서로 정렬시켜 전달해야 합니다. 요청되는 카테고리에 기본 카테고리가 포함되어 있으면 정상적인 작동을 기대하기 어렵습니다. 주의 부탁드립니다.
+     * 카테고리 순서를 변경합니다. 변경을 원하는 순서로 정렬시켜 배열에 담아 전달해주세요. 
      * @summary 카테고리 순서 변경
      * @param {Array<CategoryDto>} categoryDto 
      * @param {*} [options] Override http request option.
