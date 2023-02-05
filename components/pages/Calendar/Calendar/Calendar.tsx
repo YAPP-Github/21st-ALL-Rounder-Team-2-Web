@@ -28,6 +28,7 @@ export const Calendar = (props: Props) => {
   } = props;
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
+  const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
 
   useEffect(() => {
     if (!yearMonth) {
@@ -37,7 +38,7 @@ export const Calendar = (props: Props) => {
       year: yearMonth.getFullYear(),
       month: yearMonth.getMonth() + 1,
     });
-  }, [yearMonth]);
+  }, [yearMonthKey]);
 
   const handleOpenPicker = useCallback(() => {
     setShowPicker(true);

@@ -10,6 +10,7 @@ import { getPostsByMonthly } from "@/apis/calendar";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "qs";
+import { sendMessage } from "@/libs/message/message";
 
 export default function PageWrapper() {
   return (
@@ -51,7 +52,9 @@ function Page() {
     }, {}),
   };
 
-  const handleGoBackClick = useCallback(() => {}, []);
+  const handleGoBackClick = useCallback(() => {
+    sendMessage(["GO_BACK"]);
+  }, []);
 
   const handleYearMonth = useCallback(
     (date: Date) => {
@@ -66,7 +69,8 @@ function Page() {
 
   const handleSelectedDate = useCallback((date: Date | null) => {
     setValue(date);
-  }, []);
+    date && handleYearMonth(date)
+  }, [handleYearMonth]);
 
   return (
     <S.Wrapper>
