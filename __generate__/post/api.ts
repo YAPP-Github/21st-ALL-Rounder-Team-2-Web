@@ -318,6 +318,47 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
+         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
+         * @summary 홈 화면 전시 조회(전체 기록)
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllPostPage: async (pageable: Pageable, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pageable' is not null or undefined
+            assertParamExists('getAllPostPage', 'pageable', pageable)
+            const localVarPath = `/post/home`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageable !== undefined) {
+                localVarQueryParameter['pageable'] = pageable;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 임시 저장된 전시 목록 조회
          * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
@@ -429,7 +470,7 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
         },
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
-         * @summary 홈 화면 전시 조회
+         * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {Pageable} pageable 
          * @param {number} id 
          * @param {*} [options] Override http request option.
@@ -624,6 +665,17 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
+         * @summary 홈 화면 전시 조회(전체 기록)
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllPostPage(pageable: Pageable, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(pageable, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * 임시 저장된 전시 목록 조회
          * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
@@ -657,7 +709,7 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
-         * @summary 홈 화면 전시 조회
+         * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {Pageable} pageable 
          * @param {number} id 
          * @param {*} [options] Override http request option.
@@ -723,6 +775,16 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
             return localVarFp.createPost(createExhibitRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
+         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
+         * @summary 홈 화면 전시 조회(전체 기록)
+         * @param {Pageable} pageable 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllPostPage(pageable: Pageable, options?: any): AxiosPromise<PostDetailInfo> {
+            return localVarFp.getAllPostPage(pageable, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 임시 저장된 전시 목록 조회
          * @summary 임시 저장 전시 조회
          * @param {*} [options] Override http request option.
@@ -753,7 +815,7 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
         },
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
-         * @summary 홈 화면 전시 조회
+         * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {Pageable} pageable 
          * @param {number} id 
          * @param {*} [options] Override http request option.
@@ -817,6 +879,18 @@ export class ExhibitControllerApi extends BaseAPI {
     }
 
     /**
+     * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
+     * @summary 홈 화면 전시 조회(전체 기록)
+     * @param {Pageable} pageable 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getAllPostPage(pageable: Pageable, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getAllPostPage(pageable, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * 임시 저장된 전시 목록 조회
      * @summary 임시 저장 전시 조회
      * @param {*} [options] Override http request option.
@@ -853,7 +927,7 @@ export class ExhibitControllerApi extends BaseAPI {
 
     /**
      * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
-     * @summary 홈 화면 전시 조회
+     * @summary 홈 화면 전시 조회(특정 카테고리)
      * @param {Pageable} pageable 
      * @param {number} id 
      * @param {*} [options] Override http request option.
