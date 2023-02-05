@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import Link from "next/link";
-import { Artwork } from "@/interfaces/artwork";
+import { ArtworkThumbnailDto } from "@/__generate__/artwork";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
@@ -9,7 +9,7 @@ import ArtworkCard from "../ArtworkCard/ArtworkCard";
 import * as S from "./ArtworkCardList.styles";
 
 interface Props {
-  artworkList: Array<Artwork>;
+  artworkList: Array<ArtworkThumbnailDto>;
 }
 
 const ArtworkCardList = ({ artworkList }: Props) => {
