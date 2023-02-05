@@ -5,11 +5,11 @@ import * as S from "./page.styles";
 import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import Calendar from "@/components/pages/Calendar/Calendar/Calendar";
 import "antd-mobile/bundle/style.css";
-import { today, toYYYYMMDD } from "@/utils/datetime";
-import { useRouter } from "next/router";
-import { getPostByMonthly } from "@/apis/calendar";
+import { getDateByYearAndMonth, today, toYYYYMMDD } from "@/utils/datetime";
+import { getPostsByMonthly } from "@/apis/calendar";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import qs from "qs";
 
 export default function PageWrapper() {
   return (
@@ -21,25 +21,52 @@ export default function PageWrapper() {
 
 function Page() {
   const searchParams = useSearchParams();
-  const year = searchParams.get('year') ?? today().getFullYear();
-  const month = searchParams.get('month') ?? today().getMonth();
-  const bgImages = {
-    [toYYYYMMDD()]: { imageURL: "https://picsum.photos/358" },
-  };
+  const router = useRouter();
+  const year = searchParams.get("year") ?? today().getFullYear();
+  const yearNum = Number(year);
+  const month = searchParams.get("month") ?? today().getMonth();
+  const monthNum = Number(month) - 1;
+  const [value, setValue] = useState<Date | null>(new Date());
 
-  const { data: postByMontly } = useQuery({
-    queryKey: ["postByMonthly"],
+  const { data: postsByMontly } = useQuery({
+    queryKey: ["postsByMontly"],
     queryFn: () =>
-      getPostByMonthly({
-        year: Number(year),
-        month: Number(month),
+      getPostsByMonthly({
+        year: yearNum,
+        month: monthNum + 1,
       }),
     suspense: true,
   });
 
-  console.log(postByMontly);
+  const bgImages = {
+    [toYYYYMMDD()]: { imageURL: "https://picsum.photos/358" },
+    ...postsByMontly?.reduce?.((res, item) => {
+      const { year, month, day } = item;
+      return {
+        ...res,
+        [`${year}${month}${day}`]: {
+          imageURL: item.imageURL,
+        },
+      };
+    }, {}),
+  };
 
-  const handleGoBackClick = () => {};
+  const handleGoBackClick = useCallback(() => {}, []);
+
+  const handleYearMonth = useCallback(
+    (date: Date) => {
+      const queryParams = qs.stringify({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+      });
+      router.replace(`/calendar?${queryParams}`);
+    },
+    [router]
+  );
+
+  const handleSelectedDate = useCallback((date: Date | null) => {
+    setValue(date);
+  }, []);
 
   return (
     <S.Wrapper>
@@ -48,7 +75,13 @@ function Page() {
         onGoBackClick={handleGoBackClick}
       />
       <S.Content>
-        <Calendar bgImages={bgImages} />
+        <Calendar
+          value={value}
+          yearMonth={getDateByYearAndMonth(yearNum, monthNum)}
+          bgImages={bgImages}
+          onYearMonth={handleYearMonth}
+          onSelectedDate={handleSelectedDate}
+        />
       </S.Content>
     </S.Wrapper>
   );
