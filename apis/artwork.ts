@@ -10,3 +10,7 @@ export const getArtworkPageFromPost = (
 ) => {
   return factory.getArtworkPageFromPost(exhibitionId, size, page);
 };
+
+export const getArtworkInfo = (artworkId: number) => {
+  return factory.getArtworkInfo(artworkId);
+};

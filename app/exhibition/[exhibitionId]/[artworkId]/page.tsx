@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as TSwiper } from "swiper/types";
+import { getArtworkPageFromPost, getArtworkInfo } from "@/apis/artwork";
 import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import Tag from "@/components/ui/Tag/Tag/Tag";
-import { getArtworkInfo, getArtworkList } from "@/apis/exhibition";
 import * as S from "./page.styles";
 import "swiper/css";
 import "./slider.css";
@@ -17,19 +17,23 @@ export default function Page({
 }: {
   params: { exhibitionId: string; artworkId: string };
 }) {
-  const { exhibitionId, artworkId } = params;
-  const { data: artworkInfo } = useQuery({
-    queryKey: ["artwork", artworkId],
-    queryFn: () => getArtworkInfo(artworkId),
-  });
-
-  const { data: artworkList } = useQuery({
-    queryKey: ["artworkList", exhibitionId],
-    queryFn: () => getArtworkList(exhibitionId),
-  });
+  const exhibitionId = Number(params.exhibitionId);
+  const artworkId = Number(params.artworkId);
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
-  const [activeArtworkIndex, setActiveArtworkIndex] = useState(0);
+  const [activeArtworkIndex, setActiveArtworkIndex] = useState(artworkId);
+
+  const { data: artworkInfo } = useQuery({
+    queryKey: ["artworkInfo", activeArtworkIndex],
+    queryFn: () => getArtworkInfo(activeArtworkIndex),
+    select: (data) => data.data,
+  });
+
+  const { data: artworkThumbnailList } = useQuery({
+    queryKey: ["artworkList", exhibitionId],
+    queryFn: () => getArtworkPageFromPost(exhibitionId),
+    select: (data) => data.data.content,
+  });
 
   const handleThumbnailClick = (index: number) => {
     return (e: MouseEvent) => {
@@ -53,23 +57,26 @@ export default function Page({
       <Swiper
         className="main-swiper"
         onSwiper={(swiper) => setSwiper(swiper)}
-        onSlideChange={({ activeIndex }) => setActiveArtworkIndex(activeIndex)}
+        initialSlide={activeArtworkIndex}
+        onSlideChange={({ activeIndex }) => {
+          setActiveArtworkIndex(activeIndex);
+        }}
       >
-        {artworkList?.map(({ id, imageUrl }) => (
+        {artworkThumbnailList?.map(({ id, imageURL }) => (
           <SwiperSlide key={id}>
             <Image
               alt="작품 사진"
-              src={imageUrl}
+              src={imageURL}
               fill
               style={{ objectFit: "contain" }}
             />
             <S.ArtworkInfoWrapper>
-              <S.Title>{artworkInfo?.title}</S.Title>
+              <S.Title>{artworkInfo?.name}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
               <S.TagList>
-                {artworkInfo?.tags?.map((tag) => (
-                  <li key={tag}>
-                    <Tag name={tag} />
+                {artworkInfo?.tags?.map(({ id, name }) => (
+                  <li key={id}>
+                    <Tag name={name} />
                   </li>
                 ))}
               </S.TagList>
@@ -78,15 +85,15 @@ export default function Page({
         ))}
       </Swiper>
       <S.ThumbnailList>
-        {artworkList?.map(({ imageUrl }, i) => (
+        {artworkThumbnailList?.map(({ id, imageURL }) => (
           <S.ThumbnailItem
-            key={i}
-            isActive={i === activeArtworkIndex}
-            onClick={handleThumbnailClick(i)}
+            key={id}
+            isActive={id === activeArtworkIndex}
+            onClick={handleThumbnailClick(id)}
           >
             <Image
               alt="thumbnail"
-              src={imageUrl}
+              src={imageURL}
               fill
               style={{ borderRadius: "2px" }}
             />

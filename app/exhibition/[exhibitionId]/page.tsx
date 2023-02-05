@@ -25,7 +25,10 @@ export default function Page({ params }: { params: { exhibitionId: string } }) {
     <S.Wrapper>
       <ExhibitionInfoHeader postInfo={postInfo.data} />
       <S.Content>
-        <ArtworkCardList artworkList={artworkList?.data?.content ?? []} />
+        <ArtworkCardList
+          exhibitionId={exhibitionId}
+          artworkList={artworkList?.data?.content ?? []}
+        />
       </S.Content>
     </S.Wrapper>
   );
