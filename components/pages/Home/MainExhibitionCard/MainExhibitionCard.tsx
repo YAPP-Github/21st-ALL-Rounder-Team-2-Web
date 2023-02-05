@@ -1,28 +1,29 @@
 import Image from "next/image";
 import React from "react";
-import { Exhibition } from "@/interfaces/exhibition";
 import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 
 import * as S from "./MainExhibitionCard.styles";
+import { PostDetailInfo } from "@/__generate__/post";
+import { DEFAULT_IMAGE } from "@/utils/image";
 
-interface Props extends Exhibition {
+interface Props extends PostDetailInfo {
   isPin?: boolean;
   onTogglePin?: (e: React.MouseEvent) => void;
 }
 
 export const MainExhibitionCard = (props: Props) => {
-  const { isPin, onTogglePin, imageUrl, title, date } = props;
+  const { isPin, onTogglePin, mainImage, name, postDate } = props;
   return (
     <S.Wrapper>
       <Image
         alt="thumbnail"
-        src={imageUrl}
+        src={mainImage ?? DEFAULT_IMAGE}
         fill
         style={{ objectFit: "cover" }}
       />
       <S.InfoContainer>
-        <S.TitleTextSpan>{title}</S.TitleTextSpan>
-        <S.DateTextSpan>{date}</S.DateTextSpan>
+        <S.TitleTextSpan>{name}</S.TitleTextSpan>
+        <S.DateTextSpan>{postDate}</S.DateTextSpan>
       </S.InfoContainer>
       <S.PinButton>
         <IconButton
