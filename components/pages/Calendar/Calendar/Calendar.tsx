@@ -10,9 +10,9 @@ import { toYYYYMMDD } from "@/utils/datetime";
 
 export interface Props {
   className?: string;
-  defaultValue?: Date;
-  value?: Date;
-  bgImages?: Record<string, string>;
+  value?: Date | null;
+  yearMonth?: Date;
+  bgImages?: Record<string, { imageURL: string }>;
   onYearMonth?: (date: Date) => void;
   onSelectedDate?: (date: Date | null) => void;
 }
@@ -20,22 +20,25 @@ export interface Props {
 export const Calendar = (props: Props) => {
   const {
     className,
-    defaultValue = new Date(),
-    value,
+    value = new Date(),
+    yearMonth = new Date(),
     bgImages,
     onYearMonth,
     onSelectedDate,
   } = props;
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
-  const [yearMonth, setYearMonth] = useState(defaultValue);
+  const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
 
   useEffect(() => {
+    if (!yearMonth) {
+      return;
+    }
     calendarRef?.current?.jumpTo?.({
       year: yearMonth.getFullYear(),
       month: yearMonth.getMonth() + 1,
     });
-  }, [yearMonth]);
+  }, [yearMonthKey]);
 
   const handleOpenPicker = useCallback(() => {
     setShowPicker(true);
@@ -47,7 +50,6 @@ export const Calendar = (props: Props) => {
 
   const handleConfirmPicker = useCallback(
     (val: PickerDate) => {
-      setYearMonth(val);
       onYearMonth?.(val);
     },
     [onYearMonth]
@@ -72,13 +74,14 @@ export const Calendar = (props: Props) => {
           ref={calendarRef}
           className={className}
           selectionMode="single"
-          defaultValue={defaultValue}
           value={value}
           renderDate={(date) => {
             const bgImage = bgImages?.[toYYYYMMDD(date)];
             return (
               <>
-                {bgImage ? <S.DateBackgroundLabel src={bgImage} /> : null}
+                {bgImage ? (
+                  <S.DateBackgroundLabel src={bgImage?.imageURL} />
+                ) : null}
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
               </>
             );

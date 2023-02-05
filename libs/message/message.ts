@@ -26,6 +26,7 @@ export type Actions = {
     },
     NAVIGATE_TO_CAMERA: {},
     NAVIGATE_TO_GALLERY: {},
+    GO_BACK: {},
 }
 
 export type ActionNames = keyof Actions;
