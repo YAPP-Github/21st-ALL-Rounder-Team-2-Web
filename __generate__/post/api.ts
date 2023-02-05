@@ -147,31 +147,6 @@ export interface FieldError {
     'reason'?: string;
 }
 /**
- * 
- * @export
- * @interface Pageable
- */
-export interface Pageable {
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'page'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'size'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Pageable
-     */
-    'sort'?: Array<string>;
-}
-/**
  * 전시 Response
  * @export
  * @interface PostDetailInfo
@@ -320,13 +295,13 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
         /**
          * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
          * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPostPage: async (pageable: Pageable, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('getAllPostPage', 'pageable', pageable)
+        getAllPostPage: async (size?: number, page?: number, direction?: 'ASC' | 'DESC', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/post/home`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -343,8 +318,16 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (pageable !== undefined) {
-                localVarQueryParameter['pageable'] = pageable;
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (direction !== undefined) {
+                localVarQueryParameter['direction'] = direction;
             }
 
 
@@ -471,14 +454,14 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
          * @summary 홈 화면 전시 조회(특정 카테고리)
-         * @param {Pageable} pageable 
          * @param {number} id 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPostPage: async (pageable: Pageable, id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('getPostPage', 'pageable', pageable)
+        getPostPage: async (id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getPostPage', 'id', id)
             const localVarPath = `/post/home/{id}`
@@ -498,8 +481,16 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (pageable !== undefined) {
-                localVarQueryParameter['pageable'] = pageable;
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (direction !== undefined) {
+                localVarQueryParameter['direction'] = direction;
             }
 
 
@@ -667,12 +658,14 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
         /**
          * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
          * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllPostPage(pageable: Pageable, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(pageable, options);
+        async getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostDetailInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -681,7 +674,7 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDraftPosts(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoDto>> {
+        async getDraftPosts(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostInfoDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftPosts(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -710,13 +703,15 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
          * @summary 홈 화면 전시 조회(특정 카테고리)
-         * @param {Pageable} pageable 
          * @param {number} id 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostPage(pageable, id, options);
+        async getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostDetailInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostPage(id, size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -777,12 +772,14 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
         /**
          * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
          * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPostPage(pageable: Pageable, options?: any): AxiosPromise<PostDetailInfo> {
-            return localVarFp.getAllPostPage(pageable, options).then((request) => request(axios, basePath));
+        getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<PostDetailInfo>> {
+            return localVarFp.getAllPostPage(size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**
          * 임시 저장된 전시 목록 조회
@@ -790,7 +787,7 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDraftPosts(options?: any): AxiosPromise<PostInfoDto> {
+        getDraftPosts(options?: any): AxiosPromise<Array<PostInfoDto>> {
             return localVarFp.getDraftPosts(options).then((request) => request(axios, basePath));
         },
         /**
@@ -816,13 +813,15 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
         /**
          * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
          * @summary 홈 화면 전시 조회(특정 카테고리)
-         * @param {Pageable} pageable 
          * @param {number} id 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPostPage(pageable: Pageable, id: number, options?: any): AxiosPromise<PostDetailInfo> {
-            return localVarFp.getPostPage(pageable, id, options).then((request) => request(axios, basePath));
+        getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<PostDetailInfo>> {
+            return localVarFp.getPostPage(id, size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**
          * 월별로 전시 목록 조회
@@ -881,13 +880,15 @@ export class ExhibitControllerApi extends BaseAPI {
     /**
      * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
      * @summary 홈 화면 전시 조회(전체 기록)
-     * @param {Pageable} pageable 
+     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+     * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExhibitControllerApi
      */
-    public getAllPostPage(pageable: Pageable, options?: AxiosRequestConfig) {
-        return ExhibitControllerApiFp(this.configuration).getAllPostPage(pageable, options).then((request) => request(this.axios, this.basePath));
+    public getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getAllPostPage(size, page, direction, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -928,14 +929,16 @@ export class ExhibitControllerApi extends BaseAPI {
     /**
      * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
      * @summary 홈 화면 전시 조회(특정 카테고리)
-     * @param {Pageable} pageable 
      * @param {number} id 
+     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+     * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExhibitControllerApi
      */
-    public getPostPage(pageable: Pageable, id: number, options?: AxiosRequestConfig) {
-        return ExhibitControllerApiFp(this.configuration).getPostPage(pageable, id, options).then((request) => request(this.axios, this.basePath));
+    public getPostPage(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getPostPage(id, size, page, direction, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

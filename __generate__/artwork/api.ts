@@ -128,6 +128,12 @@ export interface ArtworkThumbnailDtoPage {
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {boolean}
+     * @memberof ArtworkThumbnailDtoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
@@ -138,12 +144,6 @@ export interface ArtworkThumbnailDtoPage {
      * @memberof ArtworkThumbnailDtoPage
      */
     'totalElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -164,16 +164,16 @@ export interface ArtworkThumbnailDtoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof ArtworkThumbnailDtoPage
      */
     'first'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworkThumbnailDtoPage
+     */
+    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -331,31 +331,6 @@ export interface FieldError {
      * @memberof FieldError
      */
     'reason'?: string;
-}
-/**
- * 
- * @export
- * @interface Pageable
- */
-export interface Pageable {
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'page'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    'size'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Pageable
-     */
-    'sort'?: Array<string>;
 }
 /**
  * 
@@ -678,15 +653,15 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
          * 전시 상세 페이지의 작품 목록 조회
          * @summary 전시의 작품 목록 조회
          * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost: async (id: number, pageable: Pageable, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getArtworkPageFromPost: async (id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getArtworkPageFromPost', 'id', id)
-            // verify required parameter 'pageable' is not null or undefined
-            assertParamExists('getArtworkPageFromPost', 'pageable', pageable)
             const localVarPath = `/artwork/post/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -704,8 +679,16 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (pageable !== undefined) {
-                localVarQueryParameter['pageable'] = pageable;
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (direction !== undefined) {
+                localVarQueryParameter['direction'] = direction;
             }
 
 
@@ -871,12 +854,14 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
          * 전시 상세 페이지의 작품 목록 조회
          * @summary 전시의 작품 목록 조회
          * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtworkThumbnailDtoPage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, pageable, options);
+        async getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ArtworkThumbnailDtoPage>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getArtworkPageFromPost(id, size, page, direction, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -967,12 +952,14 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
          * 전시 상세 페이지의 작품 목록 조회
          * @summary 전시의 작품 목록 조회
          * @param {number} id 전시 ID
-         * @param {Pageable} pageable 
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArtworkPageFromPost(id: number, pageable: Pageable, options?: any): AxiosPromise<ArtworkThumbnailDtoPage> {
-            return localVarFp.getArtworkPageFromPost(id, pageable, options).then((request) => request(axios, basePath));
+        getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<Array<ArtworkThumbnailDtoPage>> {
+            return localVarFp.getArtworkPageFromPost(id, size, page, direction, options).then((request) => request(axios, basePath));
         },
         /**
          * 해당 작품을 해당 전시의 대표 작품으로 설정. 기존 작품은 대표 작품에서 해제됨
@@ -1070,13 +1057,15 @@ export class ArtworkControllerApi extends BaseAPI {
      * 전시 상세 페이지의 작품 목록 조회
      * @summary 전시의 작품 목록 조회
      * @param {number} id 전시 ID
-     * @param {Pageable} pageable 
+     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+     * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArtworkControllerApi
      */
-    public getArtworkPageFromPost(id: number, pageable: Pageable, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).getArtworkPageFromPost(id, pageable, options).then((request) => request(this.axios, this.basePath));
+    public getArtworkPageFromPost(id: number, size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig) {
+        return ArtworkControllerApiFp(this.configuration).getArtworkPageFromPost(id, size, page, direction, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
