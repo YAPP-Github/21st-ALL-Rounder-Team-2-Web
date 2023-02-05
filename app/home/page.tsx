@@ -7,7 +7,7 @@ import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
 import { getAllPostPage, togglePinById } from "@/apis/exhibition";
-import { getMockCategories } from "@/apis/category";
+import { getCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
@@ -22,9 +22,9 @@ export default function PageWrapper() {
 }
 
 function Page() {
-  const categoriesQuery = useQuery({
+  const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: getMockCategories,
+    queryFn: getCategories,
   });
 
   const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
@@ -38,7 +38,6 @@ function Page() {
   const { data: allPostInfo } = useQuery({
     queryKey: ["getAllPostPage"],
     queryFn: () => getAllPostPage({ page: 0, size: 100 }),
-    suspense: true,
   });
 
   const [pins, setPins] = useState<Record<string, boolean>>({});
@@ -78,7 +77,7 @@ function Page() {
       <AppBar />
       <S.CategoryListStyled
         activeIndex={selectedIndex}
-        items={categoriesQuery?.data ?? []}
+        items={categories ?? []}
         onSelected={handleSelectCategory}
         onRegister={handleRegisterCategory}
       />
