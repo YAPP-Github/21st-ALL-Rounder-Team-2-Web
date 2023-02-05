@@ -4,11 +4,25 @@ import { Artwork } from "@/interfaces/artwork";
 import { axiosInstance } from "@/libs/axios";
 import { ExhibitControllerApiFactory } from "@/__generate__/post";
 
-const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
+const factory = ExhibitControllerApiFactory(
+  undefined,
+  undefined,
+  axiosInstance
+);
 
 export const getPostPage = (id: number, pagable: { size: number; page: number }) => {
   const { size, page } = pagable
   return factory.getPostPage(id, size, page);
+};
+
+export const getAllPostPage = async (pagable: { size: number; page: number }) => {
+  const { size, page } = pagable
+  try {
+    const response = await factory.getAllPostPage(size, page);
+    return response.data;
+  } catch (err) {
+    return null;
+  }
 };
 
 export const getExhibitionList = (): Promise<Exhibition[]> => {

@@ -1,3 +1,4 @@
+import { CategoryDto } from "@/__generate__/category";
 import React, { useCallback } from "react";
 import { Category } from "../Category/Category";
 import * as S from "./CategoryList.styles";
@@ -5,7 +6,7 @@ import * as S from "./CategoryList.styles";
 interface Props {
   className?: string;
   activeIndex?: number;
-  items: Array<{ text: string; active: boolean; }>;
+  items: CategoryDto[];
   onSelected: (index: number) => void;
   onRegister: () => void;
 }
@@ -13,17 +14,27 @@ interface Props {
 export const CategoryList = (props: Props) => {
   const { className, activeIndex, items = [], onSelected, onRegister } = props;
 
-  const handleSelectCategory = useCallback((index: number) => {
-    return () => {
-      onSelected(index)
-    }
-  }, [onSelected])
+  const handleSelectCategory = useCallback(
+    (index: number) => {
+      return () => {
+        onSelected(index);
+      };
+    },
+    [onSelected]
+  );
 
   return (
     <S.Wrapper className={className}>
       {items.map((item, index) => {
-        const { text } = item
-        return <Category key={text} active={activeIndex === index} text={text} onClick={handleSelectCategory(index)} />;
+        const { id, name } = item;
+        return (
+          <Category
+            key={id}
+            active={activeIndex === index}
+            text={name}
+            onClick={handleSelectCategory(index)}
+          />
+        );
       })}
     </S.Wrapper>
   );
