@@ -14,3 +14,11 @@ export const getArtworkPageFromPost = (
 export const getArtworkInfo = (artworkId: number) => {
   return factory.getArtworkInfo(artworkId);
 };
+
+export const setMainArtwork = (artworkId: number) => {
+  return factory.setMainArtwork(artworkId);
+};
+
+export const deleteArtwork = (artworkId: number) => {
+  return factory.deleteArtwork(artworkId);
+};
