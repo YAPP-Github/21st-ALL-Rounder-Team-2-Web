@@ -74,5 +74,7 @@ export const togglePinById = (id: string) => {
   return Promise.resolve(true);
 };
 
-export const getPostInfoWithCategory = (id: number) =>
-  factory.getPostInfoWithCategory(id);
+export const getPostInfoWithCategory = async (id: number) => {
+  const response = await factory.getPostInfoWithCategory(id);
+  return response.data;
+};

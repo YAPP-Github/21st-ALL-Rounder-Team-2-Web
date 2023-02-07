@@ -1,8 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArtworkThumbnailDto } from "@/__generate__/artwork";
-import { setMainArtwork, deleteArtwork } from "@/apis/artwork";
+import { useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
@@ -17,22 +16,8 @@ interface Props {
 
 const ArtworkCardList = ({ exhibitionId, artworkList }: Props) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const setMainArtworkMutation = useMutation({
-    mutationFn: (artworkId: number) => setMainArtwork(artworkId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["postInfo", exhibitionId] });
-    },
-  });
-  const deleteArtworkMutation = useMutation({
-    mutationFn: (artworkId: number) => deleteArtwork(artworkId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["artworkList", exhibitionId],
-      });
-    },
-  });
-
+  const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
+  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
   const { selectedIndex, selectCategoryByIndex } = useSelectCategory();
 
   const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
@@ -41,20 +26,20 @@ const ArtworkCardList = ({ exhibitionId, artworkList }: Props) => {
   };
 
   const handleArtworkPin = () => {
-    setMainArtworkMutation.mutate(selectedIndex);
+    setMainArtworkMutate(selectedIndex);
   };
 
   const handleArtworkEdit = () => {
-    router.push(`/exhibition/${exhibitionId}/${selectedIndex}`);
+    router.push(`/exhibition/${exhibitionId}/${selectedIndex}?edit=true`);
   };
 
   const handleArtworkDelete = () => {
-    deleteArtworkMutation.mutate(selectedIndex);
+    deleteArtworkMutate(selectedIndex);
   };
 
   return (
     <S.Wrapper>
-      {artworkList.map((artwork) => (
+      {artworkList?.map((artwork) => (
         <li key={artwork.id}>
           <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
             <ArtworkCard

@@ -2,38 +2,43 @@
 
 import { useState, MouseEvent } from "react";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as TSwiper } from "swiper/types";
-import { getArtworkPageFromPost, getArtworkInfo } from "@/apis/artwork";
 import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import Tag from "@/components/ui/Tag/Tag/Tag";
+import EditBottomSheet from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
+import Dimmed from "@/components/ui/Dimmed/Dimmed";
+import Portal from "@/components/ui/Portal/Portal";
+import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
+import {
+  useGetArtworkInfo,
+  useGetArtworkList,
+  useUpdateArtworkInfo,
+} from "@/hooks/artwork";
 import * as S from "./page.styles";
 import "swiper/css";
 import "./slider.css";
 
 export default function Page({
   params,
+  searchParams,
 }: {
   params: { exhibitionId: string; artworkId: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const exhibitionId = Number(params.exhibitionId);
   const artworkId = Number(params.artworkId);
+  const isEdit = searchParams?.edit;
+
+  const router = useRouter();
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkIndex, setActiveArtworkIndex] = useState(artworkId);
 
-  const { data: artworkInfo } = useQuery({
-    queryKey: ["artworkInfo", activeArtworkIndex],
-    queryFn: () => getArtworkInfo(activeArtworkIndex),
-    select: (data) => data.data,
-  });
-
-  const { data: artworkThumbnailList } = useQuery({
-    queryKey: ["artworkList", exhibitionId],
-    queryFn: () => getArtworkPageFromPost(exhibitionId),
-    select: (data) => data.data.content,
-  });
+  const { data: artworkThumbnailList } = useGetArtworkList(exhibitionId);
+  const { data: artworkInfo } = useGetArtworkInfo(artworkId);
+  const { mutate } = useUpdateArtworkInfo();
 
   const handleThumbnailClick = (index: number) => {
     return (e: MouseEvent) => {
@@ -44,7 +49,13 @@ export default function Page({
 
   const handleGoBackClick = () => {};
 
-  const handleEditClick = () => {};
+  const handleEditClick = () => {
+    router.push(`exhibition/${exhibitionId}/${artworkId}?edit=true`);
+  };
+
+  const handleSave = (e: React.MouseEvent, formData: FormData) => {
+    router.push(`exhibition/${exhibitionId}/${artworkId}`);
+  };
 
   return (
     <S.Wrapper>
@@ -74,11 +85,15 @@ export default function Page({
               <S.Title>{artworkInfo?.name}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
               <S.TagList>
-                {artworkInfo?.tags?.map(({ id, name }) => (
-                  <li key={id}>
-                    <Tag name={name} />
-                  </li>
-                ))}
+                {/** TagDto 필드가 nullable */}
+                {artworkInfo?.tags?.map(
+                  ({ id, name }) =>
+                    name && (
+                      <li key={id}>
+                        <Tag name={name} />
+                      </li>
+                    )
+                )}
               </S.TagList>
             </S.ArtworkInfoWrapper>
           </SwiperSlide>
@@ -100,6 +115,14 @@ export default function Page({
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
+      {isEdit && (
+        <Portal>
+          <Dimmed />
+          <S.BottomSheetWrapper>
+            <EditBottomSheet onSave={handleSave} />
+          </S.BottomSheetWrapper>
+        </Portal>
+      )}
     </S.Wrapper>
   );
 }
