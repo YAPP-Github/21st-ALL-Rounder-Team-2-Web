@@ -12,5 +12,12 @@ const Template: ComponentStory<typeof ExhibitionInfoHeader> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  mainImageUrl: "https://picsum.photos/300",
+  postInfo: {
+    id: 1,
+    mainImage: "https://picsum.photos/300",
+    categoryId: 1,
+    categoryName: "카테고리1",
+    name: "YAPP 졸업전시",
+    postDate: "2023-02-01",
+  },
 };

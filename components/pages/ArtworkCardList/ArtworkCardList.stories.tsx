@@ -13,9 +13,9 @@ const Template: ComponentStory<typeof ArtworkCardList> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   artworkList: new Array(10).fill(0).map((_, i) => ({
-    id: `${i}`,
-    imageUrl: "https://picsum.photos/300",
-    title: "나의 그대여",
+    id: i,
+    imageURL: "https://picsum.photos/300",
+    name: "나의 그대여",
     artist: "김호연",
   })),
 };
