@@ -1,42 +1,55 @@
-import { useCallback } from "react";
 import Link from "next/link";
-import { Artwork } from "@/interfaces/artwork";
+import { useRouter } from "next/navigation";
+import { ArtworkThumbnailDto } from "@/__generate__/artwork";
+import { useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
-import useOverlay from "@/hooks/useOverlay";
 import ArtworkCard from "../ArtworkCard/ArtworkCard";
 import * as S from "./ArtworkCardList.styles";
+import { useSelectCategory } from "@/hooks/useSelectCategory";
 
 interface Props {
-  artworkList: Array<Artwork>;
+  exhibitionId: number;
+  artworkList: Array<ArtworkThumbnailDto>;
 }
 
-const ArtworkCardList = ({ artworkList }: Props) => {
-  const { isShow, showOverlay, hideOverlay } = useOverlay();
+const ArtworkCardList = ({ exhibitionId, artworkList }: Props) => {
+  const router = useRouter();
+  const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
+  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
+  const { selectedIndex, selectCategoryByIndex } = useSelectCategory();
 
-  const handleMoreBtnClick = useCallback((e: React.MouseEvent) => {
+  const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
     e.preventDefault();
-    showOverlay();
-  }, []);
+    selectCategoryByIndex(artworkId);
+  };
 
-  const handleArtworkPin = () => {};
+  const handleArtworkPin = () => {
+    setMainArtworkMutate(selectedIndex);
+  };
 
-  const handleArtworkEdit = () => {};
+  const handleArtworkEdit = () => {
+    router.push(`/exhibition/${exhibitionId}/${selectedIndex}?edit=true`);
+  };
 
-  const handleArtworkDelete = () => {};
+  const handleArtworkDelete = () => {
+    deleteArtworkMutate(selectedIndex);
+  };
 
   return (
     <S.Wrapper>
-      {artworkList.map((artworkList) => (
-        <li key={artworkList.id}>
-          {/** TODO exhibition id로 교체 */}
-          <Link href={`/exhibition/1/${artworkList.id}`}>
-            <ArtworkCard {...artworkList} onMoreBtnClick={handleMoreBtnClick} />
+      {artworkList?.map((artwork) => (
+        <li key={artwork.id}>
+          <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
+            <ArtworkCard
+              {...artwork}
+              onMoreBtnClick={handleMoreBtnClick(artwork.id)}
+            />
           </Link>
         </li>
       ))}
-      {isShow && (
+      {selectedIndex && (
         <Portal>
           <Dimmed />
           <ActionSheet
@@ -45,10 +58,16 @@ const ArtworkCardList = ({ artworkList }: Props) => {
                 actionName: "대표이미지로 선택",
                 onActionClick: handleArtworkPin,
               },
-              { actionName: "게시글 수정", onActionClick: handleArtworkEdit },
-              { actionName: "삭제", onActionClick: handleArtworkDelete },
+              {
+                actionName: "게시글 수정",
+                onActionClick: handleArtworkEdit,
+              },
+              {
+                actionName: "삭제",
+                onActionClick: handleArtworkDelete,
+              },
             ]}
-            onClose={hideOverlay}
+            onClose={() => selectCategoryByIndex(0)}
           />
         </Portal>
       )}

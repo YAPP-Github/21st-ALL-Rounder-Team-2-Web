@@ -1,7 +1,10 @@
 import * as S from "./ActionSheet.styles";
 
 type Props = {
-  actionList: Array<{ actionName: string; onActionClick: () => void }>;
+  actionList: Array<{
+    actionName: string;
+    onActionClick: (e: React.MouseEvent) => void;
+  }>;
   onClose: () => void;
 };
 
