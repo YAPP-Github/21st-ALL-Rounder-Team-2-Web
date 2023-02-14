@@ -11,11 +11,7 @@ import EditBottomSheet from "@/components/pages/EditBottomSheet/EditBottomSheet/
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
-import {
-  useGetArtworkInfo,
-  useGetArtworkList,
-  useUpdateArtworkInfo,
-} from "@/hooks/artwork";
+import { useGetArtworkInfo, useGetArtworkList, useUpdateArtworkInfo } from "@/hooks/artwork";
 import * as S from "./page.styles";
 import "swiper/css";
 import "./slider.css";
@@ -25,62 +21,62 @@ export default function Page({
   searchParams,
 }: {
   params: { exhibitionId: string; artworkId: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string };
 }) {
   const exhibitionId = Number(params.exhibitionId);
   const artworkId = Number(params.artworkId);
-  const isEdit = searchParams?.edit;
-
   const router = useRouter();
-
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
-  const [activeArtworkIndex, setActiveArtworkIndex] = useState(artworkId);
+
+  const [activeArtworkId, setActiveArtworkId] = useState(artworkId);
+  const [isEdit, setIsEdit] = useState(Boolean(searchParams?.edit));
 
   const { data: artworkThumbnailList } = useGetArtworkList(exhibitionId);
-  const { data: artworkInfo } = useGetArtworkInfo(artworkId);
+  const { data: artworkInfo } = useGetArtworkInfo(activeArtworkId);
   const { mutate } = useUpdateArtworkInfo();
 
-  const handleThumbnailClick = (index: number) => {
+  const changeActiveArtworkId = (id: number) => {
+    setActiveArtworkId(id);
+    window?.history.replaceState({ ...window.history.state }, "", `${id}`);
+  };
+
+  const handleThumbnailClick = (id: number) => {
     return (e: MouseEvent) => {
-      setActiveArtworkIndex(index);
-      swiper?.slideTo(index - 1);
+      changeActiveArtworkId(id);
+      swiper?.slideTo(id - 1);
     };
   };
 
-  const handleGoBackClick = () => {};
-
-  const handleEditClick = () => {
-    router.push(`exhibition/${exhibitionId}/${artworkId}?edit=true`);
+  const handleGoBackClick = () => {
+    router.push(`exhibition/${exhibitionId}`);
   };
 
-  const handleSave = (e: React.MouseEvent, formData: FormData) => {
-    router.push(`exhibition/${exhibitionId}/${artworkId}`);
+  const handleEditClick = () => {
+    setIsEdit(true);
+    window?.history.replaceState({ ...window.history.state }, "", `${activeArtworkId}?edit=true`);
+  };
+
+  const handleSave = (e: MouseEvent, formData: FormData) => {
+    setIsEdit(false);
+    window?.history.replaceState({ ...window.history.state }, "", `${activeArtworkId}`);
   };
 
   return (
     <S.Wrapper>
       <S.Overlay>
-        <NavigationBar
-          onGoBackClick={handleGoBackClick}
-          onEditClick={handleEditClick}
-        />
+        <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
       </S.Overlay>
       <Swiper
         className="main-swiper"
         onSwiper={(swiper) => setSwiper(swiper)}
-        initialSlide={activeArtworkIndex - 1}
+        initialSlide={activeArtworkId - 1}
         onSlideChange={({ activeIndex }) => {
-          setActiveArtworkIndex(activeIndex + 1);
+          changeActiveArtworkId(activeIndex + 1);
         }}
       >
         {artworkThumbnailList?.map(({ id, imageURL }) => (
           <SwiperSlide key={id}>
-            <Image
-              alt="작품 사진"
-              src={imageURL}
-              fill
-              style={{ objectFit: "contain" }}
-            />
+            <Image alt="작품 사진" src={imageURL} fill style={{ objectFit: "contain" }} />
             <S.ArtworkInfoWrapper>
               <S.Title>{artworkInfo?.name}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
@@ -101,17 +97,8 @@ export default function Page({
       </Swiper>
       <S.ThumbnailList>
         {artworkThumbnailList?.map(({ id, imageURL }) => (
-          <S.ThumbnailItem
-            key={id}
-            isActive={id === activeArtworkIndex}
-            onClick={handleThumbnailClick(id)}
-          >
-            <Image
-              alt="thumbnail"
-              src={imageURL}
-              fill
-              style={{ borderRadius: "2px" }}
-            />
+          <S.ThumbnailItem key={id} isActive={id === activeArtworkId} onClick={handleThumbnailClick(id)}>
+            <Image alt="thumbnail" src={imageURL} fill style={{ borderRadius: "2px" }} />
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
