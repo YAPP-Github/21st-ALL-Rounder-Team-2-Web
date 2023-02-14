@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, MouseEvent } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,20 +17,15 @@ import * as S from "./page.styles";
 import "swiper/css";
 import "./slider.css";
 
-export default function Page({
-  params,
-  searchParams,
-}: {
-  params: { exhibitionId: string; artworkId: string };
-  searchParams?: { [key: string]: string };
-}) {
+export default function Page({ params }: { params: { exhibitionId: string; artworkId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
   const artworkId = Number(params.artworkId);
   const router = useRouter();
-  const [swiper, setSwiper] = useState<TSwiper | null>(null);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkId, setActiveArtworkId] = useState(artworkId);
-  const [isEdit, setIsEdit] = useState(Boolean(searchParams?.edit));
 
   const { data: artworkThumbnailList } = useGetArtworkList(exhibitionId);
   const { data: artworkInfo } = useGetArtworkInfo(activeArtworkId);
@@ -37,7 +33,7 @@ export default function Page({
 
   const changeActiveArtworkId = (id: number) => {
     setActiveArtworkId(id);
-    window?.history.replaceState({ ...window.history.state }, "", `${id}`);
+    navigate(`exhibition/${exhibitionId}/${id}`);
   };
 
   const handleThumbnailClick = (id: number) => {
@@ -52,13 +48,11 @@ export default function Page({
   };
 
   const handleEditClick = () => {
-    setIsEdit(true);
-    window?.history.replaceState({ ...window.history.state }, "", `${activeArtworkId}?edit=true`);
+    navigate({ pathname: `exhibition/${exhibitionId}/${artworkId}`, search: "?edit=true" });
   };
 
   const handleSave = (e: MouseEvent, formData: FormData) => {
-    setIsEdit(false);
-    window?.history.replaceState({ ...window.history.state }, "", `${activeArtworkId}`);
+    navigate(`exhibition/${exhibitionId}/${artworkId}`);
   };
 
   return (
@@ -102,7 +96,7 @@ export default function Page({
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
-      {isEdit && (
+      {searchParams.get("edit") && (
         <Portal>
           <Dimmed />
           <S.BottomSheetWrapper>
