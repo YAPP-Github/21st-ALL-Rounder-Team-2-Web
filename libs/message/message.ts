@@ -12,14 +12,14 @@ export type Actions = {
     },
     EDIT_BOTTOM_SHEET_SAVE: {
         payload: {
-            author: string;
+            artist: string;
             name: string;
             tags: string[];
         }
     },
     EDIT_BOTTOM_SHEET_CONTINUE: {
         payload: {
-            author: string;
+            artist: string;
             name: string;
             tags: string[];
         }
