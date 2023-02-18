@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ExtraBold24CSS, Normal16CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
+import { slideup, slidedown } from "@/styles/keyframes";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -65,17 +66,25 @@ export const ThumbnailItem = styled.li<{ isActive: boolean }>`
   position: relative;
   width: 52px;
   height: 52px;
-  border: ${(props) =>
-    props.isActive ? `2px solid ${colors.green900}` : "none"};
+  border: ${(props) => (props.isActive ? `2px solid ${colors.green900}` : "none")};
   box-shadow: 0 0 0 2px transparent;
   filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
   border-radius: 2px;
 `;
 
-export const BottomSheetWrapper = styled.div`
+export const BottomSheetWrapper = styled.div<{ isShow: boolean }>`
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1000;
+
+  ${(props) =>
+    props.isShow
+      ? css`
+          animation: ${slideup} 250ms forwards;
+        `
+      : css`
+          animation: ${slidedown} 250ms forwards;
+        `};
 `;

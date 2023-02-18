@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGetArtworkList, useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
@@ -19,11 +20,13 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
   const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
   const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
   const { selectedIndex, selectCategoryByIndex } = useSelectCategory();
+  const [isShow, setIsShow] = useState(false);
 
   const { data: artworkList } = useGetArtworkList(exhibitionId);
 
   const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsShow(true);
     selectCategoryByIndex(artworkId);
   };
 
@@ -39,6 +42,13 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
     deleteArtworkMutate(selectedIndex);
   };
 
+  const handleActionSheetClose = () => {
+    setIsShow(false);
+    setTimeout(() => {
+      selectCategoryByIndex(0);
+    }, 250);
+  };
+
   return (
     <S.Wrapper>
       {artworkList?.map((artwork) => (
@@ -48,27 +58,31 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
           </Link>
         </li>
       ))}
-      {selectedIndex && (
+      {selectedIndex ? (
         <Portal>
-          <Dimmed />
-          <ActionSheet
-            actionList={[
-              {
-                actionName: "대표이미지로 선택",
-                onActionClick: handleArtworkPin,
-              },
-              {
-                actionName: "게시글 수정",
-                onActionClick: handleArtworkEdit,
-              },
-              {
-                actionName: "삭제",
-                onActionClick: handleArtworkDelete,
-              },
-            ]}
-            onClose={() => selectCategoryByIndex(0)}
-          />
+          <Dimmed onClick={handleActionSheetClose} />
+          <S.ActionSheetWrapper isShow={isShow}>
+            <ActionSheet
+              actionList={[
+                {
+                  actionName: "대표이미지로 선택",
+                  onActionClick: handleArtworkPin,
+                },
+                {
+                  actionName: "게시글 수정",
+                  onActionClick: handleArtworkEdit,
+                },
+                {
+                  actionName: "삭제",
+                  onActionClick: handleArtworkDelete,
+                },
+              ]}
+              onClose={handleActionSheetClose}
+            />
+          </S.ActionSheetWrapper>
         </Portal>
+      ) : (
+        <></>
       )}
     </S.Wrapper>
   );

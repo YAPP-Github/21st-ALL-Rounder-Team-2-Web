@@ -3,16 +3,10 @@ import { colors } from "../../../styles/colors";
 import { Normal18CSS, Bold18CSS } from "../Typographies";
 
 export const Wrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 18px;
-  bottom: 53px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: calc(100% - 36px);
   color: white;
-  z-index: 1000;
 
   & > div {
     background-color: ${colors.overlay};

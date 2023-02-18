@@ -23,6 +23,7 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
   const router = useRouter();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isShow, setIsShow] = useState(Boolean(searchParams.get("edit")));
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkId, setActiveArtworkId] = useState(artworkId);
@@ -48,6 +49,7 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
   };
 
   const handleEditClick = () => {
+    setIsShow(true);
     navigate({ pathname: `exhibition/${exhibitionId}/${artworkId}`, search: "?edit=true" });
   };
 
@@ -58,6 +60,13 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
       newArtworkInfo: { artist, name, tags },
     });
     navigate(`exhibition/${exhibitionId}/${artworkId}`);
+  };
+
+  const handleBottomSheetClose = () => {
+    setIsShow(false);
+    setTimeout(() => {
+      navigate(`exhibition/${exhibitionId}/${artworkId}`);
+    }, 250);
   };
 
   return (
@@ -99,8 +108,8 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
       </S.ThumbnailList>
       {searchParams.get("edit") && (
         <Portal>
-          <Dimmed />
-          <S.BottomSheetWrapper>
+          <Dimmed onClick={handleBottomSheetClose} />
+          <S.BottomSheetWrapper isShow={isShow}>
             <EditBottomSheet defaultValues={artworkInfo} onSave={handleSave} />
           </S.BottomSheetWrapper>
         </Portal>
