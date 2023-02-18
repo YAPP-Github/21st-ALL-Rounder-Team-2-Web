@@ -46,11 +46,23 @@ export interface CalendarExhibitResponseDto {
      */
     'day': number;
     /**
+     * 전시 ID
+     * @type {number}
+     * @memberof CalendarExhibitResponseDto
+     */
+    'postId': number;
+    /**
      * 대표 이미지
      * @type {string}
      * @memberof CalendarExhibitResponseDto
      */
     'imageURL'?: string;
+    /**
+     * 해당 날짜의 전시 수
+     * @type {number}
+     * @memberof CalendarExhibitResponseDto
+     */
+    'postNum'?: number;
 }
 /**
  * 전시 생성 Request
@@ -76,6 +88,12 @@ export interface CreateExhibitRequestDto {
      * @memberof CreateExhibitRequestDto
      */
     'postDate'?: string;
+    /**
+     * 전시 링크
+     * @type {string}
+     * @memberof CreateExhibitRequestDto
+     */
+    'attachedLink'?: string | null;
 }
 /**
  * 전시 생성 Response
@@ -120,6 +138,25 @@ export interface ErrorResponse {
      * @memberof ErrorResponse
      */
     'code'?: string;
+}
+/**
+ * 특정 날짜의 전시 목록 조회 Response
+ * @export
+ * @interface ExhibitByDateResponseDto
+ */
+export interface ExhibitByDateResponseDto {
+    /**
+     * 전시 ID
+     * @type {number}
+     * @memberof ExhibitByDateResponseDto
+     */
+    'postId': number;
+    /**
+     * 전시 이름
+     * @type {string}
+     * @memberof ExhibitByDateResponseDto
+     */
+    'postName': string;
 }
 /**
  * 
@@ -232,6 +269,12 @@ export interface PostDetailInfo {
      */
     'mainImage'?: string;
     /**
+     * 전시 링크
+     * @type {string}
+     * @memberof PostDetailInfo
+     */
+    'attachedLink'?: string;
+    /**
      * 
      * @type {boolean}
      * @memberof PostDetailInfo
@@ -261,13 +304,13 @@ export interface PostDetailInfoPage {
      * @type {number}
      * @memberof PostDetailInfoPage
      */
-    'totalElements'?: number;
+    'totalPages'?: number;
     /**
      * 
      * @type {number}
      * @memberof PostDetailInfoPage
      */
-    'totalPages'?: number;
+    'totalElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -312,6 +355,104 @@ export interface PostDetailInfoPage {
     'empty'?: boolean;
 }
 /**
+ * 카테고리 페이지 내 전시 목록 썸네일
+ * @export
+ * @interface PostInfoByCategoryDto
+ */
+export interface PostInfoByCategoryDto {
+    /**
+     * 전시 아이디
+     * @type {number}
+     * @memberof PostInfoByCategoryDto
+     */
+    'id'?: number;
+    /**
+     * 전시명
+     * @type {string}
+     * @memberof PostInfoByCategoryDto
+     */
+    'name'?: string;
+    /**
+     * 대표 이미지
+     * @type {string}
+     * @memberof PostInfoByCategoryDto
+     */
+    'mainImage'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface PostInfoByCategoryDtoPage
+ */
+export interface PostInfoByCategoryDtoPage {
+    /**
+     * 
+     * @type {Array<PostInfoByCategoryDto>}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'content'?: Array<PostInfoByCategoryDto>;
+    /**
+     * 
+     * @type {PageableObject}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'pageable'?: PageableObject;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'totalElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'number'?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'sort'?: Sort;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'numberOfElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'first'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'empty'?: boolean;
+}
+/**
  * 전시 Response
  * @export
  * @interface PostInfoDto
@@ -335,6 +476,12 @@ export interface PostInfoDto {
      * @memberof PostInfoDto
      */
     'postDate'?: string;
+    /**
+     * 전시 링크
+     * @type {string}
+     * @memberof PostInfoDto
+     */
+    'attachedLink'?: string;
     /**
      * 
      * @type {boolean}
@@ -385,6 +532,18 @@ export interface UpdateExhibitRequestDto {
      * @memberof UpdateExhibitRequestDto
      */
     'postDate'?: string;
+    /**
+     * 수정할 카테고리 ID
+     * @type {number}
+     * @memberof UpdateExhibitRequestDto
+     */
+    'categoryId'?: number;
+    /**
+     * 수정할 전시 링크
+     * @type {string}
+     * @memberof UpdateExhibitRequestDto
+     */
+    'attachedLink'?: string;
 }
 
 /**
@@ -434,15 +593,54 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
-         * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
-         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
-         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * 사용자 전시 삭제
+         * @summary 전시 삭제
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPostPage: async (size?: number, page?: number, direction?: 'ASC' | 'DESC', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deletePost: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deletePost', 'id', id)
+            const localVarPath = `/post/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 홈 화면의 전체 기록 혹은 특정 카테고리 별, 상단 고정 설정을 반영한 전시 목록 조회
+         * @summary 홈 화면 전시 조회(전체 기록/특정 카테고리)
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * @param {number} [category] 카테고리 ID. 홈 화면의 카테고리별 전시 목록 조회시 해당 파라미터를 입력해야함.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllPostPage: async (size?: number, page?: number, direction?: 'ASC' | 'DESC', category?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/post/home`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -469,6 +667,10 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
 
             if (direction !== undefined) {
                 localVarQueryParameter['direction'] = direction;
+            }
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category;
             }
 
 
@@ -504,6 +706,109 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             // authentication jwt token required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 카테고리 페이지에서 카테고리별 전시 목록을 조회할 때, 상단 고정 설정이 반영되지 않은 전시 목록 조회
+         * @summary 카테고리별 전시 목록 조회(카테고리 페이지)
+         * @param {number} id 카테고리 ID
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExhibitThumbnailByCategory: async (id: number, page?: number, size?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getExhibitThumbnailByCategory', 'id', id)
+            const localVarPath = `/post/category/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 캘린더 페이지에서 특정 날짜를 클릭했을 때, 해당 날짜의 전시가 여러개일 경우, 전시 목록을 조회할 수 있도록 정보를 반환하는 API
+         * @summary 특정 날짜의 전시 정보 목록 조회(캘린더 페이지)
+         * @param {number} year 조회할 연도
+         * @param {number} month 조회할 달
+         * @param {number} day 조회할 일
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExhibitsByDate: async (year: number, month: number, day: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'year' is not null or undefined
+            assertParamExists('getExhibitsByDate', 'year', year)
+            // verify required parameter 'month' is not null or undefined
+            assertParamExists('getExhibitsByDate', 'month', month)
+            // verify required parameter 'day' is not null or undefined
+            assertParamExists('getExhibitsByDate', 'day', day)
+            const localVarPath = `/post/date`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (year !== undefined) {
+                localVarQueryParameter['year'] = year;
+            }
+
+            if (month !== undefined) {
+                localVarQueryParameter['month'] = month;
+            }
+
+            if (day !== undefined) {
+                localVarQueryParameter['day'] = day;
+            }
 
 
     
@@ -593,7 +898,7 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * 해당 API는 [GET] /post/home API와 통합되어, deprecated될 예정입니다. 
          * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {number} id 
          * @param {number} [size] 페이지네이션의 페이지당 데이터 수
@@ -775,6 +1080,57 @@ export const ExhibitControllerApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 특정 전시를 홈페이지에서 전체 기록 혹은 특정 카테고리에 대해 상단에 고정되어 조회할 수 있도록 설정
+         * @summary 전시 상단 고정 설정
+         * @param {number} id 전시 ID
+         * @param {boolean} [category] 카테고리에 고정하는지의 여부. true일 경우, 해당 전시의 카테고리 상단 고정으로, false일 경우 전체 기록의 상단 고정 설정으로 처리
+         * @param {boolean} [pinned] 고정 여부. 고정하도록 설정한다면 true, 고정 해제하도록 설정한다면 false
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePostPinType: async (id: number, category?: boolean, pinned?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updatePostPinType', 'id', id)
+            const localVarPath = `/post/pin`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category;
+            }
+
+            if (pinned !== undefined) {
+                localVarQueryParameter['pinned'] = pinned;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -797,16 +1153,28 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
-         * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
-         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
-         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * 사용자 전시 삭제
+         * @summary 전시 삭제
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfoPage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(size, page, direction, options);
+        async deletePost(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePost(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 홈 화면의 전체 기록 혹은 특정 카테고리 별, 상단 고정 설정을 반영한 전시 목록 조회
+         * @summary 홈 화면 전시 조회(전체 기록/특정 카테고리)
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * @param {number} [category] 카테고리 ID. 홈 화면의 카테고리별 전시 목록 조회시 해당 파라미터를 입력해야함.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', category?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostDetailInfoPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPostPage(size, page, direction, category, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -817,6 +1185,32 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
          */
         async getDraftPosts(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostInfoDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftPosts(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 카테고리 페이지에서 카테고리별 전시 목록을 조회할 때, 상단 고정 설정이 반영되지 않은 전시 목록 조회
+         * @summary 카테고리별 전시 목록 조회(카테고리 페이지)
+         * @param {number} id 카테고리 ID
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExhibitThumbnailByCategory(id: number, page?: number, size?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostInfoByCategoryDtoPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExhibitThumbnailByCategory(id, page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 캘린더 페이지에서 특정 날짜를 클릭했을 때, 해당 날짜의 전시가 여러개일 경우, 전시 목록을 조회할 수 있도록 정보를 반환하는 API
+         * @summary 특정 날짜의 전시 정보 목록 조회(캘린더 페이지)
+         * @param {number} year 조회할 연도
+         * @param {number} month 조회할 달
+         * @param {number} day 조회할 일
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExhibitsByDate(year: number, month: number, day: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExhibitByDateResponseDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExhibitsByDate(year, month, day, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -842,7 +1236,7 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * 해당 API는 [GET] /post/home API와 통합되어, deprecated될 예정입니다. 
          * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {number} id 
          * @param {number} [size] 페이지네이션의 페이지당 데이터 수
@@ -890,6 +1284,19 @@ export const ExhibitControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updatePost(id, updateExhibitRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 특정 전시를 홈페이지에서 전체 기록 혹은 특정 카테고리에 대해 상단에 고정되어 조회할 수 있도록 설정
+         * @summary 전시 상단 고정 설정
+         * @param {number} id 전시 ID
+         * @param {boolean} [category] 카테고리에 고정하는지의 여부. true일 경우, 해당 전시의 카테고리 상단 고정으로, false일 경우 전체 기록의 상단 고정 설정으로 처리
+         * @param {boolean} [pinned] 고정 여부. 고정하도록 설정한다면 true, 고정 해제하도록 설정한다면 false
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePostPinType(id: number, category?: boolean, pinned?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePostPinType(id, category, pinned, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -911,16 +1318,27 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
             return localVarFp.createPost(createExhibitRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
-         * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
-         * @summary 홈 화면 전시 조회(전체 기록)
-         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
-         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
-         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * 사용자 전시 삭제
+         * @summary 전시 삭제
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: any): AxiosPromise<PostDetailInfoPage> {
-            return localVarFp.getAllPostPage(size, page, direction, options).then((request) => request(axios, basePath));
+        deletePost(id: number, options?: any): AxiosPromise<string> {
+            return localVarFp.deletePost(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 홈 화면의 전체 기록 혹은 특정 카테고리 별, 상단 고정 설정을 반영한 전시 목록 조회
+         * @summary 홈 화면 전시 조회(전체 기록/특정 카테고리)
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+         * @param {number} [category] 카테고리 ID. 홈 화면의 카테고리별 전시 목록 조회시 해당 파라미터를 입력해야함.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', category?: number, options?: any): AxiosPromise<PostDetailInfoPage> {
+            return localVarFp.getAllPostPage(size, page, direction, category, options).then((request) => request(axios, basePath));
         },
         /**
          * 임시 저장된 전시 목록 조회
@@ -930,6 +1348,30 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
          */
         getDraftPosts(options?: any): AxiosPromise<Array<PostInfoDto>> {
             return localVarFp.getDraftPosts(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 카테고리 페이지에서 카테고리별 전시 목록을 조회할 때, 상단 고정 설정이 반영되지 않은 전시 목록 조회
+         * @summary 카테고리별 전시 목록 조회(카테고리 페이지)
+         * @param {number} id 카테고리 ID
+         * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+         * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExhibitThumbnailByCategory(id: number, page?: number, size?: number, options?: any): AxiosPromise<PostInfoByCategoryDtoPage> {
+            return localVarFp.getExhibitThumbnailByCategory(id, page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 캘린더 페이지에서 특정 날짜를 클릭했을 때, 해당 날짜의 전시가 여러개일 경우, 전시 목록을 조회할 수 있도록 정보를 반환하는 API
+         * @summary 특정 날짜의 전시 정보 목록 조회(캘린더 페이지)
+         * @param {number} year 조회할 연도
+         * @param {number} month 조회할 달
+         * @param {number} day 조회할 일
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExhibitsByDate(year: number, month: number, day: number, options?: any): AxiosPromise<Array<ExhibitByDateResponseDto>> {
+            return localVarFp.getExhibitsByDate(year, month, day, options).then((request) => request(axios, basePath));
         },
         /**
          * 특정 전시 정보 조회
@@ -952,7 +1394,7 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
             return localVarFp.getPostInfoWithCategory(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+         * 해당 API는 [GET] /post/home API와 통합되어, deprecated될 예정입니다. 
          * @summary 홈 화면 전시 조회(특정 카테고리)
          * @param {number} id 
          * @param {number} [size] 페이지네이션의 페이지당 데이터 수
@@ -996,6 +1438,18 @@ export const ExhibitControllerApiFactory = function (configuration?: Configurati
         updatePost(id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options?: any): AxiosPromise<string> {
             return localVarFp.updatePost(id, updateExhibitRequestDto, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 특정 전시를 홈페이지에서 전체 기록 혹은 특정 카테고리에 대해 상단에 고정되어 조회할 수 있도록 설정
+         * @summary 전시 상단 고정 설정
+         * @param {number} id 전시 ID
+         * @param {boolean} [category] 카테고리에 고정하는지의 여부. true일 경우, 해당 전시의 카테고리 상단 고정으로, false일 경우 전체 기록의 상단 고정 설정으로 처리
+         * @param {boolean} [pinned] 고정 여부. 고정하도록 설정한다면 true, 고정 해제하도록 설정한다면 false
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePostPinType(id: number, category?: boolean, pinned?: boolean, options?: any): AxiosPromise<void> {
+            return localVarFp.updatePostPinType(id, category, pinned, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1019,17 +1473,30 @@ export class ExhibitControllerApi extends BaseAPI {
     }
 
     /**
-     * 용례는 홈 화면 전시 조회(특정 카테고리)와 같다.
-     * @summary 홈 화면 전시 조회(전체 기록)
-     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
-     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
-     * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+     * 사용자 전시 삭제
+     * @summary 전시 삭제
+     * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExhibitControllerApi
      */
-    public getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', options?: AxiosRequestConfig) {
-        return ExhibitControllerApiFp(this.configuration).getAllPostPage(size, page, direction, options).then((request) => request(this.axios, this.basePath));
+    public deletePost(id: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).deletePost(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 홈 화면의 전체 기록 혹은 특정 카테고리 별, 상단 고정 설정을 반영한 전시 목록 조회
+     * @summary 홈 화면 전시 조회(전체 기록/특정 카테고리)
+     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+     * @param {'ASC' | 'DESC'} [direction] 페이지네이션의 정렬기준. DESC&#x3D;최신순, ASC&#x3D;오래된순
+     * @param {number} [category] 카테고리 ID. 홈 화면의 카테고리별 전시 목록 조회시 해당 파라미터를 입력해야함.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getAllPostPage(size?: number, page?: number, direction?: 'ASC' | 'DESC', category?: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getAllPostPage(size, page, direction, category, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1041,6 +1508,34 @@ export class ExhibitControllerApi extends BaseAPI {
      */
     public getDraftPosts(options?: AxiosRequestConfig) {
         return ExhibitControllerApiFp(this.configuration).getDraftPosts(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 카테고리 페이지에서 카테고리별 전시 목록을 조회할 때, 상단 고정 설정이 반영되지 않은 전시 목록 조회
+     * @summary 카테고리별 전시 목록 조회(카테고리 페이지)
+     * @param {number} id 카테고리 ID
+     * @param {number} [page] 페이지네이션의 페이지 넘버. 0부터 시작함
+     * @param {number} [size] 페이지네이션의 페이지당 데이터 수
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getExhibitThumbnailByCategory(id: number, page?: number, size?: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getExhibitThumbnailByCategory(id, page, size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 캘린더 페이지에서 특정 날짜를 클릭했을 때, 해당 날짜의 전시가 여러개일 경우, 전시 목록을 조회할 수 있도록 정보를 반환하는 API
+     * @summary 특정 날짜의 전시 정보 목록 조회(캘린더 페이지)
+     * @param {number} year 조회할 연도
+     * @param {number} month 조회할 달
+     * @param {number} day 조회할 일
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public getExhibitsByDate(year: number, month: number, day: number, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).getExhibitsByDate(year, month, day, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1068,7 +1563,7 @@ export class ExhibitControllerApi extends BaseAPI {
     }
 
     /**
-     * 저장된 전시 중 페이지네이션을 이용해 값을 가져온다. 이곳의 id는 category id를 의미하며 size의 기본값은 20이다. sort는 기본값이 최신 순이고, ?sort=contents.date,ASC 는 오래된 순이다. 오래된 순의 예시처럼 콤마를 기준으로 [<정렬 컬럼>,<정렬 타입 형식>]으로 쿼리 파라미터를 전달해야 한다.
+     * 해당 API는 [GET] /post/home API와 통합되어, deprecated될 예정입니다. 
      * @summary 홈 화면 전시 조회(특정 카테고리)
      * @param {number} id 
      * @param {number} [size] 페이지네이션의 페이지당 데이터 수
@@ -1118,6 +1613,20 @@ export class ExhibitControllerApi extends BaseAPI {
      */
     public updatePost(id: number, updateExhibitRequestDto: UpdateExhibitRequestDto, options?: AxiosRequestConfig) {
         return ExhibitControllerApiFp(this.configuration).updatePost(id, updateExhibitRequestDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 특정 전시를 홈페이지에서 전체 기록 혹은 특정 카테고리에 대해 상단에 고정되어 조회할 수 있도록 설정
+     * @summary 전시 상단 고정 설정
+     * @param {number} id 전시 ID
+     * @param {boolean} [category] 카테고리에 고정하는지의 여부. true일 경우, 해당 전시의 카테고리 상단 고정으로, false일 경우 전체 기록의 상단 고정 설정으로 처리
+     * @param {boolean} [pinned] 고정 여부. 고정하도록 설정한다면 true, 고정 해제하도록 설정한다면 false
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExhibitControllerApi
+     */
+    public updatePostPinType(id: number, category?: boolean, pinned?: boolean, options?: AxiosRequestConfig) {
+        return ExhibitControllerApiFp(this.configuration).updatePostPinType(id, category, pinned, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

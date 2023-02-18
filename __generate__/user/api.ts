@@ -119,6 +119,40 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
+         * 사용자 닉네임, 전시 개수 조회
+         * @summary 마이페이지 썸네일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        my: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/my-page`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
          * @param {string} uid 
@@ -180,6 +214,16 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * 사용자 닉네임, 전시 개수 조회
+         * @summary 마이페이지 썸네일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async my(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.my(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
          * @param {string} uid 
@@ -210,6 +254,15 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
             return localVarFp.me(options).then((request) => request(axios, basePath));
         },
         /**
+         * 사용자 닉네임, 전시 개수 조회
+         * @summary 마이페이지 썸네일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        my(options?: any): AxiosPromise<User> {
+            return localVarFp.my(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
          * @param {string} uid 
@@ -238,6 +291,17 @@ export class UserControllerApi extends BaseAPI {
      */
     public me(options?: AxiosRequestConfig) {
         return UserControllerApiFp(this.configuration).me(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 사용자 닉네임, 전시 개수 조회
+     * @summary 마이페이지 썸네일 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public my(options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).my(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

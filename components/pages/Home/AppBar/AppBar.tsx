@@ -8,10 +8,7 @@ interface Props {
 }
 
 export const AppBar = (props: Props) => {
-  const handleBell = useCallback(() => {
-    sendMessage(["NAVIGATE_TO_BELL"]);
-  }, []);
-
+  const { className } = props
   const handleCalendar = useCallback(() => {
     sendMessage(["NAVIGATE_TO_CALENDAR"]);
   }, []);
@@ -21,7 +18,7 @@ export const AppBar = (props: Props) => {
   }, []);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper className={className}>
       <S.LogoGroup>
         <IconButton
           iconProps={{
@@ -30,12 +27,6 @@ export const AppBar = (props: Props) => {
         />
       </S.LogoGroup>
       <S.MenuGroup>
-        <IconButton
-          iconProps={{
-            name: "BellIcon",
-          }}
-          onClick={handleBell}
-        />
         <IconButton
           iconProps={{
             name: "CalendarIcon",
