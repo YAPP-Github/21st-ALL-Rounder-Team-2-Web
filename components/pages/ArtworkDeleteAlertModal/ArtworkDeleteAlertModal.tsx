@@ -1,0 +1,26 @@
+import Modal from "@/components/ui/Modal/Modal";
+import * as S from "./ArtworkDeleteAlertModal.styles";
+
+type Props = {
+  onClose?: () => void;
+};
+
+const ArtworkDeleteAlertModal = ({ onClose }: Props) => {
+  return (
+    <Modal onClose={onClose}>
+      <S.Wrapper>
+        <S.Title>
+          <div>마지막 작품기록이에요</div>
+          <div>정말 삭제할까요?</div>
+        </S.Title>
+        <S.Description>마지막 기록물을 삭제할 시 전시정보가 삭제됩니다</S.Description>
+        <S.Options>
+          <button type="button">아니오</button>
+          <button type="button">예</button>
+        </S.Options>
+      </S.Wrapper>
+    </Modal>
+  );
+};
+
+export default ArtworkDeleteAlertModal;

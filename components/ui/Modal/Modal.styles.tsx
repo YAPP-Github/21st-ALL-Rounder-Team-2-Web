@@ -6,10 +6,7 @@ export const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 318px;
+  width: calc(100% - 72px);
   padding: 16px;
   background: #1f1f1f;
   box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.35);
