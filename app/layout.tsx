@@ -1,6 +1,5 @@
 "use client";
 
-import { BrowserRouter } from "react-router-dom";
 import QueryClientWrapper from "./QueryClientWrapper";
 import StyledComponentsRegistry from "../libs/styled-components";
 import AntdMobileProvider from "@/libs/antd-mobile-provider";
@@ -10,14 +9,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-prefers-color-scheme="dark">
       <body>
-        <BrowserRouter>
-          <AntdMobileProvider>
-            <StyledComponentsRegistry>
-              <QueryClientWrapper>{children}</QueryClientWrapper>
-            </StyledComponentsRegistry>
-            <div id="overlay-root" />
-          </AntdMobileProvider>
-        </BrowserRouter>
+        <AntdMobileProvider>
+          <StyledComponentsRegistry>
+            <QueryClientWrapper>{children}</QueryClientWrapper>
+          </StyledComponentsRegistry>
+          <div id="overlay-root" />
+        </AntdMobileProvider>
       </body>
     </html>
   );
