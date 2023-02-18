@@ -3,11 +3,12 @@ import { colors } from "@/styles/colors";
 import { Bold16CSS } from "@/components/ui/Typographies";
 
 export const Wrapper = styled.div<{ $active: boolean }>`
+  ${Bold16CSS}
   display: inline-block;
   text-align: center;
   padding: 10px 20px;
   background-color: ${colors.green900};
-  ${Bold16CSS}
+  color: #000000;
 
   ${({ $active }) =>
     $active
