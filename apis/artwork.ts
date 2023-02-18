@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/libs/axios";
 import { ArtworkControllerApiFactory, UpdateArtworkRequestDto } from "@/__generate__/artwork";
 
-const factory = ArtworkControllerApiFactory(undefined, "", axiosInstance);
+const factory = ArtworkControllerApiFactory(undefined, undefined, axiosInstance);
 
 export const getArtworkPageFromPost = async (exhibitionId: number, size: number = 5, page: number = 0) => {
   const response = await factory.getArtworkPageFromPost(exhibitionId, size, page);
