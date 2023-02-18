@@ -52,6 +52,11 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
   };
 
   const handleSave = (e: MouseEvent, formData: FormData) => {
+    const { artist, name, tags } = formData;
+    mutate({
+      artworkId: activeArtworkId,
+      newArtworkInfo: { artist, name, tags },
+    });
     navigate(`exhibition/${exhibitionId}/${artworkId}`);
   };
 
@@ -75,15 +80,11 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
               <S.Title>{artworkInfo?.name}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
               <S.TagList>
-                {/** TagDto 필드가 nullable */}
-                {artworkInfo?.tags?.map(
-                  ({ id, name }) =>
-                    name && (
-                      <li key={id}>
-                        <Tag name={name} />
-                      </li>
-                    )
-                )}
+                {artworkInfo?.tags?.map((tag) => (
+                  <li key={id}>
+                    <Tag name={tag} />
+                  </li>
+                ))}
               </S.TagList>
             </S.ArtworkInfoWrapper>
           </SwiperSlide>
@@ -100,7 +101,7 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
         <Portal>
           <Dimmed />
           <S.BottomSheetWrapper>
-            <EditBottomSheet onSave={handleSave} />
+            <EditBottomSheet defaultValues={artworkInfo} onSave={handleSave} />
           </S.BottomSheetWrapper>
         </Portal>
       )}

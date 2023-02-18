@@ -5,7 +5,7 @@ import TextInput from "@/components/ui/Input/TextInput/TextInput";
 import * as S from "./EditBottomSheet.styles";
 
 type FormStates = {
-  author: string;
+  artist: string;
   name: string;
   inputTag: string;
 };
@@ -14,27 +14,23 @@ export type FormData = Omit<FormStates, "inputTag"> & { tags: string[] };
 
 export interface Props {
   className?: string;
+  defaultValues?: FormData;
   onSave?: (e: React.MouseEvent, form: FormData) => void;
   onContinue?: (e: React.MouseEvent, form: FormData) => void;
 }
 
 export const EditBottomSheet = (props: Props) => {
-  const { className, onSave, onContinue } = props;
+  const { className, onSave, onContinue, defaultValues } = props;
   const {
     register,
     handleSubmit,
     resetField,
     watch,
     formState: { errors },
-  } = useForm<FormStates>();
+  } = useForm<FormStates>({ defaultValues });
   const inputTags = watch("inputTag");
 
-  const [tags, setTags] = useState([
-    "감정태그1",
-    "감정태그2",
-    "감정태그3",
-    "감정태그4",
-  ]);
+  const [tags, setTags] = useState(defaultValues?.tags ?? []);
 
   const handleInputTagKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -82,25 +78,20 @@ export const EditBottomSheet = (props: Props) => {
         </Button>
       </S.SaveButton>
       <S.EditInputForm label="작가이름">
-        <TextInput
-          placeholder="작가 이름을 적어주세요."
-          {...register("author")}
-        />
+        <TextInput placeholder="작가 이름을 적어주세요." {...register("artist")} />
       </S.EditInputForm>
       <S.EditInputForm label="작품명">
         <TextInput placeholder="작품명을 적어주세요." {...register("name")} />
       </S.EditInputForm>
       <S.EditInputForm label="감정태그">
-        <TextInput
-          placeholder="#감정 태그를 적어주세요."
-          {...register("inputTag")}
-          onKeyDown={handleInputTagKeyDown}
-        />
+        <TextInput placeholder="#감정 태그를 적어주세요." {...register("inputTag")} onKeyDown={handleInputTagKeyDown} />
         <S.EditTagList tags={tags} onDelete={handleDeleteTag} />
       </S.EditInputForm>
-      <S.ContinueButton type="primary" onClick={handleContinue}>
-        계속 촬영하기
-      </S.ContinueButton>
+      {onContinue && (
+        <S.ContinueButton type="primary" onClick={handleContinue}>
+          계속 촬영하기
+        </S.ContinueButton>
+      )}
     </S.Wrapper>
   );
 };
