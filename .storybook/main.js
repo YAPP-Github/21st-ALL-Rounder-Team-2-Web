@@ -11,6 +11,9 @@ module.exports = {
   core: {
     builder: "@storybook/builder-webpack5",
   },
+  // features: {
+  //   babelModeV7: true,
+  // },
   webpackFinal: async (config) => {
     // disable whatever is already set to load SVGs
     config.module.rules

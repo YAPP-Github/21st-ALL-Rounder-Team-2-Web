@@ -1,3 +1,4 @@
+import React from "react";
 import { Story, Meta } from '@storybook/react';
 import { -- PLOP COMPONENT NAME HERE --, Props } from './-- PLOP COMPONENT FOLDER NAME HERE --';
 

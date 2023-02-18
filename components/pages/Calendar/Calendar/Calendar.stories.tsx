@@ -1,9 +1,10 @@
-import { Story, Meta } from '@storybook/react';
-import { Calendar, Props } from './Calendar';
+import React from "react";
+import { Story, Meta } from "@storybook/react";
+import { Calendar, Props } from "./Calendar";
 
 export default {
   component: Calendar,
-  title: 'pages/Calendar/Calendar',
+  title: "pages/Calendar/Calendar",
   argTypes: {},
 } as Meta;
 
