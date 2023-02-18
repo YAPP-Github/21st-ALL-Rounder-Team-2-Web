@@ -1,26 +1,33 @@
 "use client";
 
 import Image from "next/image";
-import { PostDetailInfo } from "@/__generate__/post";
 import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
 import Icon from "@/components/ui/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
+import { useGetPostInfo } from "@/hooks/exhibition";
+import { sendMessage } from "@/libs/message/message";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 type Props = {
-  postInfo: PostDetailInfo;
+  exhibitionId: number;
 };
 
-const ExhibitionInfoHeader = ({ postInfo }: Props) => {
+const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
+  const { isShow, showOverlay, hideOverlay } = useOverlay();
+  const { data: postInfo } = useGetPostInfo(exhibitionId);
+
+  if (!postInfo) return null;
   const { mainImage, categoryName, name, postDate } = postInfo;
 
-  const { isShow, showOverlay, hideOverlay } = useOverlay();
+  const handleGoBackClick = () => {
+    sendMessage(["GO_BACK"]);
+  };
 
-  const handleGoBackClick = () => {};
-
-  const handleEditClick = () => {};
+  const handleEditClick = () => {
+    sendMessage(["NAVIGATE_TO_EXHIBIT_EDIT", postInfo]);
+  };
 
   const handleExhibitionWorkAdd = () => {
     showOverlay();
@@ -30,19 +37,9 @@ const ExhibitionInfoHeader = ({ postInfo }: Props) => {
     <>
       {isShow && <ImageUploadSelectModal onClose={hideOverlay} />}
       <S.Header>
-        {mainImage && (
-          <Image
-            alt="대표 사진"
-            src={mainImage}
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        )}
+        {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} />}
         <S.GradientOverlay>
-          <NavigationBar
-            onGoBackClick={handleGoBackClick}
-            onEditClick={handleEditClick}
-          />
+          <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
           <S.Content>
             <S.ExhibitionInfo>
               <S.Category>{categoryName}</S.Category>
