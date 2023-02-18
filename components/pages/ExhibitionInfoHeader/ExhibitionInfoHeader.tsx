@@ -7,6 +7,7 @@ import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectM
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
 import { useGetPostInfo } from "@/hooks/exhibition";
+import { sendMessage } from "@/libs/message/message";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 type Props = {
@@ -14,15 +15,19 @@ type Props = {
 };
 
 const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
+  const { isShow, showOverlay, hideOverlay } = useOverlay();
   const { data: postInfo } = useGetPostInfo(exhibitionId);
 
-  const { mainImage, categoryName, name, postDate } = postInfo ?? {};
+  if (!postInfo) return null;
+  const { mainImage, categoryName, name, postDate } = postInfo;
 
-  const { isShow, showOverlay, hideOverlay } = useOverlay();
+  const handleGoBackClick = () => {
+    sendMessage(["GO_BACK"]);
+  };
 
-  const handleGoBackClick = () => {};
-
-  const handleEditClick = () => {};
+  const handleEditClick = () => {
+    sendMessage(["NAVIGATE_TO_EXHIBIT_EDIT", postInfo]);
+  };
 
   const handleExhibitionWorkAdd = () => {
     showOverlay();
