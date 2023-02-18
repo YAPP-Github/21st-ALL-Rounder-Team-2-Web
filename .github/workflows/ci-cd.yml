@@ -42,6 +42,7 @@ jobs:
           publish_dir: ./storybook-static/
 
   chromatic-deployment:
+    if: ${{ false }} # disable for now
     name: Chromatic Deployment
     runs-on: ubuntu-latest
     steps:
