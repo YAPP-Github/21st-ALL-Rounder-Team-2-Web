@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { slideup, slidedown } from "@/styles/keyframes";
 
 export const Wrapper = styled.ul`
@@ -20,12 +20,5 @@ export const ActionSheetWrapper = styled.div<{ isShow: boolean }>`
   bottom: 53px;
   z-index: 1000;
 
-  ${(props) =>
-    props.isShow
-      ? css`
-          animation: ${slideup} 250ms forwards;
-        `
-      : css`
-          animation: ${slidedown} 250ms forwards;
-        `};
+  animation: ${(props) => (props.isShow ? slideup : slidedown)} 250ms forwards;
 `;
