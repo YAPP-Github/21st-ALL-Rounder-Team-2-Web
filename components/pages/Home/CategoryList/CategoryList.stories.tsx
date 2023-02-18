@@ -15,5 +15,5 @@ const Template: ComponentStory<typeof CategoryList> = (args) => <CategoryList {.
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  items: [{ text: "cat1", active: false }, { text: "cat2", active: false }], 
+  items: [{ name: "cat1", sequence: 0 }, { name: "cat2", sequence: 1 }], 
 };
