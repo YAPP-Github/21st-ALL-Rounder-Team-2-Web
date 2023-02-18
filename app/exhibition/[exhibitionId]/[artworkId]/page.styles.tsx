@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ExtraBold24CSS, Normal16CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
 import { slideup, slidedown } from "@/styles/keyframes";
@@ -41,6 +41,7 @@ export const TagList = styled.ul`
 export const Overlay = styled.div`
   position: absolute;
   width: 100%;
+  padding-top: 25px;
   z-index: 1000;
 `;
 
@@ -79,12 +80,5 @@ export const BottomSheetWrapper = styled.div<{ isShow: boolean }>`
   bottom: 0;
   z-index: 1000;
 
-  ${(props) =>
-    props.isShow
-      ? css`
-          animation: ${slideup} 250ms forwards;
-        `
-      : css`
-          animation: ${slidedown} 250ms forwards;
-        `};
+  animation: ${(props) => (props.isShow ? slideup : slidedown)} 250ms forwards;
 `;

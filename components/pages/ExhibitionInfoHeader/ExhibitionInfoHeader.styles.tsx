@@ -8,6 +8,7 @@ export const Header = styled.header`
 
 export const GradientOverlay = styled.div`
   position: relative;
+  padding-top: 25px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #161616 97.31%);
 `;
 
