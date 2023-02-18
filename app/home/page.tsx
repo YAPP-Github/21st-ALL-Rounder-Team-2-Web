@@ -52,7 +52,7 @@ function Page() {
     });
   }, [allPostInfo, pins]);
   const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
-  const isEmpty = true
+  const isEmpty = exhibitionListWithPin.length === 0
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
