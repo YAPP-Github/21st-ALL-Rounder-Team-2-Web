@@ -1,7 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArtworkThumbnailDto } from "@/__generate__/artwork";
-import { useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
+import { useGetArtworkList, useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
@@ -11,14 +12,15 @@ import { useSelectCategory } from "@/hooks/useSelectCategory";
 
 interface Props {
   exhibitionId: number;
-  artworkList: Array<ArtworkThumbnailDto>;
 }
 
-const ArtworkCardList = ({ exhibitionId, artworkList }: Props) => {
+const ArtworkCardList = ({ exhibitionId }: Props) => {
   const router = useRouter();
   const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
   const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
   const { selectedIndex, selectCategoryByIndex } = useSelectCategory();
+
+  const { data: artworkList } = useGetArtworkList(exhibitionId);
 
   const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,10 +44,7 @@ const ArtworkCardList = ({ exhibitionId, artworkList }: Props) => {
       {artworkList?.map((artwork) => (
         <li key={artwork.id}>
           <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
-            <ArtworkCard
-              {...artwork}
-              onMoreBtnClick={handleMoreBtnClick(artwork.id)}
-            />
+            <ArtworkCard {...artwork} onMoreBtnClick={handleMoreBtnClick(artwork.id)} />
           </Link>
         </li>
       ))}
