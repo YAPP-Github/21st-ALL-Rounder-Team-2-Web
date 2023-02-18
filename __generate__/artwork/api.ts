@@ -72,10 +72,10 @@ export interface ArtworkInfoDto {
     'artist': string;
     /**
      * 감정 태그 목록
-     * @type {Array<TagDto>}
+     * @type {Array<string>}
      * @memberof ArtworkInfoDto
      */
-    'tags': Array<TagDto>;
+    'tags': Array<string>;
 }
 /**
  * 작품 목록의 작품 썸네일 정보
@@ -131,13 +131,13 @@ export interface ArtworkThumbnailDtoPage {
      * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
-    'totalElements'?: number;
+    'totalPages'?: number;
     /**
      * 
      * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
-    'totalPages'?: number;
+    'totalElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -239,10 +239,10 @@ export interface CreateArtworkRequestDto {
     'name'?: string;
     /**
      * 작품 할당 태그
-     * @type {Array<CreateArtworkTagDto>}
+     * @type {Array<string>}
      * @memberof CreateArtworkRequestDto
      */
-    'tags'?: Array<CreateArtworkTagDto>;
+    'tags'?: Array<string>;
 }
 /**
  * 전시 작품 생성 Response
@@ -256,25 +256,6 @@ export interface CreateArtworkResponseDto {
      * @memberof CreateArtworkResponseDto
      */
     'id'?: number;
-}
-/**
- * 전시 작품 추가시 할당될 태그 정보
- * @export
- * @interface CreateArtworkTagDto
- */
-export interface CreateArtworkTagDto {
-    /**
-     * 태그 ID. 기존에 존재한 태그를 작품에 추가할 경우 제공되어야함.
-     * @type {number}
-     * @memberof CreateArtworkTagDto
-     */
-    'tagId'?: number;
-    /**
-     * 태그 이름. 새롭게 태그를 생성하여 작품에 추가할 경우 태그 이름만 제공되어야함.
-     * @type {string}
-     * @memberof CreateArtworkTagDto
-     */
-    'tagName': string;
 }
 /**
  * 
@@ -401,25 +382,6 @@ export interface Sort {
     'unsorted'?: boolean;
 }
 /**
- * 태그 Response
- * @export
- * @interface TagDto
- */
-export interface TagDto {
-    /**
-     * 태그 아이디
-     * @type {number}
-     * @memberof TagDto
-     */
-    'id'?: number;
-    /**
-     * 태그 명
-     * @type {string}
-     * @memberof TagDto
-     */
-    'name'?: string;
-}
-/**
  * 전시 작품 생성 Request
  * @export
  * @interface UpdateArtworkRequestDto
@@ -439,10 +401,10 @@ export interface UpdateArtworkRequestDto {
     'name'?: string;
     /**
      * 작품 할당 태그
-     * @type {Array<CreateArtworkTagDto>}
+     * @type {Array<string>}
      * @memberof UpdateArtworkRequestDto
      */
-    'tags'?: Array<CreateArtworkTagDto>;
+    'tags'?: Array<string>;
 }
 
 /**
@@ -452,8 +414,8 @@ export interface UpdateArtworkRequestDto {
 export const ArtworkControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
+         * 작품(이미지)를 전시에 추가(등록)
+         * @summary 전시 작품 등록
          * @param {CreateArtworkRequestDto} createArtworkRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -499,11 +461,11 @@ export const ArtworkControllerApiAxiosParamCreator = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork1: async (id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createArtworkBatch: async (id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('createArtwork1', 'id', id)
+            assertParamExists('createArtworkBatch', 'id', id)
             // verify required parameter 'createArtworkBatchRequestDto' is not null or undefined
-            assertParamExists('createArtwork1', 'createArtworkBatchRequestDto', createArtworkBatchRequestDto)
+            assertParamExists('createArtworkBatch', 'createArtworkBatchRequestDto', createArtworkBatchRequestDto)
             const localVarPath = `/artwork/batch/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -795,8 +757,8 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ArtworkControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
+         * 작품(이미지)를 전시에 추가(등록)
+         * @summary 전시 작품 등록
          * @param {CreateArtworkRequestDto} createArtworkRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -813,8 +775,8 @@ export const ArtworkControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArtworkBatchResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createArtwork1(id, createArtworkBatchRequestDto, options);
+        async createArtworkBatch(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateArtworkBatchResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createArtworkBatch(id, createArtworkBatchRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -898,8 +860,8 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
     const localVarFp = ArtworkControllerApiFp(configuration)
     return {
         /**
-         * 작품(이미지)를 전시에 추가
-         * @summary 전시 작품 추가
+         * 작품(이미지)를 전시에 추가(등록)
+         * @summary 전시 작품 등록
          * @param {CreateArtworkRequestDto} createArtworkRequestDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -915,8 +877,8 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: any): AxiosPromise<CreateArtworkBatchResponseDto> {
-            return localVarFp.createArtwork1(id, createArtworkBatchRequestDto, options).then((request) => request(axios, basePath));
+        createArtworkBatch(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: any): AxiosPromise<CreateArtworkBatchResponseDto> {
+            return localVarFp.createArtworkBatch(id, createArtworkBatchRequestDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -993,8 +955,8 @@ export const ArtworkControllerApiFactory = function (configuration?: Configurati
  */
 export class ArtworkControllerApi extends BaseAPI {
     /**
-     * 작품(이미지)를 전시에 추가
-     * @summary 전시 작품 추가
+     * 작품(이미지)를 전시에 추가(등록)
+     * @summary 전시 작품 등록
      * @param {CreateArtworkRequestDto} createArtworkRequestDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1013,8 +975,8 @@ export class ArtworkControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkControllerApi
      */
-    public createArtwork1(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig) {
-        return ArtworkControllerApiFp(this.configuration).createArtwork1(id, createArtworkBatchRequestDto, options).then((request) => request(this.axios, this.basePath));
+    public createArtworkBatch(id: number, createArtworkBatchRequestDto: CreateArtworkBatchRequestDto, options?: AxiosRequestConfig) {
+        return ArtworkControllerApiFp(this.configuration).createArtworkBatch(id, createArtworkBatchRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
