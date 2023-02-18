@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof ArtworkCard> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  imageUrl: "https://picsum.photos/300",
-  title: "나의 그대여",
+  imageURL: "https://picsum.photos/300",
+  name: "나의 그대여",
   artist: "김호연",
 };

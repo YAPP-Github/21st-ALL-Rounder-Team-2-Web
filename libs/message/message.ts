@@ -1,4 +1,5 @@
 import { isBrowser } from "@/utils/browser";
+import { PostDetailInfo } from "@/__generate__/post";
 
 export type Actions = {
     NAVIGATE_TO_BELL: {},
@@ -12,14 +13,14 @@ export type Actions = {
     },
     EDIT_BOTTOM_SHEET_SAVE: {
         payload: {
-            author: string;
+            artist: string;
             name: string;
             tags: string[];
         }
     },
     EDIT_BOTTOM_SHEET_CONTINUE: {
         payload: {
-            author: string;
+            artist: string;
             name: string;
             tags: string[];
         }
@@ -27,6 +28,9 @@ export type Actions = {
     NAVIGATE_TO_CAMERA: {},
     NAVIGATE_TO_GALLERY: {},
     GO_BACK: {},
+    NAVIGATE_TO_EXHIBIT_EDIT: {
+        payload: PostDetailInfo
+    },
 }
 
 export type ActionNames = keyof Actions;

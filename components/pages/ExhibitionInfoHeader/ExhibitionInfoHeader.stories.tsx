@@ -6,11 +6,9 @@ export default {
   component: ExhibitionInfoHeader,
 } as ComponentMeta<typeof ExhibitionInfoHeader>;
 
-const Template: ComponentStory<typeof ExhibitionInfoHeader> = (args) => (
-  <ExhibitionInfoHeader {...args} />
-);
+const Template: ComponentStory<typeof ExhibitionInfoHeader> = (args) => <ExhibitionInfoHeader {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  mainImageUrl: "https://picsum.photos/300",
+  exhibitionId: 1,
 };

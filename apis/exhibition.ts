@@ -1,6 +1,4 @@
 import { Exhibition } from "@/interfaces/exhibition";
-import { Artwork } from "@/interfaces/artwork";
-
 import { axiosInstance } from "@/libs/axios";
 import { ExhibitControllerApiFactory } from "@/__generate__/post";
 
@@ -76,22 +74,7 @@ export const togglePinById = (id: string) => {
   return Promise.resolve(true);
 };
 
-const ARTWORK_LIST = new Array(5).fill(0).map((_, i) => ({
-  id: `${i}`,
-  imageUrl: "https://picsum.photos/300",
-  title: "나의 그대여",
-  artist: "김호연",
-  tags: ["감정예시1", "감정예시2", "감정예시3"],
-}));
-
-export const getArtworkInfo = (artworkId: string): Promise<Artwork> => {
-  return Promise.resolve(ARTWORK_LIST[Number(artworkId)]);
-};
-
-export const getArtworkList = (exhibitionId: string): Promise<Artwork[]> => {
-  return Promise.resolve(ARTWORK_LIST);
-};
-
-export const getDraftArtworkList = () => {
-  return Promise.resolve(ARTWORK_LIST);
+export const getPostInfoWithCategory = async (id: number) => {
+  const response = await factory.getPostInfoWithCategory(id);
+  return response.data;
 };

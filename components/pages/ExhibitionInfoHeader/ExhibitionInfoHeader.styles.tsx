@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-  Bold14CSS,
-  Bold24CSS,
-  Normal14CSS,
-} from "@/components/ui/Typographies";
+import { Bold14CSS, Bold24CSS, Normal14CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
 
 export const Header = styled.header`
@@ -12,7 +8,6 @@ export const Header = styled.header`
 
 export const GradientOverlay = styled.div`
   position: relative;
-  padding-top: 30px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #161616 97.31%);
 `;
 

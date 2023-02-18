@@ -71,3 +71,11 @@ export const ThumbnailItem = styled.li<{ isActive: boolean }>`
   filter: drop-shadow(0px 4px 30px rgba(0, 0, 0, 0.16));
   border-radius: 2px;
 `;
+
+export const BottomSheetWrapper = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+`;

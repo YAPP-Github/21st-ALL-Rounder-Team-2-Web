@@ -1,11 +1,11 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { action } from "@storybook/addon-actions"
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 
-import { CategoryList } from './CategoryList';
+import { CategoryList } from "./CategoryList";
 
 export default {
-  title: 'Pages/Home/CategoryList',
+  title: "Pages/Home/CategoryList",
   component: CategoryList,
 } as ComponentMeta<typeof CategoryList>;
 
@@ -15,5 +15,8 @@ const Template: ComponentStory<typeof CategoryList> = (args) => <CategoryList {.
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  items: [{ name: "cat1", sequence: 0 }, { name: "cat2", sequence: 1 }], 
+  items: [
+    { name: "cat1", id: 0 },
+    { name: "cat2", id: 1 },
+  ],
 };
