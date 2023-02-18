@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../Button/Button/Button";
 import { Medium16CSS, Normal16CSS } from "../../Typographies";
 
 export const Wrapper = styled.div`
@@ -6,13 +7,16 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 183px;
+  padding-bottom: 341px;
 `;
 
 export const Description = styled.pre`
   ${Normal16CSS}
+  text-align: center;
 `;
 
-export const Button = styled.p`
+export const SubmitButton = styled(Button)`
   ${Medium16CSS}
   display: flex;
   flex-direction: row;

@@ -12,6 +12,7 @@ import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/P
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
 import * as S from "./page.styles";
+import ExhibitionListEmpty from "@/components/ui/Empty/ExhibitionListEmpty/ExhibitionListEmpty";
 
 export default function PageWrapper() {
   return (
@@ -42,7 +43,7 @@ function Page() {
 
   const [pins, setPins] = useState<Record<string, boolean>>({});
   const exhibitionListWithPin = useMemo(() => {
-    const posts = allPostInfo?.content ?? []
+    const posts = allPostInfo?.content ?? [];
     return posts.map((item) => {
       return {
         ...item,
@@ -51,6 +52,7 @@ function Page() {
     });
   }, [allPostInfo, pins]);
   const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
+  const isEmpty = true
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
@@ -84,12 +86,17 @@ function Page() {
       <S.Filter>
         <Select activeIndex={selectedFilter} onSelected={handleSelectFilter} />
       </S.Filter>
+
       <S.Content>
-        <ExhibitionCardList
-          fixedExhibition={fixedExhibition}
-          exhibitionList={restExhibition}
-          onTogglePin={handleTogglePin}
-        />
+        {isEmpty ? (
+          <ExhibitionListEmpty onSubmit={handleEditButton} />
+        ) : (
+          <ExhibitionCardList
+            fixedExhibition={fixedExhibition}
+            exhibitionList={restExhibition}
+            onTogglePin={handleTogglePin}
+          />
+        )}
       </S.Content>
       <PostFloatingButton onClick={handleEditButton} />
     </S.Wrapper>
