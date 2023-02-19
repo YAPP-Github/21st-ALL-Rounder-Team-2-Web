@@ -41,7 +41,6 @@ export const TagList = styled.ul`
 export const Overlay = styled.div`
   position: absolute;
   width: 100%;
-  padding-top: 25px;
   z-index: 1000;
 `;
 

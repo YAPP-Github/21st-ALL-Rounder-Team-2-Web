@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
+  padding-top: 50px;
 `;
 
 export const Title = styled.span`
@@ -14,8 +15,7 @@ export const Title = styled.span`
 `;
 
 export const Button = styled.button`
-  width: 44px;
-  height: 44px;
+  padding: 20px;
   color: white;
   ${Bold16CSS}
 `;
