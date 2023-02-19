@@ -1,11 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  getArtworkPageFromPost,
-  getArtworkInfo,
-  setMainArtwork,
-  deleteArtwork,
-  updateArtwork,
-} from "@/apis/artwork";
+import { getArtworkPageFromPost, getArtworkInfo, setMainArtwork, deleteArtwork, updateArtwork } from "@/apis/artwork";
 import { UpdateArtworkRequestDto } from "@/__generate__/artwork";
 
 export const useGetArtworkList = (exhibitionId: number) => {
@@ -18,7 +12,7 @@ export const useGetArtworkList = (exhibitionId: number) => {
 
 export const useGetArtworkInfo = (artworkId: number) => {
   return useQuery({
-    queryKey: [["artworkInfo", artworkId]],
+    queryKey: ["artworkInfo", artworkId],
     queryFn: () => getArtworkInfo(artworkId),
   });
 };
@@ -46,13 +40,12 @@ export const useDeleteArtwork = (exhibitionId: number) => {
 };
 
 export const useUpdateArtworkInfo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      artworkId,
-      newArtworkInfo,
-    }: {
-      artworkId: number;
-      newArtworkInfo: UpdateArtworkRequestDto;
-    }) => updateArtwork(artworkId, newArtworkInfo),
+    mutationFn: ({ artworkId, newArtworkInfo }: { artworkId: number; newArtworkInfo: UpdateArtworkRequestDto }) =>
+      updateArtwork(artworkId, newArtworkInfo),
+    onSuccess: (_, { artworkId }) => {
+      queryClient.invalidateQueries(["artworkInfo", artworkId]);
+    },
   });
 };

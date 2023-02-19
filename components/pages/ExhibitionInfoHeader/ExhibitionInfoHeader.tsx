@@ -15,7 +15,7 @@ type Props = {
 };
 
 const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
-  const { isShow, showOverlay, hideOverlay } = useOverlay();
+  const { isOpen: isOpenModal, open, close } = useOverlay();
   const { data: postInfo } = useGetPostInfo(exhibitionId);
 
   if (!postInfo) return null;
@@ -30,12 +30,12 @@ const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
   };
 
   const handleExhibitionWorkAdd = () => {
-    showOverlay();
+    open();
   };
 
   return (
     <>
-      {isShow && <ImageUploadSelectModal onClose={hideOverlay} />}
+      {isOpenModal && <ImageUploadSelectModal onClose={close} />}
       <S.Header>
         {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} />}
         <S.GradientOverlay>
