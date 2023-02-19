@@ -32,15 +32,16 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
   const { data: artworkInfo } = useGetArtworkInfo(activeArtworkId);
   const { mutate } = useUpdateArtworkInfo();
 
-  const changeActiveArtworkId = (id: number) => {
-    setActiveArtworkId(id);
-    navigate(`exhibition/${exhibitionId}/${id}`);
+  const changeActiveArtworkId = (index: number) => {
+    const activeArtworkId = artworkThumbnailList?.[index]?.id ?? 0;
+    setActiveArtworkId(activeArtworkId);
+    navigate(`exhibition/${exhibitionId}/${activeArtworkId}`);
   };
 
-  const handleThumbnailClick = (id: number) => {
+  const handleThumbnailClick = (index: number) => {
     return (e: MouseEvent) => {
-      changeActiveArtworkId(id);
-      swiper?.slideTo(id - 1);
+      changeActiveArtworkId(index);
+      swiper?.slideTo(index);
     };
   };
 
@@ -69,6 +70,8 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
     }, 250);
   };
 
+  const initialSlideIndex = artworkThumbnailList?.findIndex((e) => e.id === artworkId);
+
   return (
     <S.Wrapper>
       <S.Overlay>
@@ -77,9 +80,9 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
       <Swiper
         className="main-swiper"
         onSwiper={(swiper) => setSwiper(swiper)}
-        initialSlide={activeArtworkId - 1}
+        initialSlide={initialSlideIndex}
         onSlideChange={({ activeIndex }) => {
-          changeActiveArtworkId(activeIndex + 1);
+          changeActiveArtworkId(activeIndex);
         }}
       >
         {artworkThumbnailList?.map(({ id, imageURL }) => (
@@ -100,8 +103,8 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
         ))}
       </Swiper>
       <S.ThumbnailList>
-        {artworkThumbnailList?.map(({ id, imageURL }) => (
-          <S.ThumbnailItem key={id} isActive={id === activeArtworkId} onClick={handleThumbnailClick(id)}>
+        {artworkThumbnailList?.map(({ id, imageURL }, i) => (
+          <S.ThumbnailItem key={id} isActive={id === activeArtworkId} onClick={handleThumbnailClick(i)}>
             <Image alt="thumbnail" src={imageURL} fill style={{ borderRadius: "2px" }} />
           </S.ThumbnailItem>
         ))}
