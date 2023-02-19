@@ -1,9 +1,9 @@
 "use client";
 
-import QueryClientWrapper from "./QueryClientWrapper";
-import StyledComponentsRegistry from "../libs/styled-components";
+import QueryClientWrapper from "@/libs/react-query";
+import StyledComponentsRegistry from "@/libs/styled-components";
 import AntdMobileProvider from "@/libs/antd-mobile-provider";
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
