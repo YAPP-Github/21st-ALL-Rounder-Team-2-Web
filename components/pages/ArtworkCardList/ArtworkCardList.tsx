@@ -8,8 +8,10 @@ import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
 import ArtworkCard from "../ArtworkCard/ArtworkCard";
-import * as S from "./ArtworkCardList.styles";
+import ArtworkDeleteAlertModal from "@/components/pages/ArtworkDeleteAlertModal/ArtworkDeleteAlertModal";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
+import useOverlay from "@/hooks/useOverlay";
+import * as S from "./ArtworkCardList.styles";
 
 interface Props {
   exhibitionId: number;
@@ -17,12 +19,12 @@ interface Props {
 
 const ArtworkCardList = ({ exhibitionId }: Props) => {
   const router = useRouter();
+  const { data: artworkList } = useGetArtworkList(exhibitionId);
   const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
   const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
   const { selectedIndex, selectCategoryByIndex } = useSelectCategory();
   const [isShow, setIsShow] = useState(false);
-
-  const { data: artworkList } = useGetArtworkList(exhibitionId);
+  const { isShow: isShowAlertModal, showOverlay, hideOverlay } = useOverlay();
 
   const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -31,7 +33,11 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
   };
 
   const handleArtworkPin = () => {
-    setMainArtworkMutate(selectedIndex);
+    setMainArtworkMutate(selectedIndex, {
+      onSuccess: () => {
+        handleActionSheetClose();
+      },
+    });
   };
 
   const handleArtworkEdit = () => {
@@ -39,7 +45,11 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
   };
 
   const handleArtworkDelete = () => {
-    deleteArtworkMutate(selectedIndex);
+    deleteArtworkMutate(selectedIndex, {
+      onSuccess: () => {
+        handleActionSheetClose();
+      },
+    });
   };
 
   const handleActionSheetClose = () => {
@@ -50,41 +60,51 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
   };
 
   return (
-    <S.Wrapper>
-      {artworkList?.map((artwork) => (
-        <li key={artwork.id}>
-          <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
-            <ArtworkCard {...artwork} onMoreBtnClick={handleMoreBtnClick(artwork.id)} />
-          </Link>
-        </li>
-      ))}
-      {selectedIndex ? (
+    <>
+      {isShowAlertModal ? (
         <Portal>
-          <Dimmed onClick={handleActionSheetClose} />
-          <S.ActionSheetWrapper isShow={isShow}>
-            <ActionSheet
-              actionList={[
-                {
-                  actionName: "대표이미지로 선택",
-                  onActionClick: handleArtworkPin,
-                },
-                {
-                  actionName: "게시글 수정",
-                  onActionClick: handleArtworkEdit,
-                },
-                {
-                  actionName: "삭제",
-                  onActionClick: handleArtworkDelete,
-                },
-              ]}
-              onClose={handleActionSheetClose}
-            />
-          </S.ActionSheetWrapper>
+          <Dimmed onClick={hideOverlay} />
+          <ArtworkDeleteAlertModal onClose={hideOverlay} onConfirm={handleArtworkDelete} />
         </Portal>
       ) : (
         <></>
       )}
-    </S.Wrapper>
+      <S.Wrapper>
+        {artworkList?.map((artwork) => (
+          <li key={artwork.id}>
+            <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
+              <ArtworkCard {...artwork} onMoreBtnClick={handleMoreBtnClick(artwork.id)} />
+            </Link>
+          </li>
+        ))}
+        {selectedIndex ? (
+          <Portal>
+            <Dimmed onClick={handleActionSheetClose} />
+            <S.ActionSheetWrapper isShow={isShow}>
+              <ActionSheet
+                actionList={[
+                  {
+                    actionName: "대표이미지로 선택",
+                    onActionClick: handleArtworkPin,
+                  },
+                  {
+                    actionName: "게시글 수정",
+                    onActionClick: handleArtworkEdit,
+                  },
+                  {
+                    actionName: "삭제",
+                    onActionClick: artworkList?.length === 1 ? showOverlay : handleArtworkDelete,
+                  },
+                ]}
+                onClose={handleActionSheetClose}
+              />
+            </S.ActionSheetWrapper>
+          </Portal>
+        ) : (
+          <></>
+        )}
+      </S.Wrapper>
+    </>
   );
 };
 

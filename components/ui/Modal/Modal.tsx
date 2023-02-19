@@ -4,7 +4,7 @@ import { colors } from "@/styles/colors";
 import * as S from "./Modal.styles";
 
 type Props = {
-  headline: string;
+  headline?: string;
   onClose?: () => void;
   children: React.ReactNode;
 };

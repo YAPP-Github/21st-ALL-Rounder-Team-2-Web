@@ -6,8 +6,7 @@ export const SelectList = styled.ul`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0;
-  margin: 0;
+  margin-top: 20px;
 `;
 
 export const SelectItem = styled.li`
