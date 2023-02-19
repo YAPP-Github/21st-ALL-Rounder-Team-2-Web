@@ -22,11 +22,11 @@ export default function Page({
   searchParams,
 }: {
   params: { exhibitionId: string; artworkId: string };
-  searchParams: { edit: string | undefined };
+  searchParams?: { edit: string | undefined };
 }) {
   const exhibitionId = Number(params.exhibitionId);
   const artworkId = Number(params.artworkId);
-  const edit = Boolean(searchParams.edit);
+  const edit = Boolean(searchParams?.edit);
   const router = useRouter();
   const [isShow, setIsShow] = useState(edit);
   const { isOpen: isOpenBottomSheet, open: openBottomSheet, close: closeBottomSheet } = useOverlay(edit);
