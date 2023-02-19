@@ -1,17 +1,34 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-const useOverlay = () => {
-  const [isShow, setIsShow] = useState(false);
+const useOverlay = (defaultValue = false) => {
+  const [isOpen, setIsOpen] = useState(defaultValue);
 
-  const showOverlay = useCallback(() => {
-    setIsShow(true);
+  const open = useCallback(() => {
+    setIsOpen(true);
+    window.history.pushState({ ...window.history.state }, "", "");
   }, []);
 
-  const hideOverlay = useCallback(() => {
-    setIsShow(false);
+  const close = useCallback(() => {
+    setIsOpen(false);
+    window.history.back();
   }, []);
 
-  return { isShow, showOverlay, hideOverlay };
+  useEffect(() => {
+    if (defaultValue) window.history.pushState({ ...window.history.state }, "", "");
+  }, [defaultValue]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (isOpen) setIsOpen(false);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [isOpen, close]);
+
+  return { isOpen, open, close };
 };
 
 export default useOverlay;

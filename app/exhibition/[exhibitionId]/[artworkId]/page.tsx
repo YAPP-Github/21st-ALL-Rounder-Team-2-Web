@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState, MouseEvent, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,17 +12,24 @@ import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
 import { useGetArtworkInfo, useGetArtworkList, useUpdateArtworkInfo } from "@/hooks/artwork";
+import useOverlay from "@/hooks/useOverlay";
 import * as S from "./page.styles";
 import "swiper/css";
 import "./slider.css";
 
-export default function Page({ params }: { params: { exhibitionId: string; artworkId: string } }) {
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: { exhibitionId: string; artworkId: string };
+  searchParams: { edit: string | undefined };
+}) {
   const exhibitionId = Number(params.exhibitionId);
   const artworkId = Number(params.artworkId);
+  const edit = Boolean(searchParams.edit);
   const router = useRouter();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [isShow, setIsShow] = useState(Boolean(searchParams.get("edit")));
+  const [isShow, setIsShow] = useState(edit);
+  const { isOpen: isOpenBottomSheet, open: openBottomSheet, close: closeBottomSheet } = useOverlay(edit);
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkId, setActiveArtworkId] = useState(artworkId);
@@ -35,7 +41,6 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
   const changeActiveArtworkId = (index: number) => {
     const activeArtworkId = artworkThumbnailList?.[index]?.id ?? 0;
     setActiveArtworkId(activeArtworkId);
-    navigate(`exhibition/${exhibitionId}/${activeArtworkId}`);
   };
 
   const handleThumbnailClick = (index: number) => {
@@ -51,23 +56,24 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
 
   const handleEditClick = () => {
     setIsShow(true);
-    navigate({ pathname: `exhibition/${exhibitionId}/${artworkId}`, search: "?edit=true" });
+    openBottomSheet();
   };
+
+  const handleBottomSheetClose = useCallback(() => {
+    setIsShow(false);
+    setTimeout(closeBottomSheet, 250);
+  }, []);
 
   const handleSave = (e: MouseEvent, formData: FormData) => {
-    const { artist, name, tags } = formData;
-    mutate({
-      artworkId: activeArtworkId,
-      newArtworkInfo: { artist, name, tags },
-    });
-    navigate(`exhibition/${exhibitionId}/${artworkId}`);
-  };
-
-  const handleBottomSheetClose = () => {
-    setIsShow(false);
-    setTimeout(() => {
-      navigate(`exhibition/${exhibitionId}/${artworkId}`);
-    }, 250);
+    mutate(
+      {
+        artworkId: activeArtworkId,
+        newArtworkInfo: formData,
+      },
+      {
+        onSuccess: handleBottomSheetClose,
+      }
+    );
   };
 
   const initialSlideIndex = artworkThumbnailList?.findIndex((e) => e.id === artworkId);
@@ -109,7 +115,7 @@ export default function Page({ params }: { params: { exhibitionId: string; artwo
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
-      {searchParams.get("edit") && (
+      {isOpenBottomSheet && (
         <Portal>
           <Dimmed onClick={handleBottomSheetClose} />
           <S.BottomSheetWrapper isShow={isShow}>
