@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 20px;
   background-color: ${colors.bgColor};
 `;
 
