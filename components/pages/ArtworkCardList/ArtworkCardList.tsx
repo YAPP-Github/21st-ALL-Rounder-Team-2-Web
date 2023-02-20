@@ -81,7 +81,7 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
         ))}
         {isOpenActionSheet ? (
           <Portal>
-            <Dimmed onClick={closeActionSheet} />
+            <Dimmed onClick={handleActionSheetClose} />
             <S.ActionSheetWrapper isShow={isShow}>
               <ActionSheet
                 actionList={[
@@ -98,7 +98,7 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
                     onActionClick: artworkList?.length === 1 ? openAlertModal : handleArtworkDelete,
                   },
                 ]}
-                onClose={closeActionSheet}
+                onClose={handleActionSheetClose}
               />
             </S.ActionSheetWrapper>
           </Portal>
