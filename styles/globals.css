@@ -5,8 +5,8 @@ body {
   padding: 0;
   margin: 0;
   background-color: #161616;
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -45,4 +45,26 @@ ul {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+@keyframes slideup {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slidedown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(20%);
+    opacity: 0;
+  }
 }
