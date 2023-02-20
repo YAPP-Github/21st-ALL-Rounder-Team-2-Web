@@ -20,7 +20,8 @@ export const Headline = styled.div`
   text-align: center;
 
   & > div {
-    text-align: end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   & > span {
