@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Bold18CSS, Normal14CSS } from "@/components/ui/Typographies";
+import { Bold16CSS, Normal14CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
@@ -20,7 +20,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const Title = styled.span`
-  ${Bold18CSS}
+  ${Bold16CSS}
   color: white;
   overflow: hidden;
   white-space: nowrap;

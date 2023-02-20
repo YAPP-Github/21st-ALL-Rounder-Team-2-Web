@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CategoryListStyled = styled(CategoryList)`
-  padding: 0px 16px;
+  padding: 5px 16px;
 `;
 
 export const Filter = styled.div`

@@ -29,7 +29,7 @@ const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
     sendMessage(["NAVIGATE_TO_EXHIBIT_EDIT", postInfo]);
   };
 
-  const handleExhibitionWorkAdd = () => {
+  const handleArtworkAdd = () => {
     open();
   };
 
@@ -46,10 +46,10 @@ const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
               <S.Title>{name}</S.Title>
               <S.Date>{postDate}</S.Date>
             </S.ExhibitionInfo>
-            <S.ExhibitionWorkAddButton onClick={handleExhibitionWorkAdd}>
+            <S.ArtworkAddButton onClick={handleArtworkAdd}>
               작품추가
-              <Icon name="PlusIcon" size={18} color={colors.blue} />
-            </S.ExhibitionWorkAddButton>
+              <Icon name="PlusIcon" size={18} color={colors.green900} />
+            </S.ArtworkAddButton>
           </S.Content>
         </S.GradientOverlay>
       </S.Header>

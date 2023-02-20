@@ -8,19 +8,20 @@ export const Wrapper = styled.div`
   align-items: flex-end;
   width: calc(50% - 4px);
   height: auto;
-  aspect-ratio: 177 / 242;
+  aspect-ratio: 175 / 240;
   border-radius: 32px;
 `;
 
 export const InfoContainer = styled.div`
   position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 24px;
+  left: 0;
+  right: 0;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 6px;
 `;
 
 export const TitleTextSpan = styled.span`
@@ -41,8 +42,8 @@ export const DateTextSpan = styled.span`
 
 export const PinButton = styled.div`
   position: absolute;
-  right: 14px;
-  top: 18px;
+  right: 12px;
+  top: 14px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   width: 32px;

@@ -18,16 +18,15 @@ export const Content = styled.div`
   padding: 16px 20px;
 `;
 
-export const ExhibitionWorkAddButton = styled.button`
+export const ArtworkAddButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: 93px;
-  height: 34px;
-  border: 1px solid ${colors.blue};
+  gap: 5.5px;
+  border: 1px solid ${colors.green900};
   border-radius: 71px;
-  color: ${colors.blue};
+  padding: 8.5px 14px;
+  color: ${colors.green900};
   ${Bold14CSS}
 `;
 
@@ -49,6 +48,7 @@ export const ExhibitionInfo = styled.div`
 
 export const Category = styled.span`
   color: ${colors.gray400};
+  letter-spacing: -0.3px;
 `;
 
 export const Title = styled.h2`
@@ -61,4 +61,5 @@ export const Title = styled.h2`
 
 export const Date = styled.span`
   color: ${colors.gray700};
+  letter-spacing: -0.3px;
 `;

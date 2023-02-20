@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { colors } from "@/styles/colors";
-import { Normal14CSS } from "../Typographies";
+import { Medium14CSS } from "../Typographies";
 
 export const Wrapper = styled.button`
   position: relative;
@@ -14,7 +14,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const Text = styled.div`
-  ${Normal14CSS}
+  ${Medium14CSS}
   color: ${colors.gray400};
   margin-right: 4px;
 `;

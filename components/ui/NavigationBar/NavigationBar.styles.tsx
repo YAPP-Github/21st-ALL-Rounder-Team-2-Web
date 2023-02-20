@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Bold16CSS, Bold18CSS } from "../Typographies";
+import { Normal16CSS, Bold18CSS } from "../Typographies";
+import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -16,6 +17,6 @@ export const Title = styled.span`
 
 export const Button = styled.button`
   padding: 20px;
-  color: white;
-  ${Bold16CSS}
+  color: ${colors.gray400};
+  ${Normal16CSS}
 `;

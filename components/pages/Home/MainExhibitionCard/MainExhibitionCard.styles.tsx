@@ -6,10 +6,9 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   align-items: flex-end;
-  background-color: #f1f1f1;
   width: 100%;
   height: auto;
-  aspect-ratio: 391/324;
+  aspect-ratio: 390/372;
 `;
 
 export const InfoContainer = styled.div`
@@ -44,4 +43,11 @@ export const PinButton = styled.div`
   position: absolute;
   right: 15px;
   top: 20px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
 `;
