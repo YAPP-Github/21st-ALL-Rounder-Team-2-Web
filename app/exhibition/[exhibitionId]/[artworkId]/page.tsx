@@ -111,7 +111,7 @@ export default function Page({
       <S.ThumbnailList>
         {artworkThumbnailList?.map(({ id, imageURL }, i) => (
           <S.ThumbnailItem key={id} isActive={id === activeArtworkId} onClick={handleThumbnailClick(i)}>
-            <Image alt="thumbnail" src={imageURL} fill style={{ borderRadius: "2px" }} />
+            <Image alt="thumbnail" src={imageURL} fill style={{ objectFit: "cover", borderRadius: "2px" }} />
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
