@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { ExtraBold24CSS, Normal16CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
-import { slideup, slidedown } from "@/styles/keyframes";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -79,5 +78,5 @@ export const BottomSheetWrapper = styled.div<{ isShow: boolean }>`
   bottom: 0;
   z-index: 1000;
 
-  animation: ${(props) => (props.isShow ? slideup : slidedown)} 250ms forwards;
+  animation: ${(props) => (props.isShow ? "slideup" : "slidedown")} 250ms forwards;
 `;
