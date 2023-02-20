@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   align-items: flex-end;
   width: calc(50% - 4px);
   height: auto;
-  aspect-ratio: 177 / 242;
+  aspect-ratio: 175 / 240;
   border-radius: 32px;
 `;
 

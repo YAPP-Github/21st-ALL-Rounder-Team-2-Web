@@ -19,7 +19,7 @@ export const MainExhibitionCard = (props: Props) => {
         alt="thumbnail"
         src={mainImage ?? DEFAULT_IMAGE}
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover", borderRadius: "0 240px 0 0" }}
       />
       <S.InfoContainer>
         <S.TitleTextSpan>{name}</S.TitleTextSpan>
