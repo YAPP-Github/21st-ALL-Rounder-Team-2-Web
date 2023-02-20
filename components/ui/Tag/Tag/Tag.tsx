@@ -17,6 +17,8 @@ export const Tag = (props: Props) => {
         <IconButton
           iconProps={{
             name: "XCircleIcon",
+            size: 16,
+            color: "rgba(225, 252, 173, 0.2)",
           }}
           onClick={onDelete}
         />
