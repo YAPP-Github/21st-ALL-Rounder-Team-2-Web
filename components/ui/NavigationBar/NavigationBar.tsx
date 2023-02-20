@@ -6,12 +6,17 @@ export interface Props {
   goBack?: {
     name: IconType;
     size: number;
-  }
+  };
   onGoBackClick: () => void;
   onEditClick?: () => void;
 }
 
-const NavigationBar = ({ current, goBack = { name: 'ChevronLeftIcon', size: 12 }, onGoBackClick, onEditClick }: Props) => {
+const NavigationBar = ({
+  current,
+  goBack = { name: "ArrowLeftIcon", size: 24 },
+  onGoBackClick,
+  onEditClick,
+}: Props) => {
   return (
     <S.Wrapper>
       <S.Button onClick={onGoBackClick}>

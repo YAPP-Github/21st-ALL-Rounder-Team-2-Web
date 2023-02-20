@@ -11,17 +11,9 @@ const ArtworkCard = ({ imageURL, name, artist, onMoreBtnClick }: Props) => {
   return (
     <S.Wrapper>
       <S.ImageWrapper>
-        <Image
-          alt=""
-          src={imageURL}
-          fill
-          style={{ objectFit: "cover", borderRadius: "8px" }}
-        />
+        <Image alt="" src={imageURL} fill style={{ objectFit: "cover", borderRadius: "12px" }} />
         <S.IconWrapper>
-          <IconButton
-            iconProps={{ name: "MoreVerticalIcon" }}
-            onClick={onMoreBtnClick}
-          />
+          <IconButton iconProps={{ name: "MoreVerticalIcon" }} onClick={onMoreBtnClick} />
         </S.IconWrapper>
       </S.ImageWrapper>
       <S.InfoWrapper>
