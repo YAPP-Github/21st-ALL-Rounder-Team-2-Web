@@ -8,5 +8,5 @@ export const Content = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   padding: 24px 16px;
-  gap: 4px;
+  gap: 8px;
 `;
