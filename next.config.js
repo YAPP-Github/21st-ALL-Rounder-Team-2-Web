@@ -11,11 +11,11 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   compiler: {
     styledComponents: true,
-    transpilePackages: ['antd-mobile'],
+    transpilePackages: ["antd-mobile"],
   },
   experimental: {
     appDir: true,
@@ -25,19 +25,19 @@ const nextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: '@svgr/webpack'
+          loader: "@svgr/webpack",
         },
         {
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            name: 'static/[path][name].[ext]'
-          }
-        }
+            name: "static/[path][name].[ext]",
+          },
+        },
       ],
-      type: 'javascript/auto',
+      type: "javascript/auto",
       issuer: {
-        and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
-      }
+        and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+      },
     });
     return config;
   },
