@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 
-const useOverlay = (defaultValue = false) => {
-  const [isOpen, setIsOpen] = useState(defaultValue);
+const useOverlay = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -12,10 +12,6 @@ const useOverlay = (defaultValue = false) => {
     setIsOpen(false);
     window.history.back();
   }, []);
-
-  useEffect(() => {
-    if (defaultValue) window.history.pushState({ ...window.history.state }, "", "");
-  }, [defaultValue]);
 
   useEffect(() => {
     const onPopState = () => {

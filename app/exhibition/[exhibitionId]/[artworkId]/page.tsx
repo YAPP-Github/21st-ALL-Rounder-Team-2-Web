@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,7 +29,7 @@ export default function Page({
   const artworkId = Number(params.artworkId);
   const edit = Boolean(searchParams?.edit);
   const router = useRouter();
-  const { isOpen: isOpenBottomSheet, open: openBottomSheet, close: closeBottomSheet } = useOverlay(edit);
+  const { isOpen: isOpenBottomSheet, open: openBottomSheet, close: closeBottomSheet } = useOverlay();
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [activeArtworkId, setActiveArtworkId] = useState(artworkId);
@@ -71,6 +71,12 @@ export default function Page({
   };
 
   const initialSlideIndex = artworkThumbnailList?.findIndex((e) => e.id === artworkId);
+
+  useEffect(() => {
+    if (edit) {
+      openBottomSheet();
+    }
+  }, []);
 
   return (
     <S.Wrapper>
