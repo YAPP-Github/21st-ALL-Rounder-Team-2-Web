@@ -9,7 +9,9 @@ export type Actions = {
             userId: string;
         }
     },
-    NAVIGATE_TO_EDIT: {
+    NAVIGATE_TO_EDIT: {},
+    NAVIGATE_TO_EXHIBITION_DETAIL: {
+        payload: PostDetailInfo
     },
     EDIT_BOTTOM_SHEET_SAVE: {
         payload: {

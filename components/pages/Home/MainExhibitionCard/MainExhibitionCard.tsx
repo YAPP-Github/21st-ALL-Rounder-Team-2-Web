@@ -9,12 +9,13 @@ import { DEFAULT_IMAGE } from "@/utils/image";
 interface Props extends PostDetailInfo {
   isPin?: boolean;
   onTogglePin?: (e: React.MouseEvent) => void;
+  onClickItem: (e: React.MouseEvent) => void
 }
 
 export const MainExhibitionCard = (props: Props) => {
-  const { isPin, onTogglePin, mainImage, name, postDate } = props;
+  const { isPin, onTogglePin, mainImage, name, postDate, onClickItem } = props;
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={onClickItem}>
       <Image
         alt="thumbnail"
         src={mainImage ?? DEFAULT_IMAGE}

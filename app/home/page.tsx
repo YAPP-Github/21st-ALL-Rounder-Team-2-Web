@@ -58,6 +58,7 @@ function Page() {
 
   const handleTogglePin = useCallback(
     async (e: React.MouseEvent, item: PostDetailInfo) => {
+      e.preventDefault()
       const id = String(item.id);
       setPins((pins) => {
         return {
@@ -66,6 +67,14 @@ function Page() {
         };
       });
       await togglePinById(id);
+    },
+    []
+  );
+
+  const handleClickItem = useCallback(
+    async (e: React.MouseEvent, item: PostDetailInfo) => {
+      e.preventDefault()
+      sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", item]);
     },
     []
   );
@@ -95,6 +104,7 @@ function Page() {
             fixedExhibition={fixedExhibition}
             exhibitionList={restExhibition}
             onTogglePin={handleTogglePin}
+            onClickItem={handleClickItem}
           />
         )}
       </S.Content>
