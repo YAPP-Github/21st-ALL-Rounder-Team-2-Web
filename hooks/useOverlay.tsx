@@ -1,17 +1,17 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const open = useCallback(() => {
+  const open = () => {
     setIsOpen(true);
-    window.history.pushState({ ...window.history.state }, "", "");
-  }, []);
+    window.history.pushState(null, "", "");
+  };
 
-  const close = useCallback(() => {
+  const close = () => {
     setIsOpen(false);
     window.history.back();
-  }, []);
+  };
 
   useEffect(() => {
     const onPopState = () => {
@@ -22,7 +22,7 @@ const useOverlay = () => {
     return () => {
       window.removeEventListener("popstate", onPopState);
     };
-  }, [isOpen, close]);
+  }, [isOpen]);
 
   return { isOpen, open, close };
 };
