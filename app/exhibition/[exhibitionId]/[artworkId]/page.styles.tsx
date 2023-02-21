@@ -71,12 +71,12 @@ export const ThumbnailItem = styled.li<{ isActive: boolean }>`
   border-radius: 2px;
 `;
 
-export const BottomSheetWrapper = styled.div<{ isShow: boolean }>`
+export const BottomSheetWrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1000;
 
-  animation: ${(props) => (props.isShow ? "slideup" : "slidedown")} 250ms forwards;
+  animation: ${(props) => (props.isOpen ? "slideup" : "slidedown")} 250ms forwards;
 `;

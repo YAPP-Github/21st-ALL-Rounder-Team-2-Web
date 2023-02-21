@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, MouseEvent, useCallback } from "react";
+import { useState, MouseEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,6 +10,7 @@ import Tag from "@/components/ui/Tag/Tag/Tag";
 import EditBottomSheet from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
+import Animated from "@/components/ui/Animated/Animated";
 import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
 import { useGetArtworkInfo, useGetArtworkList, useUpdateArtworkInfo } from "@/hooks/artwork";
 import useOverlay from "@/hooks/useOverlay";
@@ -28,7 +29,6 @@ export default function Page({
   const artworkId = Number(params.artworkId);
   const edit = Boolean(searchParams?.edit);
   const router = useRouter();
-  const [isShow, setIsShow] = useState(edit);
   const { isOpen: isOpenBottomSheet, open: openBottomSheet, close: closeBottomSheet } = useOverlay(edit);
 
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
@@ -55,14 +55,8 @@ export default function Page({
   };
 
   const handleEditClick = () => {
-    setIsShow(true);
     openBottomSheet();
   };
-
-  const handleBottomSheetClose = useCallback(() => {
-    setIsShow(false);
-    setTimeout(closeBottomSheet, 250);
-  }, []);
 
   const handleSave = (e: MouseEvent, formData: FormData) => {
     mutate(
@@ -71,7 +65,7 @@ export default function Page({
         newArtworkInfo: formData,
       },
       {
-        onSuccess: handleBottomSheetClose,
+        onSuccess: closeBottomSheet,
       }
     );
   };
@@ -115,14 +109,14 @@ export default function Page({
           </S.ThumbnailItem>
         ))}
       </S.ThumbnailList>
-      {isOpenBottomSheet && (
-        <Portal>
-          <Dimmed onClick={handleBottomSheetClose} />
-          <S.BottomSheetWrapper isShow={isShow}>
+      <Portal>
+        {isOpenBottomSheet && <Dimmed onClick={closeBottomSheet} />}
+        <Animated isOpen={isOpenBottomSheet}>
+          <S.BottomSheetWrapper isOpen={isOpenBottomSheet}>
             <EditBottomSheet defaultValues={artworkInfo} onSave={handleSave} />
           </S.BottomSheetWrapper>
-        </Portal>
-      )}
+        </Animated>
+      </Portal>
     </S.Wrapper>
   );
 }

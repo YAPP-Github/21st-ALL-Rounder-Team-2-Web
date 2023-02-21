@@ -10,14 +10,3 @@ export const Wrapper = styled.ul`
     width: calc(50% - 4px);
   }
 `;
-
-export const ActionSheetWrapper = styled.div<{ isShow: boolean }>`
-  position: fixed;
-  bottom: 0;
-  left: 18px;
-  right: 18px;
-  bottom: 53px;
-  z-index: 1000;
-
-  animation: ${(props) => (props.isShow ? "slideup" : "slidedown")} 250ms forwards;
-`;

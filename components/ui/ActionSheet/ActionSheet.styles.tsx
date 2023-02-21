@@ -1,12 +1,19 @@
 import styled from "styled-components";
-import { colors } from "../../../styles/colors";
+import { colors } from "@/styles/colors";
 import { Normal18CSS, Bold18CSS } from "../Typographies";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  bottom: 53px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  color: white;
+
+  animation: ${(props) => (props.isOpen ? "slideup" : "slidedown")} 250ms forwards;
 
   & > div {
     background-color: ${colors.overlay};
