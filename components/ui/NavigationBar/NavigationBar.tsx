@@ -2,6 +2,7 @@ import Icon, { IconType } from "../Icon/Icon/Icon";
 import * as S from "./NavigationBar.styles";
 
 export interface Props {
+  className?: string;
   current?: string;
   goBack?: {
     name: IconType;
@@ -12,13 +13,14 @@ export interface Props {
 }
 
 const NavigationBar = ({
+  className,
   current,
   goBack = { name: "ArrowLeftIcon", size: 24 },
   onGoBackClick,
   onEditClick,
 }: Props) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper className={className}>
       <S.Button onClick={onGoBackClick}>
         <Icon name={goBack.name} size={goBack.size} />
       </S.Button>

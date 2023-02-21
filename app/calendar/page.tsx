@@ -74,7 +74,7 @@ function Page() {
 
   return (
     <S.Wrapper>
-      <NavigationBar
+      <S.CalendarNavigationBar
         goBack={{ name: "ArrowLeftIcon", size: 24 }}
         onGoBackClick={handleGoBackClick}
       />
