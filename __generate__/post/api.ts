@@ -280,6 +280,12 @@ export interface PostDetailInfo {
      * @memberof PostDetailInfo
      */
     'published'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostDetailInfo
+     */
+    'pinned'?: boolean;
 }
 /**
  * 
@@ -301,6 +307,12 @@ export interface PostDetailInfoPage {
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {boolean}
+     * @memberof PostDetailInfoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PostDetailInfoPage
      */
@@ -311,12 +323,6 @@ export interface PostDetailInfoPage {
      * @memberof PostDetailInfoPage
      */
     'totalElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PostDetailInfoPage
-     */
-    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -337,16 +343,16 @@ export interface PostDetailInfoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {number}
-     * @memberof PostDetailInfoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof PostDetailInfoPage
      */
     'first'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostDetailInfoPage
+     */
+    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -399,6 +405,12 @@ export interface PostInfoByCategoryDtoPage {
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {boolean}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PostInfoByCategoryDtoPage
      */
@@ -409,12 +421,6 @@ export interface PostInfoByCategoryDtoPage {
      * @memberof PostInfoByCategoryDtoPage
      */
     'totalElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PostInfoByCategoryDtoPage
-     */
-    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -435,16 +441,16 @@ export interface PostInfoByCategoryDtoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {number}
-     * @memberof PostInfoByCategoryDtoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof PostInfoByCategoryDtoPage
      */
     'first'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -506,13 +512,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    'sorted'?: boolean;
+    'unsorted'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    'unsorted'?: boolean;
+    'sorted'?: boolean;
 }
 /**
  * 전시 수정 Request
