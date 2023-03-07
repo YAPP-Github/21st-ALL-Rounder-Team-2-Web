@@ -128,6 +128,12 @@ export interface ArtworkThumbnailDtoPage {
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {boolean}
+     * @memberof ArtworkThumbnailDtoPage
+     */
+    'last'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof ArtworkThumbnailDtoPage
      */
@@ -138,12 +144,6 @@ export interface ArtworkThumbnailDtoPage {
      * @memberof ArtworkThumbnailDtoPage
      */
     'totalElements'?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -164,16 +164,16 @@ export interface ArtworkThumbnailDtoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {number}
-     * @memberof ArtworkThumbnailDtoPage
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof ArtworkThumbnailDtoPage
      */
     'first'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworkThumbnailDtoPage
+     */
+    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}

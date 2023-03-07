@@ -1,18 +1,17 @@
 "use client";
 
-import React, { Suspense, useCallback, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { Suspense, useCallback, useMemo } from "react";
 import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
-import { getAllPostPage, togglePinById } from "@/apis/exhibition";
-import { getCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
-import * as S from "./page.styles";
 import ExhibitionListEmpty from "@/components/ui/Empty/ExhibitionListEmpty/ExhibitionListEmpty";
+import * as S from "./page.styles";
+import { useGetExhibitionList, useTogglePinById } from "@/hooks/exhibition";
+import { useGetCategoryList } from "@/hooks/category";
 
 export default function PageWrapper() {
   return (
@@ -23,61 +22,26 @@ export default function PageWrapper() {
 }
 
 function Page() {
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
+  const { selectedIndex, selectCategoryByIndex: handleSelectCategory } = useSelectCategory();
+  const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
+  const { data: categories } = useGetCategoryList();
+  const { data: allPostInfo = [] } = useGetExhibitionList(selectedFilter ? "ASC" : "DESC", selectedIndex || undefined);
+  const { mutate } = useTogglePinById();
 
-  const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
-    useSelectCategory();
+  const fixedExhibition = useMemo(() => {
+    return allPostInfo.find((item) => item.pinned);
+  }, [allPostInfo]);
 
-  const {
-    selectedIndex: selectedFilter,
-    selectCategoryByIndex: handleSelectFilter,
-  } = useSelectCategory();
+  const isEmpty = allPostInfo.length === 0;
 
-  const { data: allPostInfo } = useQuery({
-    queryKey: ["getAllPostPage"],
-    queryFn: () => getAllPostPage({ page: 0, size: 100 }),
-  });
+  const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
+    mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
+  };
 
-  const [pins, setPins] = useState<Record<string, boolean>>({});
-  const exhibitionListWithPin = useMemo(() => {
-    const posts = allPostInfo?.content ?? [];
-    return posts.map((item) => {
-      return {
-        ...item,
-        isPin: Boolean(pins[item.id]),
-      };
-    });
-  }, [allPostInfo, pins]);
-  const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
-  const isEmpty = exhibitionListWithPin.length === 0
-
-  const handleRegisterCategory = useCallback(() => {}, []);
-
-  const handleTogglePin = useCallback(
-    async (e: React.MouseEvent, item: PostDetailInfo) => {
-      e.preventDefault()
-      const id = String(item.id);
-      setPins((pins) => {
-        return {
-          ...pins,
-          [id]: !Boolean(pins[id]),
-        };
-      });
-      await togglePinById(id);
-    },
-    []
-  );
-
-  const handleClickItem = useCallback(
-    async (e: React.MouseEvent, item: PostDetailInfo) => {
-      e.preventDefault()
-      sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", item]);
-    },
-    []
-  );
+  const handleClickItem = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
+    e.preventDefault();
+    sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", item]);
+  }, []);
 
   const handleEditButton = useCallback((e: React.MouseEvent) => {
     sendMessage(["NAVIGATE_TO_EDIT"]);
@@ -88,9 +52,8 @@ function Page() {
       <AppBar />
       <S.CategoryListStyled
         activeIndex={selectedIndex}
-        items={categories ?? []}
+        items={categories ? [{ id: 0, name: "전체 기록" }, ...categories] : []}
         onSelected={handleSelectCategory}
-        onRegister={handleRegisterCategory}
       />
       <S.Filter>
         <Select activeIndex={selectedFilter} onSelected={handleSelectFilter} />
@@ -102,7 +65,7 @@ function Page() {
         ) : (
           <ExhibitionCardList
             fixedExhibition={fixedExhibition}
-            exhibitionList={restExhibition}
+            exhibitionList={allPostInfo}
             onTogglePin={handleTogglePin}
             onClickItem={handleClickItem}
           />

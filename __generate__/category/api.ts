@@ -45,6 +45,12 @@ export interface CategoryDto {
      * @memberof CategoryDto
      */
     'sequence'?: number;
+    /**
+     * 카테고리 별 전시수
+     * @type {number}
+     * @memberof CategoryDto
+     */
+    'postNum'?: number;
 }
 /**
  * 카테고리 생성 Request

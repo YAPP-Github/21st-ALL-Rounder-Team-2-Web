@@ -5,10 +5,10 @@ import * as S from "./ExhibitionCardList.styles";
 import { PostDetailInfo } from "@/__generate__/post";
 
 interface Props {
-  fixedExhibition: PostDetailInfo;
+  fixedExhibition: PostDetailInfo | undefined;
   exhibitionList: Array<PostDetailInfo>;
   onTogglePin?: (e: React.MouseEvent, item: PostDetailInfo) => void;
-  onClickItem: (e: React.MouseEvent,  item: PostDetailInfo) => void
+  onClickItem: (e: React.MouseEvent, item: PostDetailInfo) => void;
 }
 
 export const ExhibitionCardList = (props: Props) => {
@@ -22,7 +22,6 @@ export const ExhibitionCardList = (props: Props) => {
     },
     [onTogglePin]
   );
-
 
   const handleClickItem = useCallback(
     (item: PostDetailInfo) => {
@@ -43,14 +42,17 @@ export const ExhibitionCardList = (props: Props) => {
         />
       )}
       <S.Content>
-        {exhibitionList.map((exhibition) => (
-          <ExhibitionCard
-            key={exhibition.id}
-            {...exhibition}
-            onTogglePin={handleTogglePin(exhibition)}
-            onClickItem={handleClickItem(exhibition)}
-          />
-        ))}
+        {exhibitionList.map(
+          (exhibition) =>
+            !exhibition.pinned && (
+              <ExhibitionCard
+                key={exhibition.id}
+                {...exhibition}
+                onTogglePin={handleTogglePin(exhibition)}
+                onClickItem={handleClickItem(exhibition)}
+              />
+            )
+        )}
       </S.Content>
     </S.Wrapper>
   );
