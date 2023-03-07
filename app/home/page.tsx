@@ -6,13 +6,14 @@ import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/E
 import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
-import { getAllPostPage, togglePinById } from "@/apis/exhibition";
+import { getAllPostPage } from "@/apis/exhibition";
 import { getCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
-import * as S from "./page.styles";
 import ExhibitionListEmpty from "@/components/ui/Empty/ExhibitionListEmpty/ExhibitionListEmpty";
+import * as S from "./page.styles";
+import { useTogglePinById } from "@/hooks/exhibition";
 
 export default function PageWrapper() {
   return (
@@ -32,36 +33,24 @@ function Page() {
 
   const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
 
-  const { data: allPostInfo } = useQuery({
+  const { data: allPostInfo = [] } = useQuery({
     queryKey: ["getAllPostPage", { direction: selectedFilter, category: selectedIndex }],
     queryFn: () => getAllPostPage({ direction: selectedFilter ? "ASC" : "DESC", category: selectedIndex || undefined }),
+    select: (data) => data?.content ?? [],
   });
 
-  const [pins, setPins] = useState<Record<string, boolean>>({});
-  const exhibitionListWithPin = useMemo(() => {
-    const posts = allPostInfo?.content ?? [];
-    return posts.map((item) => {
-      return {
-        ...item,
-        isPin: Boolean(pins[item.id]),
-      };
-    });
-  }, [allPostInfo, pins]);
-  const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
-  const isEmpty = exhibitionListWithPin.length === 0;
+  const fixedExhibition = useMemo(() => {
+    return allPostInfo.find((item) => item.pinned);
+  }, [allPostInfo]);
+
+  const isEmpty = allPostInfo.length === 0;
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
-  const handleTogglePin = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
-    const id = String(item.id);
-    setPins((pins) => {
-      return {
-        ...pins,
-        [id]: !Boolean(pins[id]),
-      };
-    });
-    await togglePinById(id);
-  }, []);
+  const { mutate } = useTogglePinById();
+  const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
+    mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
+  };
 
   const handleEditButton = useCallback((e: React.MouseEvent) => {
     sendMessage(["NAVIGATE_TO_EDIT"]);
@@ -86,7 +75,7 @@ function Page() {
         ) : (
           <ExhibitionCardList
             fixedExhibition={fixedExhibition}
-            exhibitionList={restExhibition}
+            exhibitionList={allPostInfo}
             onTogglePin={handleTogglePin}
           />
         )}

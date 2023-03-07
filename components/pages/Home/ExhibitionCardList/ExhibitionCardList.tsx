@@ -5,7 +5,7 @@ import * as S from "./ExhibitionCardList.styles";
 import { PostDetailInfo } from "@/__generate__/post";
 
 interface Props {
-  fixedExhibition: PostDetailInfo;
+  fixedExhibition: PostDetailInfo | undefined;
   exhibitionList: Array<PostDetailInfo>;
   onTogglePin?: (e: React.MouseEvent, item: PostDetailInfo) => void;
 }
@@ -24,20 +24,14 @@ export const ExhibitionCardList = (props: Props) => {
 
   return (
     <S.Wrapper>
-      {fixedExhibition && (
-        <MainExhibitionCard
-          {...fixedExhibition}
-          onTogglePin={handleTogglePin(fixedExhibition)}
-        />
-      )}
+      {fixedExhibition && <MainExhibitionCard {...fixedExhibition} onTogglePin={handleTogglePin(fixedExhibition)} />}
       <S.Content>
-        {exhibitionList.map((exhibition) => (
-          <ExhibitionCard
-            key={exhibition.id}
-            {...exhibition}
-            onTogglePin={handleTogglePin(exhibition)}
-          />
-        ))}
+        {exhibitionList.map(
+          (exhibition) =>
+            !exhibition.pinned && (
+              <ExhibitionCard key={exhibition.id} {...exhibition} onTogglePin={handleTogglePin(exhibition)} />
+            )
+        )}
       </S.Content>
     </S.Wrapper>
   );
