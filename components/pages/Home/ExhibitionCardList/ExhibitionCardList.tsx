@@ -8,10 +8,11 @@ interface Props {
   fixedExhibition: PostDetailInfo | undefined;
   exhibitionList: Array<PostDetailInfo>;
   onTogglePin?: (e: React.MouseEvent, item: PostDetailInfo) => void;
+  onClickItem: (e: React.MouseEvent, item: PostDetailInfo) => void;
 }
 
 export const ExhibitionCardList = (props: Props) => {
-  const { fixedExhibition, exhibitionList, onTogglePin } = props;
+  const { fixedExhibition, exhibitionList, onTogglePin, onClickItem } = props;
 
   const handleTogglePin = useCallback(
     (item: PostDetailInfo) => {
@@ -22,14 +23,34 @@ export const ExhibitionCardList = (props: Props) => {
     [onTogglePin]
   );
 
+  const handleClickItem = useCallback(
+    (item: PostDetailInfo) => {
+      return (e: React.MouseEvent) => {
+        onClickItem?.(e, item);
+      };
+    },
+    [onClickItem]
+  );
+
   return (
     <S.Wrapper>
-      {fixedExhibition && <MainExhibitionCard {...fixedExhibition} onTogglePin={handleTogglePin(fixedExhibition)} />}
+      {fixedExhibition && (
+        <MainExhibitionCard
+          {...fixedExhibition}
+          onTogglePin={handleTogglePin(fixedExhibition)}
+          onClickItem={handleClickItem(fixedExhibition)}
+        />
+      )}
       <S.Content>
         {exhibitionList.map(
           (exhibition) =>
             !exhibition.pinned && (
-              <ExhibitionCard key={exhibition.id} {...exhibition} onTogglePin={handleTogglePin(exhibition)} />
+              <ExhibitionCard
+                key={exhibition.id}
+                {...exhibition}
+                onTogglePin={handleTogglePin(exhibition)}
+                onClickItem={handleClickItem(exhibition)}
+              />
             )
         )}
       </S.Content>

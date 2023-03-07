@@ -38,6 +38,11 @@ function Page() {
     mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
   };
 
+  const handleClickItem = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
+    e.preventDefault();
+    sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", item]);
+  }, []);
+
   const handleEditButton = useCallback((e: React.MouseEvent) => {
     sendMessage(["NAVIGATE_TO_EDIT"]);
   }, []);
@@ -62,6 +67,7 @@ function Page() {
             fixedExhibition={fixedExhibition}
             exhibitionList={allPostInfo}
             onTogglePin={handleTogglePin}
+            onClickItem={handleClickItem}
           />
         )}
       </S.Content>
