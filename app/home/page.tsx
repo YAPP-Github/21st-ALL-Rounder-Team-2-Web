@@ -6,14 +6,13 @@ import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/E
 import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
-import { getAllPostPage } from "@/apis/exhibition";
-import { getCategories } from "@/apis/category";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
 import ExhibitionListEmpty from "@/components/ui/Empty/ExhibitionListEmpty/ExhibitionListEmpty";
 import * as S from "./page.styles";
-import { useTogglePinById } from "@/hooks/exhibition";
+import { useGetExhibitionList, useTogglePinById } from "@/hooks/exhibition";
+import { useGetCategoryList } from "@/hooks/category";
 
 export default function PageWrapper() {
   return (
@@ -24,20 +23,11 @@ export default function PageWrapper() {
 }
 
 function Page() {
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-  });
-
   const { selectedIndex, selectCategoryByIndex: handleSelectCategory } = useSelectCategory();
-
   const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
-
-  const { data: allPostInfo = [] } = useQuery({
-    queryKey: ["getAllPostPage", { direction: selectedFilter, category: selectedIndex }],
-    queryFn: () => getAllPostPage({ direction: selectedFilter ? "ASC" : "DESC", category: selectedIndex || undefined }),
-    select: (data) => data?.content ?? [],
-  });
+  const { data: categories } = useGetCategoryList();
+  const { data: allPostInfo = [] } = useGetExhibitionList(selectedFilter ? "ASC" : "DESC", selectedIndex || undefined);
+  const { mutate } = useTogglePinById();
 
   const fixedExhibition = useMemo(() => {
     return allPostInfo.find((item) => item.pinned);
@@ -47,7 +37,6 @@ function Page() {
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
-  const { mutate } = useTogglePinById();
   const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
     mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
   };
