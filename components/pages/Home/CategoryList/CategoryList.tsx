@@ -25,16 +25,9 @@ export const CategoryList = (props: Props) => {
 
   return (
     <S.Wrapper className={className}>
-      {items.map((item, index) => {
+      {items.map((item) => {
         const { id, name } = item;
-        return (
-          <Category
-            key={id}
-            active={activeIndex === index}
-            text={name}
-            onClick={handleSelectCategory(index)}
-          />
-        );
+        return <Category key={id} active={activeIndex === id} text={name} onClick={handleSelectCategory(id ?? 0)} />;
       })}
     </S.Wrapper>
   );

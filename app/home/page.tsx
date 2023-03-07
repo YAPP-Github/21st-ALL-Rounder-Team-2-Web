@@ -28,17 +28,13 @@ function Page() {
     queryFn: getCategories,
   });
 
-  const { selectedIndex, selectCategoryByIndex: handleSelectCategory } =
-    useSelectCategory();
+  const { selectedIndex, selectCategoryByIndex: handleSelectCategory } = useSelectCategory();
 
-  const {
-    selectedIndex: selectedFilter,
-    selectCategoryByIndex: handleSelectFilter,
-  } = useSelectCategory();
+  const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
 
   const { data: allPostInfo } = useQuery({
-    queryKey: ["getAllPostPage"],
-    queryFn: () => getAllPostPage({ page: 0, size: 100 }),
+    queryKey: ["getAllPostPage", { direction: selectedFilter, category: selectedIndex }],
+    queryFn: () => getAllPostPage({ direction: selectedFilter ? "ASC" : "DESC", category: selectedIndex || undefined }),
   });
 
   const [pins, setPins] = useState<Record<string, boolean>>({});
@@ -52,23 +48,20 @@ function Page() {
     });
   }, [allPostInfo, pins]);
   const [fixedExhibition, ...restExhibition] = exhibitionListWithPin;
-  const isEmpty = exhibitionListWithPin.length === 0
+  const isEmpty = exhibitionListWithPin.length === 0;
 
   const handleRegisterCategory = useCallback(() => {}, []);
 
-  const handleTogglePin = useCallback(
-    async (e: React.MouseEvent, item: PostDetailInfo) => {
-      const id = String(item.id);
-      setPins((pins) => {
-        return {
-          ...pins,
-          [id]: !Boolean(pins[id]),
-        };
-      });
-      await togglePinById(id);
-    },
-    []
-  );
+  const handleTogglePin = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
+    const id = String(item.id);
+    setPins((pins) => {
+      return {
+        ...pins,
+        [id]: !Boolean(pins[id]),
+      };
+    });
+    await togglePinById(id);
+  }, []);
 
   const handleEditButton = useCallback((e: React.MouseEvent) => {
     sendMessage(["NAVIGATE_TO_EDIT"]);
@@ -79,7 +72,7 @@ function Page() {
       <AppBar />
       <S.CategoryListStyled
         activeIndex={selectedIndex}
-        items={categories ?? []}
+        items={categories ? [{ id: 0, name: "전체 기록" }, ...categories] : []}
         onSelected={handleSelectCategory}
         onRegister={handleRegisterCategory}
       />
