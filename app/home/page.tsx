@@ -1,7 +1,6 @@
 "use client";
 
-import React, { Suspense, useCallback, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { Suspense, useCallback, useMemo } from "react";
 import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList";
 import { Select } from "@/components/ui/Select/Select";
 import { useSelectCategory } from "@/hooks/useSelectCategory";
@@ -35,8 +34,6 @@ function Page() {
 
   const isEmpty = allPostInfo.length === 0;
 
-  const handleRegisterCategory = useCallback(() => {}, []);
-
   const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
     mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
   };
@@ -52,7 +49,6 @@ function Page() {
         activeIndex={selectedIndex}
         items={categories ? [{ id: 0, name: "전체 기록" }, ...categories] : []}
         onSelected={handleSelectCategory}
-        onRegister={handleRegisterCategory}
       />
       <S.Filter>
         <Select activeIndex={selectedFilter} onSelected={handleSelectFilter} />

@@ -8,11 +8,10 @@ interface Props {
   activeIndex?: number;
   items: CategoryDto[];
   onSelected: (index: number) => void;
-  onRegister: () => void;
 }
 
 export const CategoryList = (props: Props) => {
-  const { className, activeIndex, items = [], onSelected, onRegister } = props;
+  const { className, activeIndex, items = [], onSelected } = props;
 
   const handleSelectCategory = useCallback(
     (index: number) => {
