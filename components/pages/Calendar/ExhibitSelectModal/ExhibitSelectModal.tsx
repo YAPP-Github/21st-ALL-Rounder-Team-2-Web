@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Modal from "@/components/ui/Modal/Modal";
 import { Divider } from "@/components/ui/Divider/Divider";
 import Portal from "@/components/ui/Portal/Portal";
@@ -21,10 +22,12 @@ export const ExhibitSelectModal = ({ selectedDate, onClose }: Props) => {
         <S.SelectList>
           {exhibitsByDate?.map(({ postName, postId }, index) => (
             <>
-              <S.SelectItem key={postId}>
-                <S.Name>{postName}</S.Name>
-                <S.Date>{toYYYYMMDD(selectedDate).replaceAll("-", ".")}</S.Date>
-              </S.SelectItem>
+              <Link href={`/exhibition/${postId}`}>
+                <S.SelectItem key={postId}>
+                  <S.Name>{postName}</S.Name>
+                  <S.Date>{toYYYYMMDD(selectedDate).replaceAll("-", ".")}</S.Date>
+                </S.SelectItem>
+              </Link>
               {index !== exhibitsByDate?.length - 1 && <Divider />}
             </>
           ))}
