@@ -12,13 +12,13 @@ export interface Props {
   className?: string;
   value?: Date | null;
   yearMonth?: Date;
-  bgImages?: Record<string, { postId: number; imageURL?: string; postNum?: number }>;
+  postsByMontly?: Record<string, { postId: number; imageURL?: string; postNum?: number }>;
   onYearMonth?: (date: Date) => void;
   onSelectedDate?: (date: Date | null) => void;
 }
 
 export const Calendar = (props: Props) => {
-  const { className, value = new Date(), yearMonth = new Date(), bgImages, onYearMonth, onSelectedDate } = props;
+  const { className, value = new Date(), yearMonth = new Date(), postsByMontly, onYearMonth, onSelectedDate } = props;
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
   const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
@@ -67,20 +67,20 @@ export const Calendar = (props: Props) => {
           allowClear={false}
           value={value}
           renderDate={(date) => {
-            const bgImage = bgImages?.[toYYYYMMDD(date)];
+            const post = postsByMontly?.[toYYYYMMDD(date)];
             return (
               <>
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
-                {bgImage ? (
+                {post && (
                   <>
-                    <S.DateBackgroundLabel src={bgImage.imageURL} />
-                    {bgImage.postNum ? (
+                    <S.DateBackgroundLabel src={post.imageURL} />
+                    {post.postNum && (
                       <S.ExhibitCount>
-                        <span>+{bgImage.postNum - 1}</span>
+                        <span>+{post.postNum - 1}</span>
                       </S.ExhibitCount>
-                    ) : null}
+                    )}
                   </>
-                ) : null}
+                )}
               </>
             );
           }}

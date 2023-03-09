@@ -39,22 +39,15 @@ function Page() {
         year: yearNum,
         month: monthNum + 1,
       }),
+    select: (data) => ({
+      ...data?.reduce((acc: { [postDate: string]: { postId: number; imageURL?: string; postNum?: number } }, cur) => {
+        const { postDate } = cur;
+        acc[postDate] = { ...cur };
+        return acc;
+      }, {}),
+    }),
     suspense: true,
   });
-
-  const bgImages = useMemo(
-    () => ({
-      ...postsByMontly?.reduce(
-        (acc: { [postDate: string]: { postId: number; imageURL?: string; postNum?: number } }, cur) => {
-          const { postDate } = cur;
-          acc[postDate] = { ...cur };
-          return acc;
-        },
-        {}
-      ),
-    }),
-    [postsByMontly]
-  );
 
   const handleGoBackClick = useCallback(() => {
     sendMessage(["GO_BACK"]);
@@ -73,13 +66,13 @@ function Page() {
 
   const handleSelectedDate = useCallback(
     (date: Date | null) => {
-      if (date && bgImages?.[toYYYYMMDD(date)]) {
+      if (date && postsByMontly?.[toYYYYMMDD(date)]) {
         setValue(date);
-        const { postId, postNum = 1 } = bgImages[toYYYYMMDD(date)];
+        const { postId, postNum = 1 } = postsByMontly[toYYYYMMDD(date)];
         postNum > 1 ? open() : router.push(`exhibition/${postId}`);
       }
     },
-    [bgImages, open, router]
+    [postsByMontly, open, router]
   );
 
   return (
@@ -90,7 +83,7 @@ function Page() {
           <Calendar
             value={value}
             yearMonth={getDateByYearAndMonth(yearNum, monthNum)}
-            bgImages={bgImages}
+            postsByMontly={postsByMontly}
             onYearMonth={handleYearMonth}
             onSelectedDate={handleSelectedDate}
           />
