@@ -33,7 +33,7 @@ function Page() {
   const { isOpen, open, close } = useOverlay();
 
   const { data: postsByMontly } = useQuery({
-    queryKey: ["postsByMontly"],
+    queryKey: ["postsByMontly", { yearNum, monthNum }],
     queryFn: () =>
       getPostsByMonthly({
         year: yearNum,
