@@ -11,9 +11,5 @@ const Template: ComponentStory<typeof ExhibitSelectModal> = (args) => <ExhibitSe
 
 export const Primary = Template.bind({});
 Primary.args = {
-  selectedDate: "2023.01.01",
-  exhibitList: [
-    { postId: 1, postName: "전시명 1" },
-    { postId: 2, postName: "전시명 2" },
-  ],
+  selectedDate: new Date(),
 };
