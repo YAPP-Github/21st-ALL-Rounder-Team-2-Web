@@ -15,3 +15,11 @@ export const getDateByYearAndMonth = (year: number, month: number) => {
 export const today = () => {
   return new Date();
 };
+
+export const parseDate = (date: Date) => {
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+  };
+};
