@@ -64,6 +64,7 @@ export const Calendar = (props: Props) => {
           ref={calendarRef}
           className={className}
           selectionMode="single"
+          allowClear={false}
           value={value}
           renderDate={(date) => {
             const bgImage = bgImages?.[toYYYYMMDD(date)];

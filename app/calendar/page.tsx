@@ -29,7 +29,7 @@ function Page() {
   const yearNum = Number(year);
   const month = searchParams.get("month") ?? today().getMonth();
   const monthNum = Number(month) - 1;
-  const [value, setValue] = useState<Date | null>(null);
+  const [value, setValue] = useState(new Date());
   const { isOpen, open, close } = useOverlay();
 
   const { data: postsByMontly } = useQuery({
@@ -82,11 +82,6 @@ function Page() {
     [bgImages, open, router]
   );
 
-  const onExhibitSelectModalClose = () => {
-    setValue(null);
-    close();
-  };
-
   return (
     <>
       <S.Wrapper>
@@ -101,7 +96,7 @@ function Page() {
           />
         </S.Content>
       </S.Wrapper>
-      {isOpen && value && <ExhibitSelectModal selectedDate={value} onClose={onExhibitSelectModalClose} />}
+      {isOpen && <ExhibitSelectModal selectedDate={value} onClose={close} />}
     </>
   );
 }
