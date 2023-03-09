@@ -11,6 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "qs";
 import { sendMessage } from "@/libs/message/message";
+import { ExhibitSelectModal } from "@/components/pages/Calendar/ExhibitSelectModal/ExhibitSelectModal";
+import useOverlay from "@/hooks/useOverlay";
 
 export default function PageWrapper() {
   return (
@@ -27,7 +29,8 @@ function Page() {
   const yearNum = Number(year);
   const month = searchParams.get("month") ?? today().getMonth();
   const monthNum = Number(month) - 1;
-  const [value, setValue] = useState<Date | null>(new Date());
+  const [value, setValue] = useState<Date | null>(null);
+  const { isOpen, open, close } = useOverlay();
 
   const { data: postsByMontly } = useQuery({
     queryKey: ["postsByMontly"],
@@ -39,16 +42,19 @@ function Page() {
     suspense: true,
   });
 
-  const bgImages = {
-    ...postsByMontly?.reduce?.((res, { postDate, imageURL }) => {
-      return {
-        ...res,
-        [postDate]: {
-          imageURL,
+  const bgImages = useMemo(
+    () => ({
+      ...postsByMontly?.reduce(
+        (acc: { [postDate: string]: { postId: number; imageURL?: string; postNum?: number } }, cur) => {
+          const { postDate } = cur;
+          acc[postDate] = { ...cur };
+          return acc;
         },
-      };
-    }, {}),
-  };
+        {}
+      ),
+    }),
+    [postsByMontly]
+  );
 
   const handleGoBackClick = useCallback(() => {
     sendMessage(["GO_BACK"]);
@@ -67,24 +73,35 @@ function Page() {
 
   const handleSelectedDate = useCallback(
     (date: Date | null) => {
-      setValue(date);
-      date && handleYearMonth(date);
+      if (date && bgImages?.[toYYYYMMDD(date)]) {
+        setValue(date);
+        const { postId, postNum = 1 } = bgImages[toYYYYMMDD(date)];
+        postNum > 1 ? open() : router.push(`exhibition/${postId}`);
+      }
     },
-    [handleYearMonth]
+    [bgImages, open, router]
   );
 
+  const onExhibitSelectModalClose = () => {
+    setValue(null);
+    close();
+  };
+
   return (
-    <S.Wrapper>
-      <S.CalendarNavigationBar goBack={{ name: "ArrowLeftIcon", size: 24 }} onGoBackClick={handleGoBackClick} />
-      <S.Content>
-        <Calendar
-          value={value}
-          yearMonth={getDateByYearAndMonth(yearNum, monthNum)}
-          bgImages={bgImages}
-          onYearMonth={handleYearMonth}
-          onSelectedDate={handleSelectedDate}
-        />
-      </S.Content>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <S.CalendarNavigationBar goBack={{ name: "ArrowLeftIcon", size: 24 }} onGoBackClick={handleGoBackClick} />
+        <S.Content>
+          <Calendar
+            value={value}
+            yearMonth={getDateByYearAndMonth(yearNum, monthNum)}
+            bgImages={bgImages}
+            onYearMonth={handleYearMonth}
+            onSelectedDate={handleSelectedDate}
+          />
+        </S.Content>
+      </S.Wrapper>
+      {isOpen && value && <ExhibitSelectModal selectedDate={value} onClose={onExhibitSelectModalClose} />}
+    </>
   );
 }

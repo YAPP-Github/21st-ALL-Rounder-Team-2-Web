@@ -12,7 +12,7 @@ export interface Props {
   className?: string;
   value?: Date | null;
   yearMonth?: Date;
-  bgImages?: Record<string, { imageURL: string }>;
+  bgImages?: Record<string, { postId: number; imageURL?: string; postNum?: number }>;
   onYearMonth?: (date: Date) => void;
   onSelectedDate?: (date: Date | null) => void;
 }
@@ -69,8 +69,17 @@ export const Calendar = (props: Props) => {
             const bgImage = bgImages?.[toYYYYMMDD(date)];
             return (
               <>
-                {bgImage ? <S.DateBackgroundLabel src={bgImage?.imageURL} /> : null}
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
+                {bgImage ? (
+                  <>
+                    <S.DateBackgroundLabel src={bgImage.imageURL} />
+                    {bgImage.postNum ? (
+                      <S.ExhibitCount>
+                        <span>+{bgImage.postNum - 1}</span>
+                      </S.ExhibitCount>
+                    ) : null}
+                  </>
+                ) : null}
               </>
             );
           }}
