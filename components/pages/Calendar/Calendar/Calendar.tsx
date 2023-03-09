@@ -65,6 +65,7 @@ export const Calendar = (props: Props) => {
           className={className}
           selectionMode="single"
           allowClear={false}
+          shouldDisableDate={(date) => date.getMonth() !== yearMonth.getMonth()}
           value={value}
           renderDate={(date) => {
             const post = postsByMontly?.[toYYYYMMDD(date)];

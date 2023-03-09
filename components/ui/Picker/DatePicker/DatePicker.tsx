@@ -37,6 +37,8 @@ export const DatePicker = (props: Props) => {
       confirmText={<S.ConfirmButton>확인</S.ConfirmButton>}
       cancelText=""
       renderLabel={labelRenderer}
+      max={new Date()}
+      min={new Date(2022, 0)}
     />
   );
 };

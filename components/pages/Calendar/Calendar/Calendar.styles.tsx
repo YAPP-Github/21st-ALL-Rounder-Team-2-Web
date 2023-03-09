@@ -65,6 +65,9 @@ export const Calendar = styled(AntdCalendar)`
   & .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected {
     background: transparent;
   }
+  & .adm-calendar-cell-disabled {
+    visibility: hidden;
+  }
 `;
 
 export const DateLabel = styled.div`
