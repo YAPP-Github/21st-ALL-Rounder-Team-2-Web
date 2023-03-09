@@ -69,15 +69,16 @@ export const Calendar = (props: Props) => {
           value={value}
           renderDate={(date) => {
             const post = postsByMontly?.[toYYYYMMDD(date)];
+            const postNum = post?.postNum ?? 0;
             return (
               <>
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
                 {post && (
                   <>
                     <S.DateBackgroundLabel src={post.imageURL} />
-                    {post.postNum && (
+                    {postNum > 1 && (
                       <S.ExhibitCount>
-                        <span>+{post.postNum - 1}</span>
+                        <span>+{postNum - 1}</span>
                       </S.ExhibitCount>
                     )}
                   </>
