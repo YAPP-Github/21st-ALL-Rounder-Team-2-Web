@@ -18,14 +18,7 @@ export interface Props {
 }
 
 export const Calendar = (props: Props) => {
-  const {
-    className,
-    value = new Date(),
-    yearMonth = new Date(),
-    bgImages,
-    onYearMonth,
-    onSelectedDate,
-  } = props;
+  const { className, value = new Date(), yearMonth = new Date(), bgImages, onYearMonth, onSelectedDate } = props;
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
   const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
@@ -61,10 +54,7 @@ export const Calendar = (props: Props) => {
         <S.YearMonthButton onClick={handleOpenPicker}>
           <S.YearLabel>{yearMonth.getFullYear()}년</S.YearLabel>
           <S.CalendarLabel>
-            <S.CalendarHighlightLabel>
-              {yearMonth.getMonth() + 1}월
-            </S.CalendarHighlightLabel>
-            의 전시 기록장
+            <S.CalendarHighlightLabel>{yearMonth.getMonth() + 1}월</S.CalendarHighlightLabel>의 전시 기록장
             <S.ArrowDownIcon>
               <Icon name="ArrowDown2Icon" size={24} color={"#fff"} />
             </S.ArrowDownIcon>
@@ -79,9 +69,7 @@ export const Calendar = (props: Props) => {
             const bgImage = bgImages?.[toYYYYMMDD(date)];
             return (
               <>
-                {bgImage ? (
-                  <S.DateBackgroundLabel src={bgImage?.imageURL} />
-                ) : null}
+                {bgImage ? <S.DateBackgroundLabel src={bgImage?.imageURL} /> : null}
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
               </>
             );

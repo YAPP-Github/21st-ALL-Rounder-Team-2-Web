@@ -40,13 +40,11 @@ function Page() {
   });
 
   const bgImages = {
-    [toYYYYMMDD()]: { imageURL: "https://picsum.photos/358" },
-    ...postsByMontly?.reduce?.((res, item) => {
-      const { year, month, day } = item;
+    ...postsByMontly?.reduce?.((res, { postDate, imageURL }) => {
       return {
         ...res,
-        [`${year}${month}${day}`]: {
-          imageURL: item.imageURL,
+        [postDate]: {
+          imageURL,
         },
       };
     }, {}),
@@ -67,17 +65,17 @@ function Page() {
     [router]
   );
 
-  const handleSelectedDate = useCallback((date: Date | null) => {
-    setValue(date);
-    date && handleYearMonth(date)
-  }, [handleYearMonth]);
+  const handleSelectedDate = useCallback(
+    (date: Date | null) => {
+      setValue(date);
+      date && handleYearMonth(date);
+    },
+    [handleYearMonth]
+  );
 
   return (
     <S.Wrapper>
-      <S.CalendarNavigationBar
-        goBack={{ name: "ArrowLeftIcon", size: 24 }}
-        onGoBackClick={handleGoBackClick}
-      />
+      <S.CalendarNavigationBar goBack={{ name: "ArrowLeftIcon", size: 24 }} onGoBackClick={handleGoBackClick} />
       <S.Content>
         <Calendar
           value={value}
