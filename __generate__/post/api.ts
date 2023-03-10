@@ -28,23 +28,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  */
 export interface CalendarExhibitResponseDto {
     /**
-     * 연도(year)
-     * @type {number}
+     * 관람 날짜
+     * @type {string}
      * @memberof CalendarExhibitResponseDto
      */
-    'year': number;
-    /**
-     * 월(month)
-     * @type {number}
-     * @memberof CalendarExhibitResponseDto
-     */
-    'month': number;
-    /**
-     * 일(day)
-     * @type {number}
-     * @memberof CalendarExhibitResponseDto
-     */
-    'day': number;
+    'postDate': string;
     /**
      * 전시 ID
      * @type {number}
@@ -307,10 +295,10 @@ export interface PostDetailInfoPage {
     'pageable'?: PageableObject;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof PostDetailInfoPage
      */
-    'last'?: boolean;
+    'totalElements'?: number;
     /**
      * 
      * @type {number}
@@ -319,10 +307,10 @@ export interface PostDetailInfoPage {
     'totalPages'?: number;
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof PostDetailInfoPage
      */
-    'totalElements'?: number;
+    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -343,16 +331,16 @@ export interface PostDetailInfoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {boolean}
-     * @memberof PostDetailInfoPage
-     */
-    'first'?: boolean;
-    /**
-     * 
      * @type {number}
      * @memberof PostDetailInfoPage
      */
     'numberOfElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostDetailInfoPage
+     */
+    'first'?: boolean;
     /**
      * 
      * @type {boolean}
@@ -405,10 +393,10 @@ export interface PostInfoByCategoryDtoPage {
     'pageable'?: PageableObject;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof PostInfoByCategoryDtoPage
      */
-    'last'?: boolean;
+    'totalElements'?: number;
     /**
      * 
      * @type {number}
@@ -417,10 +405,10 @@ export interface PostInfoByCategoryDtoPage {
     'totalPages'?: number;
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof PostInfoByCategoryDtoPage
      */
-    'totalElements'?: number;
+    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -441,16 +429,16 @@ export interface PostInfoByCategoryDtoPage {
     'sort'?: Sort;
     /**
      * 
-     * @type {boolean}
-     * @memberof PostInfoByCategoryDtoPage
-     */
-    'first'?: boolean;
-    /**
-     * 
      * @type {number}
      * @memberof PostInfoByCategoryDtoPage
      */
     'numberOfElements'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PostInfoByCategoryDtoPage
+     */
+    'first'?: boolean;
     /**
      * 
      * @type {boolean}
@@ -512,13 +500,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    'unsorted'?: boolean;
+    'sorted'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    'sorted'?: boolean;
+    'unsorted'?: boolean;
 }
 /**
  * 전시 수정 Request

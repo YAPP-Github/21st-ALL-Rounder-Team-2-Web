@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { Calendar as AntdCalendar } from "antd-mobile";
-import {
-  Medium14CSS,
-  Medium15CSS,
-  Normal14CSS,
-  SemiBold24CSS,
-} from "@/components/ui/Typographies";
+import { Medium14CSS, Medium15CSS, Normal14CSS, SemiBold24CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
@@ -67,6 +62,12 @@ export const Calendar = styled(AntdCalendar)`
     padding-left: 0px;
     padding-right: 0px;
   }
+  & .adm-calendar-cell.adm-calendar-cell-selected.adm-calendar-cell.adm-calendar-cell-selected {
+    background: transparent;
+  }
+  & .adm-calendar-cell-disabled {
+    visibility: hidden;
+  }
 `;
 
 export const DateLabel = styled.div`
@@ -74,6 +75,26 @@ export const DateLabel = styled.div`
   ${Medium14CSS}
   color: ${colors.white};
   z-index: 10;
+`;
+
+export const ExhibitCount = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 4px;
+  bottom: 5px;
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+
+  z-index: 10;
+
+  & > span {
+    ${Normal14CSS}
+    color: ${colors.white};
+  }
 `;
 
 export const DateBackgroundLabel = styled.img`

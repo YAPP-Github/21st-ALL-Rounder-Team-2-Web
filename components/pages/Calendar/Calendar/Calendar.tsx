@@ -12,20 +12,13 @@ export interface Props {
   className?: string;
   value?: Date | null;
   yearMonth?: Date;
-  bgImages?: Record<string, { imageURL: string }>;
+  postsByMontly?: Record<string, { postId: number; imageURL?: string; postNum?: number }>;
   onYearMonth?: (date: Date) => void;
   onSelectedDate?: (date: Date | null) => void;
 }
 
 export const Calendar = (props: Props) => {
-  const {
-    className,
-    value = new Date(),
-    yearMonth = new Date(),
-    bgImages,
-    onYearMonth,
-    onSelectedDate,
-  } = props;
+  const { className, value = new Date(), yearMonth = new Date(), postsByMontly, onYearMonth, onSelectedDate } = props;
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
   const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
@@ -61,10 +54,7 @@ export const Calendar = (props: Props) => {
         <S.YearMonthButton onClick={handleOpenPicker}>
           <S.YearLabel>{yearMonth.getFullYear()}년</S.YearLabel>
           <S.CalendarLabel>
-            <S.CalendarHighlightLabel>
-              {yearMonth.getMonth() + 1}월
-            </S.CalendarHighlightLabel>
-            의 전시 기록장
+            <S.CalendarHighlightLabel>{yearMonth.getMonth() + 1}월</S.CalendarHighlightLabel>의 전시 기록장
             <S.ArrowDownIcon>
               <Icon name="ArrowDown2Icon" size={24} color={"#fff"} />
             </S.ArrowDownIcon>
@@ -74,15 +64,25 @@ export const Calendar = (props: Props) => {
           ref={calendarRef}
           className={className}
           selectionMode="single"
+          allowClear={false}
+          shouldDisableDate={(date) => date.getMonth() !== yearMonth.getMonth()}
           value={value}
           renderDate={(date) => {
-            const bgImage = bgImages?.[toYYYYMMDD(date)];
+            const post = postsByMontly?.[toYYYYMMDD(date)];
+            const postNum = post?.postNum ?? 0;
             return (
               <>
-                {bgImage ? (
-                  <S.DateBackgroundLabel src={bgImage?.imageURL} />
-                ) : null}
                 <S.DateLabel>{date.getDate()}</S.DateLabel>
+                {post && (
+                  <>
+                    <S.DateBackgroundLabel src={post.imageURL} />
+                    {postNum > 1 && (
+                      <S.ExhibitCount>
+                        <span>+{postNum - 1}</span>
+                      </S.ExhibitCount>
+                    )}
+                  </>
+                )}
               </>
             );
           }}

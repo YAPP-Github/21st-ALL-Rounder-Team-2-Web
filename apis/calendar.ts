@@ -7,3 +7,9 @@ export const getPostsByMonthly = async (params: { year: number; month: number })
   const { year, month } = params;
   return (await factory.getPostsByMonthly(year, month)).data;
 };
+
+export const getExhibitsByDate = async (params: { year: number; month: number; day: number }) => {
+  const { year, month, day } = params;
+  const response = await factory.getExhibitsByDate(year, month, day);
+  return response.data;
+};
