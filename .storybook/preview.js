@@ -15,21 +15,27 @@ Object.defineProperty(NextImage, "default", {
 
 initialize({ onUnhandledRequest: "bypass" });
 
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+const preview = {
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+    nextjs: {
+      appDirectory: true,
     },
   },
+  decorators: [
+    mswDecorator,
+    (Story) => (
+      <ConfigProvider locale={koKR}>
+        <Story />
+      </ConfigProvider>
+    ),
+  ],
 };
 
-export const decorators = [
-  mswDecorator,
-  (Story) => (
-    <ConfigProvider locale={koKR}>
-      <Story />
-    </ConfigProvider>
-  ),
-];
+export default preview;
