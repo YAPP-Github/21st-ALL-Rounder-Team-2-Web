@@ -14,8 +14,8 @@
     "codegen:post": "java -jar ./scripts/openapi-generator-cli-6.2.1.jar generate -i http://artie-alb-332645711.ap-northeast-2.elb.amazonaws.com:8080/v3/api-docs/%EC%A0%84%EC%8B%9C%20API -g typescript-axios -o ./__generate__/post --type-mappings Date=string --skip-validate-spec --config ./codegenConfig.json",
     "codegen:category": "java -jar ./scripts/openapi-generator-cli-6.2.1.jar generate -i http://artie-alb-332645711.ap-northeast-2.elb.amazonaws.com:8080/v3/api-docs/%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%20API -g typescript-axios -o ./__generate__/category --type-mappings Date=string --skip-validate-spec --config ./codegenConfig.json",
     "components:new": "plop ui-components",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "test": "jest --watch",
     "test:ci": "jest --ci"
   },
