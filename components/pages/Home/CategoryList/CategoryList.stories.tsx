@@ -1,14 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import type { Meta, StoryFn } from "@storybook/react";
 import { CategoryList } from "./CategoryList";
 
 export default {
   title: "Pages/Home/CategoryList",
   component: CategoryList,
-} as ComponentMeta<typeof CategoryList>;
+} as Meta;
 
-const Template: ComponentStory<typeof CategoryList> = (args) => <CategoryList {...args} />;
+const Template: StoryFn<typeof CategoryList> = (args) => <CategoryList {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

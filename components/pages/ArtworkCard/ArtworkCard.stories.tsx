@@ -1,15 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import ArtworkCard from "./ArtworkCard";
 
 export default {
   title: "pages/ArtworkCard",
   component: ArtworkCard,
-} as ComponentMeta<typeof ArtworkCard>;
+} as Meta;
 
-const Template: ComponentStory<typeof ArtworkCard> = (args) => (
-  <ArtworkCard {...args} />
-);
+const Template: StoryFn<typeof ArtworkCard> = (args) => <ArtworkCard {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

@@ -1,13 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Dimmed from "./Dimmed";
 
 export default {
   title: "UI/Dimmed",
   component: Dimmed,
-} as ComponentMeta<typeof Dimmed>;
+} as Meta;
 
-const Template: ComponentStory<typeof Dimmed> = (args) => <Dimmed />;
+const Template: StoryFn<typeof Dimmed> = (args) => <Dimmed />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

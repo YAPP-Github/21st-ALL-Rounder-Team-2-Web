@@ -1,14 +1,13 @@
-import React from "react";
-import { Story, Meta } from '@storybook/react';
-import { EditBottomSheet, Props } from './EditBottomSheet';
+import type { Meta, StoryFn } from "@storybook/react";
+import { EditBottomSheet, Props } from "./EditBottomSheet";
 
 export default {
   component: EditBottomSheet,
-  title: 'Pages/EditBottomSheet',
+  title: "Pages/EditBottomSheet",
   argTypes: {},
 } as Meta;
 
-const Template: Story<Props> = (args) => <EditBottomSheet {...args} />;
+const Template: StoryFn<Props> = (args) => <EditBottomSheet {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

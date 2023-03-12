@@ -1,15 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import ActionSheet from "./ActionSheet";
 
 export default {
   title: "UI/ActionSheet",
   component: ActionSheet,
-} as ComponentMeta<typeof ActionSheet>;
+} as Meta;
 
-const Template: ComponentStory<typeof ActionSheet> = (args) => (
-  <ActionSheet {...args} />
-);
+const Template: StoryFn<typeof ActionSheet> = (args) => <ActionSheet {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

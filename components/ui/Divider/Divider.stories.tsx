@@ -1,16 +1,12 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import { Divider } from './Divider';
+import type { Meta, StoryFn } from "@storybook/react";
+import { Divider } from "./Divider";
 
 export default {
-  title: 'UI/Divider',
+  title: "UI/Divider",
   component: Divider,
-} as ComponentMeta<typeof Divider>;
+} as Meta;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Divider> = (args) => <Divider  />;
+const Template: StoryFn<typeof Divider> = (args) => <Divider />;
 
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {};

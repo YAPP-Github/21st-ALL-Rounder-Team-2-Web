@@ -1,13 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { ExhibitSelectModal } from "./ExhibitSelectModal";
 
 export default {
   component: ExhibitSelectModal,
   title: "pages/Calendar/ExhibitSelectModal",
-} as ComponentMeta<typeof ExhibitSelectModal>;
+} as Meta;
 
-const Template: ComponentStory<typeof ExhibitSelectModal> = (args) => <ExhibitSelectModal {...args} />;
+const Template: StoryFn<typeof ExhibitSelectModal> = (args) => <ExhibitSelectModal {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
