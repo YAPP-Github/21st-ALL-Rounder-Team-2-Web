@@ -1,16 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import type { Meta, StoryFn } from "@storybook/react";
 import { ExhibitionCardList } from "./ExhibitionCardList";
 
 export default {
   title: "Pages/Home/ExhibitionCardList",
   component: ExhibitionCardList,
-} as ComponentMeta<typeof ExhibitionCardList>;
+} as Meta;
 
-const Template: ComponentStory<typeof ExhibitionCardList> = (args) => (
-  <ExhibitionCardList {...args} />
-);
+const Template: StoryFn<typeof ExhibitionCardList> = (args) => <ExhibitionCardList {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -20,7 +16,7 @@ Primary.args = {
     name: "목조형가구학과 졸전",
     postDate: "2022. 11. 08",
     categoryId: 1,
-    categoryName: 'test'
+    categoryName: "test",
   },
   exhibitionList: [
     {
@@ -29,7 +25,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
     {
       id: 2,
@@ -37,7 +33,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
     {
       id: 3,
@@ -45,7 +41,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
     {
       id: 4,
@@ -53,7 +49,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
     {
       id: 5,
@@ -61,7 +57,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
     {
       id: 6,
@@ -69,7 +65,7 @@ Primary.args = {
       name: "전시회명어쩌구저쩌구",
       postDate: "2022. 11. 08",
       categoryId: 1,
-      categoryName: 'test'
+      categoryName: "test",
     },
   ],
 };

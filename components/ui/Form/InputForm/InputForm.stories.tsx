@@ -1,5 +1,4 @@
-import React from "react";
-import { Story, Meta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import TextInput from "../../Input/TextInput/TextInput";
 import InputForm, { Props } from "./InputForm";
 
@@ -9,7 +8,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-const Template: Story<Props> = (args) => <InputForm {...args} />;
+const Template: StoryFn<Props> = (args) => <InputForm {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

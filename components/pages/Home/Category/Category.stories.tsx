@@ -1,19 +1,15 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import { Category } from './Category';
+import type { Meta, StoryFn } from "@storybook/react";
+import { Category } from "./Category";
 
 export default {
-  title: 'Pages/Home/Category',
+  title: "Pages/Home/Category",
   component: Category,
-} as ComponentMeta<typeof Category>;
+} as Meta;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Category> = (args) => <Category {...args} />;
+const Template: StoryFn<typeof Category> = (args) => <Category {...args} />;
 
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  text: 'Category',
-  active: false
+  text: "Category",
+  active: false,
 };

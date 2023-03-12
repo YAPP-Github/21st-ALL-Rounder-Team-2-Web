@@ -1,16 +1,12 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import { AppBar as AppBar } from './AppBar';
+import type { Meta, StoryFn } from "@storybook/react";
+import { AppBar } from "./AppBar";
 
 export default {
-  title: 'Pages/Home/AppBar',
+  title: "Pages/Home/AppBar",
   component: AppBar,
-} as ComponentMeta<typeof AppBar>;
+} as Meta;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof AppBar> = (args) => <AppBar {...args} />;
+const Template: StoryFn<typeof AppBar> = (args) => <AppBar {...args} />;
 
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {};

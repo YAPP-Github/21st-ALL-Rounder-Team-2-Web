@@ -1,5 +1,4 @@
-import React from "react";
-import { Story, Meta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { Calendar, Props } from "./Calendar";
 
 export default {
@@ -8,7 +7,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-const Template: Story<Props> = (args) => <Calendar {...args} />;
+const Template: StoryFn<Props> = (args) => <Calendar {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

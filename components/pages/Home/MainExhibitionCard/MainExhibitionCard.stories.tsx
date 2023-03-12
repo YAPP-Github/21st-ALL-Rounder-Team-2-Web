@@ -1,16 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import type { Meta, StoryFn } from "@storybook/react";
 import { MainExhibitionCard } from "./MainExhibitionCard";
 
 export default {
   title: "Pages/Home/MainExhibitionCard",
   component: MainExhibitionCard,
-} as ComponentMeta<typeof MainExhibitionCard>;
+} as Meta;
 
-const Template: ComponentStory<typeof MainExhibitionCard> = (args) => (
-  <MainExhibitionCard {...args} />
-);
+const Template: StoryFn<typeof MainExhibitionCard> = (args) => <MainExhibitionCard {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
