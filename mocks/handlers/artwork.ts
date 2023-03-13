@@ -14,7 +14,7 @@ export const handlers = [
     const artwork = artworkList.find((e) => e.id === Number(id));
     if (!artwork) return res(ctx.status(404));
 
-    return res(ctx.delay(), ctx.status(200));
+    return res(ctx.delay(), ctx.status(200), ctx.json(artwork));
   }),
 
   rest.patch(`${BASE_PATH}/artwork/main/:id`, (req, res, ctx) => {
