@@ -5,6 +5,7 @@ import { ConfigProvider } from "antd-mobile";
 import koKR from "antd-mobile/es/locales/ko-KR";
 import { initialize, mswDecorator } from "msw-storybook-addon";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { handlers } from "@/mocks/handlers";
 import "../styles/globals.css";
 
 const OriginalNextImage = NextImage.default;
@@ -29,6 +30,9 @@ const preview = {
     },
     nextjs: {
       appDirectory: true,
+    },
+    msw: {
+      handlers: [...handlers],
     },
   },
   decorators: [
