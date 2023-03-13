@@ -9,7 +9,7 @@ export default {
 export const Template = () => (
   <Page
     params={{
-      exhibitionId: "1",
+      exhibitionId: "3",
     }}
   />
 );
