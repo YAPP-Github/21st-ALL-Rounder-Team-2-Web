@@ -2,7 +2,7 @@ export const exhibitionList = [
   {
     id: 1,
     name: "코엑스 아쿠아리움",
-    postDate: "2023-02-25",
+    postDate: "2023-02-24",
     categoryId: 1,
     categoryName: "계속 보고 싶은 전시👀",
     attachedLink: "",
@@ -32,7 +32,7 @@ export const exhibitionList = [
   {
     id: 4,
     name: "피렌체 아카데미아",
-    postDate: "2023-02-17",
+    postDate: "2023-02-18",
     categoryId: 2,
     categoryName: "영감을 주는 레퍼💡",
     attachedLink: "",
