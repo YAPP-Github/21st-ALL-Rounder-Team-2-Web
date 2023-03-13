@@ -1,3 +1,3 @@
-import { rest } from "msw";
+import { handlers as CategoryHandler } from "./handlers/category";
 
-export const handlers = [];
+export const handlers = [...CategoryHandler];
