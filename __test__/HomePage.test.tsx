@@ -1,5 +1,5 @@
 import Page from "@/app/home/page";
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import { renderWithClient } from "@/__test__/test-utils";
 import { server } from "@/jest.setup";
 import { rest } from "msw";
@@ -38,8 +38,13 @@ describe("Home Page", () => {
     expect(list[0].textContent).toEqual("2023-01-07");
   });
 
-  test("pin 버튼을 누르면 전시가 상단 고정된다.", async () => {
+  test("pin 버튼을 누르면 해당 전시가 상단에 고정된다.", async () => {
     fireEvent.click((await screen.findAllByLabelText("전시 고정하기"))[0]);
     expect(await screen.findByLabelText("전시 고정 해제하기")).toBeInTheDocument();
+  });
+
+  test("고정되어 있는 전시의 pin 버튼을 누르면 고정이 해제된다.", async () => {
+    fireEvent.click(await screen.findByLabelText("전시 고정 해제하기"));
+    await waitForElementToBeRemoved(() => screen.queryByLabelText("전시 고정 해제하기"));
   });
 });
