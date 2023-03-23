@@ -26,7 +26,7 @@ function Page() {
   const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
   const { data: categories } = useGetCategoryList();
   const { data: allPostInfo = [] } = useGetExhibitionList(selectedFilter ? "ASC" : "DESC", selectedIndex || undefined);
-  const { mutate } = useTogglePinById();
+  const { mutate } = useTogglePinById(selectedFilter ? "ASC" : "DESC");
 
   const fixedExhibition = useMemo(() => {
     return allPostInfo.find((item) => item.pinned);
@@ -35,7 +35,7 @@ function Page() {
   const isEmpty = allPostInfo.length === 0;
 
   const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
-    mutate({ id: item.id, category: Boolean(selectedIndex), pinned: !(item.id === fixedExhibition?.id) });
+    mutate({ id: item.id, category: selectedIndex || undefined, pinned: !(item.id === fixedExhibition?.id) });
   };
 
   const handleClickItem = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {

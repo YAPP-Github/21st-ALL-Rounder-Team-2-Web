@@ -16,14 +16,14 @@ export const useGetPostInfo = (exhibitionId: number) => {
   });
 };
 
-export const useTogglePinById = () => {
+export const useTogglePinById = (direction: "ASC" | "DESC") => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, category, pinned }: { id: number; category?: boolean; pinned?: boolean }) =>
-      togglePinById(id, category, pinned),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getAllPostPage"]);
+    mutationFn: ({ id, category, pinned }: { id: number; category?: number; pinned?: boolean }) =>
+      togglePinById(id, Boolean(category), pinned),
+    onSuccess: (_, { category }) => {
+      queryClient.invalidateQueries(["getAllPostPage", { direction, category }]);
     },
   });
 };
