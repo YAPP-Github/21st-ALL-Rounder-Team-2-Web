@@ -9,7 +9,7 @@ export default {
       navigation: {
         query: {
           year: 2023,
-          month: 3,
+          month: 2,
         },
       },
     },

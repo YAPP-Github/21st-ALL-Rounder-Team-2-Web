@@ -15,7 +15,7 @@ import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/Edi
 import { useGetArtworkInfo, useGetArtworkList, useUpdateArtworkInfo } from "@/hooks/artwork";
 import useOverlay from "@/hooks/useOverlay";
 import * as S from "./page.styles";
-import "swiper/css";
+import "swiper/swiper.min.css";
 import "./slider.css";
 
 export default function Page({

@@ -9,7 +9,7 @@ import { DEFAULT_IMAGE } from "@/utils/image";
 interface Props extends PostDetailInfo {
   isPin?: boolean;
   onTogglePin?: (e: React.MouseEvent) => void;
-  onClickItem: (e: React.MouseEvent) => void
+  onClickItem: (e: React.MouseEvent) => void;
 }
 
 export const MainExhibitionCard = (props: Props) => {
@@ -33,6 +33,7 @@ export const MainExhibitionCard = (props: Props) => {
             size: 32,
           }}
           onClick={onTogglePin}
+          ariaLabel="전시 고정 해제하기"
         />
       </S.PinButton>
     </S.Wrapper>
