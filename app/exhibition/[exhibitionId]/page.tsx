@@ -2,7 +2,6 @@
 
 import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
 import ExhibitionInfoHeader from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
-import CustomSuspense from "@/components/ui/CustomSuspense/CustomSuspense";
 import * as S from "./page.styles";
 
 export default function Page({ params }: { params: { exhibitionId: string } }) {
@@ -10,13 +9,9 @@ export default function Page({ params }: { params: { exhibitionId: string } }) {
 
   return (
     <S.Wrapper>
-      <CustomSuspense>
-        <ExhibitionInfoHeader exhibitionId={exhibitionId} />
-      </CustomSuspense>
+      <ExhibitionInfoHeader exhibitionId={exhibitionId} />
       <S.Content>
-        <CustomSuspense>
-          <ArtworkCardList exhibitionId={exhibitionId} />
-        </CustomSuspense>
+        <ArtworkCardList exhibitionId={exhibitionId} />
       </S.Content>
     </S.Wrapper>
   );
