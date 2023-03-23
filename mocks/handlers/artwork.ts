@@ -33,7 +33,7 @@ export const handlers = [
     const { id } = req.params;
 
     const idx = artworkList.findIndex((e) => e.id === Number(id));
-    if (!idx) return res(ctx.status(404));
+    if (idx === -1) return res(ctx.status(404));
 
     artworkList.splice(Number(idx), 1);
     return res(ctx.delay(), ctx.status(204));
