@@ -11,7 +11,7 @@ export const handlers = [
 
     let content = exhibitionList;
     if (category) content = content.filter((e) => e.categoryId === Number(category));
-    if (direction === "ASC") content = content.reverse();
+    if (direction === "ASC") content = content.slice().reverse();
     content = content.slice(+size * +page, +size * (+page + 1) + 1);
 
     return res(ctx.delay(), ctx.status(200), ctx.json({ content }));
