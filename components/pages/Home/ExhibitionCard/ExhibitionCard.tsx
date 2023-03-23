@@ -9,7 +9,7 @@ import React from "react";
 interface Props extends PostDetailInfo {
   isPin?: boolean;
   onTogglePin?: (e: React.MouseEvent) => void;
-  onClickItem: (e: React.MouseEvent) => void
+  onClickItem: (e: React.MouseEvent) => void;
 }
 
 export const ExhibitionCard = (props: Props) => {
@@ -33,6 +33,7 @@ export const ExhibitionCard = (props: Props) => {
             size: 24,
           }}
           onClick={onTogglePin}
+          ariaLabel="전시 고정하기"
         />
       </S.PinButton>
     </S.Wrapper>
