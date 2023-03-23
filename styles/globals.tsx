@@ -1,4 +1,10 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -12,10 +18,6 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 button {
@@ -68,3 +70,5 @@ ul {
     opacity: 0;
   }
 }
+
+`;
