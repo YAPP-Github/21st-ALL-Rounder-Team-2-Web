@@ -31,3 +31,12 @@ export const getPostInfoWithCategory = async (id: number) => {
   const response = await factory.getPostInfoWithCategory(id);
   return response.data;
 };
+
+export const getIndexHtmlByLink = async (link: string | undefined): Promise<string> => {
+  if (typeof link === "undefined") return Promise.reject(new Error("Invalid link"));
+
+  const response = await axiosInstance({
+    url: `${process.env.NEXT_PROXY_URL}/${link}`,
+  });
+  return response.data;
+};

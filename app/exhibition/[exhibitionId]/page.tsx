@@ -1,22 +1,26 @@
 "use client";
 
+import { useMemo } from "react";
 import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
 import ExhibitionInfoHeader from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
-import { useGetPostInfo } from "@/hooks/exhibition";
+import { LinkPreviewCard } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import { useGetPostInfo, useGetIndexHtmlByLink } from "@/hooks/exhibition";
+import { extractOpenGraph } from "@/utils/extractOpenGraph";
 import * as S from "./page.styles";
 
 export default function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
   const { data: postInfo } = useGetPostInfo(exhibitionId);
+  const { data: html } = useGetIndexHtmlByLink(postInfo?.attachedLink);
+  const { title, image } = useMemo(() => extractOpenGraph(html), [html]);
 
   return (
-    <>
-      <S.Wrapper>
-        <ExhibitionInfoHeader postInfo={postInfo} />
-        <S.Content>
-          <ArtworkCardList exhibitionId={exhibitionId} />
-        </S.Content>
-      </S.Wrapper>
-    </>
+    <S.Wrapper>
+      <ExhibitionInfoHeader postInfo={postInfo} />
+      <S.Content>
+        {postInfo?.attachedLink && <LinkPreviewCard url={postInfo?.attachedLink} title={title} image={image} />}
+        <ArtworkCardList exhibitionId={exhibitionId} />
+      </S.Content>
+    </S.Wrapper>
   );
 }
