@@ -25,7 +25,7 @@ export const exhibitionList = [
     postDate: "2023-02-18",
     categoryId: 2,
     categoryName: "영감을 주는 레퍼💡",
-    attachedLink: "",
+    attachedLink: "artie.com",
     mainImage: "https://picsum.photos/900",
     pinned: false,
   },
