@@ -5,6 +5,7 @@ import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList"
 import ExhibitionInfoHeader from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
 import { LinkPreviewCard } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
 import { useGetPostInfo, useGetIndexHtmlByLink } from "@/hooks/exhibition";
+import { sendMessage } from "@/libs/message/message";
 import { extractOpenGraph } from "@/utils/extractOpenGraph";
 import * as S from "./page.styles";
 
@@ -14,11 +15,18 @@ export default function Page({ params }: { params: { exhibitionId: string } }) {
   const { data: html } = useGetIndexHtmlByLink(postInfo?.attachedLink);
   const { title, image } = useMemo(() => extractOpenGraph(html), [html]);
 
+  const handleClickLink = () => {
+    if (!postInfo?.attachedLink) return;
+    sendMessage(["OPEN_NEW_WINDOW", { url: postInfo?.attachedLink }]);
+  };
+
   return (
     <S.Wrapper>
       <ExhibitionInfoHeader postInfo={postInfo} />
       <S.Content>
-        {postInfo?.attachedLink && <LinkPreviewCard url={postInfo?.attachedLink} title={title} image={image} />}
+        {postInfo?.attachedLink && (
+          <LinkPreviewCard url={postInfo?.attachedLink} title={title} image={image} onClick={handleClickLink} />
+        )}
         <ArtworkCardList exhibitionId={exhibitionId} />
       </S.Content>
     </S.Wrapper>

@@ -6,11 +6,10 @@ type Prop = {
   url: string;
   title?: string;
   image?: string;
+  onClick: () => void;
 };
 
-export const LinkPreviewCard = ({ url, image, title }: Prop) => {
-  const handleClickLink = () => {};
-
+export const LinkPreviewCard = ({ url, image, title, onClick }: Prop) => {
   return (
     <S.Wrapper>
       {image && <Image src={image} width={62} height={62} style={{ objectFit: "cover", borderRadius: "8px" }} alt="" />}
@@ -18,7 +17,7 @@ export const LinkPreviewCard = ({ url, image, title }: Prop) => {
         <S.Url>{url}</S.Url>
         <S.Title>{title}</S.Title>
       </S.Info>
-      <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} onClick={handleClickLink} />
+      <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} onClick={onClick} />
     </S.Wrapper>
   );
 };
