@@ -5,6 +5,10 @@ export default {
   title: "app/calendar",
   component: Page,
   parameters: {
+    viewport: {
+      defaultViewport: "mobile2",
+    },
+    layout: "fullscreen",
     nextjs: {
       navigation: {
         query: {
