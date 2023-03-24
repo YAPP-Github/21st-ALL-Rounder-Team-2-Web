@@ -16,6 +16,7 @@ import { ReactComponent as BookmarkTagIcon } from "./bookmark_tag.svg";
 import { ReactComponent as MultiplyIcon } from "./uil_multiply.svg";
 import { ReactComponent as CameraIcon } from "./camera.svg";
 import { ReactComponent as ImageIcon } from "./image.svg";
+import { ReactComponent as ChevronRightIcon } from "./chevron-right.svg";
 
 export const SvgIcons = {
   ARTIEIcon,
@@ -36,4 +37,5 @@ export const SvgIcons = {
   MultiplyIcon,
   CameraIcon,
   ImageIcon,
+  ChevronRightIcon,
 } as const;

@@ -6,26 +6,24 @@ import Icon from "@/components/ui/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
-import { useGetPostInfo } from "@/hooks/exhibition";
 import { sendMessage } from "@/libs/message/message";
+import { PostDetailInfo } from "@/__generate__/post";
 import * as S from "./ExhibitionInfoHeader.styles";
 
 type Props = {
-  exhibitionId: number;
+  postInfo?: PostDetailInfo;
 };
 
-const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
+const ExhibitionInfoHeader = ({ postInfo }: Props) => {
   const { isOpen: isOpenModal, open, close } = useOverlay();
-  const { data: postInfo } = useGetPostInfo(exhibitionId);
-
-  if (!postInfo) return null;
-  const { mainImage, categoryName, name, postDate } = postInfo;
+  const { mainImage, categoryName, name, postDate } = { ...postInfo };
 
   const handleGoBackClick = () => {
     sendMessage(["GO_BACK"]);
   };
 
   const handleEditClick = () => {
+    if (!postInfo) return;
     sendMessage(["NAVIGATE_TO_EXHIBIT_EDIT", postInfo]);
   };
 

@@ -37,4 +37,14 @@ export const handlers = [
 
     return res(ctx.delay(), ctx.status(200), ctx.json(exhibition));
   }),
+
+  rest.get(`${process.env.NEXT_PROXY_URL}/*`, (_, res, ctx) => {
+    return res(
+      ctx.delay(),
+      ctx.set("Content-Type", "text/html"),
+      ctx.json(
+        '<html><head><meta property="og:image" content="https://picsum.photos/900" /><meta property="og:title" content="Example Website" /><meta property="og:description" content="" /></head></html>'
+      )
+    );
+  }),
 ];

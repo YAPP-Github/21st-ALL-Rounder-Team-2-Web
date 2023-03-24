@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllPostPage, getPostInfoWithCategory, togglePinById } from "@/apis/exhibition";
+import { getAllPostPage, getIndexHtmlByLink, getPostInfoWithCategory, togglePinById } from "@/apis/exhibition";
 
 export const useGetExhibitionList = (direction: "ASC" | "DESC", category?: number) => {
   return useQuery({
@@ -25,5 +25,13 @@ export const useTogglePinById = (direction: "ASC" | "DESC") => {
     onSuccess: (_, { category }) => {
       queryClient.invalidateQueries(["getAllPostPage", { direction, category }]);
     },
+  });
+};
+
+export const useGetIndexHtmlByLink = (link: string | undefined) => {
+  return useQuery({
+    queryKey: ["indexHtmlByLink", link],
+    queryFn: () => getIndexHtmlByLink(link),
+    enabled: Boolean(link),
   });
 };

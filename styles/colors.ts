@@ -8,6 +8,7 @@ export const colors = {
   gray500: "#B4B4B4",
   gray600: "#979797",
   gray700: "#727272",
+  gray800: "#555555",
   gray900: "#3F3F3F",
   white: "#fff",
   bgColor: "#161616",
