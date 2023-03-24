@@ -9,6 +9,9 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   padding: 21px 16px;
 `;
 
