@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import ExhibitionInfoHeader from "./ExhibitionInfoHeader";
+import { exhibitionList } from "@/mocks/data/exhibition";
 
 export default {
   title: "pages/ExhibitionInfoHeader",
@@ -10,5 +11,5 @@ const Template: StoryFn<typeof ExhibitionInfoHeader> = (args) => <ExhibitionInfo
 
 export const Primary = Template.bind({});
 Primary.args = {
-  exhibitionId: 1,
+  postInfo: exhibitionList[3],
 };
