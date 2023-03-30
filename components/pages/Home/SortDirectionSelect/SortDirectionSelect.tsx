@@ -20,7 +20,7 @@ export const SortDirectionSelect = (props: Props) => {
         <S.SelectValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectValue>
         <Icon name="ChevronDownIcon" />
       </Select.Trigger>
-      <S.SelectList>
+      <S.SelectList align="end">
         <Select.Item value="DESC">최신순</Select.Item>
         <Select.Item value="ASC">오래된순</Select.Item>
       </S.SelectList>

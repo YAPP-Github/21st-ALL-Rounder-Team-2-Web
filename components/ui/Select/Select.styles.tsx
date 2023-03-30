@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Medium14CSS } from "@/components/ui/Typographies";
 import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
   position: relative;
+  display: inline-block;
   margin-bottom: 10px;
 `;
 
@@ -14,8 +15,25 @@ export const SelectTrigger = styled.button`
   color: ${colors.gray400};
 `;
 
-export const SelectList = styled.ul`
+export const SelectList = styled.ul<{ $align: "start" | "center" | "end" }>`
   position: absolute;
+  ${(props) => {
+    switch (props.$align) {
+      case "start":
+        return css`
+          left: 0;
+        `;
+      case "end":
+        return css`
+          right: 0;
+        `;
+      default:
+        return css`
+          left: 50%;
+          transform: translateX(-50%);
+        `;
+    }
+  }}
   z-index: 1000;
   display: flex;
   flex-direction: column;

@@ -17,7 +17,7 @@ export const Default: StoryFn<typeof Select> = (args) => {
         {value === "apple" ? "apple🍎" : "orange🍊"}
         <Icon name="ChevronDownIcon" />
       </Select.Trigger>
-      <Select.List>
+      <Select.List align="start">
         <Select.Item value="apple">apple🍎</Select.Item>
         <Select.Item value="orange">orange🍊</Select.Item>
       </Select.List>

@@ -61,11 +61,19 @@ export const SelectTrigger = ({ className, children }: PropsWithChildren<{ class
   );
 };
 
-export const SelectList = ({ className, children }: PropsWithChildren<{ className?: string }>) => {
+export const SelectList = ({
+  className,
+  align = "center",
+  children,
+}: PropsWithChildren<{ className?: string; align?: "start" | "center" | "end" }>) => {
   const { isOpen } = useSelectContext();
 
   if (!isOpen) return null;
-  return <S.SelectList className={className}>{children}</S.SelectList>;
+  return (
+    <S.SelectList className={className} $align={align}>
+      {children}
+    </S.SelectList>
+  );
 };
 
 export const SelectItem = ({
