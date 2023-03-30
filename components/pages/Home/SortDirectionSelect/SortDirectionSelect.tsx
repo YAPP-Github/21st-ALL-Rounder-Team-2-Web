@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
-import Icon from "../Icon/Icon/Icon";
-import * as S from "./Select.styles";
+import Icon from "../../../ui/Icon/Icon/Icon";
+import * as S from "./SortDirectionSelect.styles";
 
 interface Props {
   activeIndex?: number;
   onSelected: (index: number) => void;
 }
 
-export const Select = (props: Props) => {
+export const SortDirectionSelect = (props: Props) => {
   const ref = useRef<HTMLButtonElement | null>(null);
   const [isActive, setIsActive] = useState(false);
   const { activeIndex = 0, onSelected } = props;

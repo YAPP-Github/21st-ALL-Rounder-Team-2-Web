@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { colors } from "@/styles/colors";
-import { Medium14CSS } from "../Typographies";
+import { Medium14CSS } from "../../../ui/Typographies";
 
 export const Wrapper = styled.button`
   position: relative;
