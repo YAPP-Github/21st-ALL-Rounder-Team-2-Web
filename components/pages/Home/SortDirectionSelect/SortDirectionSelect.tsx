@@ -1,47 +1,29 @@
-import React, { useRef, useState } from "react";
-import useClickOutside from "@/hooks/useClickOutside";
-import Icon from "../../../ui/Icon/Icon/Icon";
+import Select from "@/components/ui/Select/Select";
+import Icon from "@/components/ui/Icon/Icon/Icon";
 import * as S from "./SortDirectionSelect.styles";
 
 interface Props {
-  activeIndex?: number;
-  onSelected: (index: number) => void;
+  selectedValue?: string;
+  onSelected: (item: "ASC" | "DESC") => void;
 }
 
 export const SortDirectionSelect = (props: Props) => {
-  const ref = useRef<HTMLButtonElement | null>(null);
-  const [isActive, setIsActive] = useState(false);
-  const { activeIndex = 0, onSelected } = props;
-  const selectItems = [{ text: "최신순" }, { text: "오래된순" }];
+  const { selectedValue = "DESC", onSelected } = props;
 
-  const toggleSelectBox = () => {
-    setIsActive((prev: boolean) => !prev);
+  const handleSelect = (value: string) => {
+    if (value === "DESC" || value === "ASC") onSelected(value);
   };
 
-  useClickOutside(ref, toggleSelectBox, isActive);
-
   return (
-    <S.Wrapper ref={ref}>
-      <S.SelectWrapper onClick={toggleSelectBox}>
-        <S.Text>{selectItems[activeIndex].text}</S.Text>
+    <Select value={selectedValue} onValueChange={handleSelect}>
+      <Select.Trigger>
+        <S.SelectValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectValue>
         <Icon name="ChevronDownIcon" />
-      </S.SelectWrapper>
-      {isActive && (
-        <S.OptionWrapper>
-          {selectItems.map((item, i) => (
-            <S.Item
-              key={i}
-              active={activeIndex === i}
-              onClick={() => {
-                onSelected(i);
-                toggleSelectBox();
-              }}
-            >
-              {item.text}
-            </S.Item>
-          ))}
-        </S.OptionWrapper>
-      )}
-    </S.Wrapper>
+      </Select.Trigger>
+      <S.SelectList>
+        <Select.Item value="DESC">최신순</Select.Item>
+        <Select.Item value="ASC">오래된순</Select.Item>
+      </S.SelectList>
+    </Select>
   );
 };
