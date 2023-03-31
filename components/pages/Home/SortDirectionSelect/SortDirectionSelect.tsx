@@ -1,5 +1,4 @@
 import Select from "@/components/ui/Select/Select";
-import Icon from "@/components/ui/Icon/Icon/Icon";
 import * as S from "./SortDirectionSelect.styles";
 
 interface Props {
@@ -18,7 +17,7 @@ export const SortDirectionSelect = (props: Props) => {
     <Select value={selectedValue} onValueChange={handleSelect}>
       <Select.Trigger>
         <S.SelectValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectValue>
-        <Icon name="ChevronDownIcon" />
+        <Select.Icon>{(isOpen) => <S.IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
       </Select.Trigger>
       <S.SelectList align="end">
         <Select.Item value="DESC">최신순</Select.Item>

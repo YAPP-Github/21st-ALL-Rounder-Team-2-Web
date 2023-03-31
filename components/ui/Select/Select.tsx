@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   PropsWithChildren,
+  ReactNode,
 } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 import * as S from "./Select.styles";
@@ -61,6 +62,15 @@ export const SelectTrigger = ({ className, children }: PropsWithChildren<{ class
   );
 };
 
+type SelectIconProp = {
+  children: ReactNode | ((isOpen: boolean) => void);
+};
+
+export const SelectIcon = ({ children }: SelectIconProp) => {
+  const { isOpen } = useSelectContext();
+  return <>{typeof children === "function" ? children(isOpen) : children}</>;
+};
+
 export const SelectList = ({
   className,
   align = "center",
@@ -96,6 +106,7 @@ export const SelectItem = ({
 };
 
 Select.Trigger = SelectTrigger;
+Select.Icon = SelectIcon;
 Select.List = SelectList;
 Select.Item = SelectItem;
 
