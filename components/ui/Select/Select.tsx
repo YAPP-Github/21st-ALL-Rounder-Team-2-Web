@@ -3,7 +3,6 @@ import {
   useContext,
   useState,
   useMemo,
-  useRef,
   Dispatch,
   SetStateAction,
   PropsWithChildren,
@@ -35,8 +34,7 @@ export const Select = ({ className, value, onValueChange, children }: SelectProp
     [value, onValueChange, isOpen, setIsOpen]
   );
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside(ref, () => setIsOpen(false), isOpen);
+  const ref = useClickOutside(() => setIsOpen(false));
 
   return (
     <SelectContext.Provider value={context}>

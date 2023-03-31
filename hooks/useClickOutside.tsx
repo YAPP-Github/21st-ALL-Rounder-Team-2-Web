@@ -1,29 +1,20 @@
-import { RefObject, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-const useClickOutside = <T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T>,
-  handler: (event: Event) => void,
-  isActive: boolean
-) => {
+const useClickOutside = <T extends HTMLElement = HTMLDivElement>(handler: () => void) => {
+  const ref = useRef<T>(null);
+
   useEffect(() => {
-    const listener = (event: Event) => {
-      if(!isActive) {
-        return
-      }
-      const el = ref?.current;
-      if (!el || el.contains((event?.target as Node) || null)) {
-        return;
-      }
-
-      handler(event); // Call the handler only if the click is outside of the element passed.
+    const handleClickOutside = (e: Event) => {
+      const el = ref.current;
+      if (!el || (e.target instanceof HTMLElement && ref.current.contains(e.target))) return;
+      handler();
     };
 
-    document.addEventListener("mousedown", listener);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.addEventListener("mousedown", handleClickOutside);
+  }, [handler]);
 
-    return () => {
-      document.removeEventListener("mousedown", listener);
-    };
-  }, [ref, handler]);
+  return ref;
 };
 
 export default useClickOutside;

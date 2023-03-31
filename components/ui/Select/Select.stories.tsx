@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
+import styled from "styled-components";
 import Icon from "@/components/ui/Icon/Icon/Icon";
 import { Select } from "./Select";
 
@@ -15,7 +16,7 @@ export const Default: StoryFn<typeof Select> = (args) => {
     <Select {...args} value={value} onValueChange={setValue}>
       <Select.Trigger>
         {value === "apple" ? "apple🍎" : "orange🍊"}
-        <Icon name="ChevronDownIcon" />
+        <Select.Icon>{(isOpen) => <IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
       </Select.Trigger>
       <Select.List align="start">
         <Select.Item value="apple">apple🍎</Select.Item>
@@ -24,3 +25,7 @@ export const Default: StoryFn<typeof Select> = (args) => {
     </Select>
   );
 };
+
+const IconStyled = styled(Icon)<{ $isOpen: boolean }>`
+  transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "none")};
+`;
