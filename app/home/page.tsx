@@ -2,8 +2,8 @@
 
 import React, { Suspense, useCallback, useMemo } from "react";
 import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList";
-import { Select } from "@/components/ui/Select/Select";
-import { useSelectCategory } from "@/hooks/useSelectCategory";
+import { SortDirectionSelect } from "@/components/pages/Home/SortDirectionSelect/SortDirectionSelect";
+import { useSelect } from "@/hooks/useSelect";
 import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
 import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/PostFloatingButton";
 import { sendMessage } from "@/libs/message/message";
@@ -22,11 +22,11 @@ export default function PageWrapper() {
 }
 
 function Page() {
-  const { selectedIndex, selectCategoryByIndex: handleSelectCategory } = useSelectCategory();
-  const { selectedIndex: selectedFilter, selectCategoryByIndex: handleSelectFilter } = useSelectCategory();
+  const [categoryId, handleSelectCategoryId] = useSelect(0);
+  const [sortBy, handleSelectSortBy] = useSelect<"ASC" | "DESC">("DESC");
   const { data: categories } = useGetCategoryList();
-  const { data: allPostInfo = [] } = useGetExhibitionList(selectedFilter ? "ASC" : "DESC", selectedIndex || undefined);
-  const { mutate } = useTogglePinById(selectedFilter ? "ASC" : "DESC");
+  const { data: allPostInfo = [] } = useGetExhibitionList(sortBy, categoryId || undefined);
+  const { mutate } = useTogglePinById(sortBy);
 
   const fixedExhibition = useMemo(() => {
     return allPostInfo.find((item) => item.pinned);
@@ -35,7 +35,7 @@ function Page() {
   const isEmpty = allPostInfo.length === 0;
 
   const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
-    mutate({ id: item.id, category: selectedIndex || undefined, pinned: !(item.id === fixedExhibition?.id) });
+    mutate({ id: item.id, category: categoryId || undefined, pinned: !(item.id === fixedExhibition?.id) });
   };
 
   const handleClickItem = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
@@ -51,14 +51,13 @@ function Page() {
     <S.Wrapper>
       <AppBar />
       <S.CategoryListStyled
-        activeIndex={selectedIndex}
+        activeIndex={categoryId}
         items={categories ? [{ id: 0, name: "전체 기록" }, ...categories] : []}
-        onSelected={handleSelectCategory}
+        onSelected={handleSelectCategoryId}
       />
       <S.Filter>
-        <Select activeIndex={selectedFilter} onSelected={handleSelectFilter} />
+        <SortDirectionSelect selectedValue={sortBy} onSelected={handleSelectSortBy} />
       </S.Filter>
-
       <S.Content>
         {isEmpty ? (
           <ExhibitionListEmpty onSubmit={handleEditButton} />
