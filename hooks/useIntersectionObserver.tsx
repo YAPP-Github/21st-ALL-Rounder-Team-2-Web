@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-type Props = {
+export type Props = {
   onIntersect: () => void;
   options?: IntersectionObserverInit;
 };
