@@ -8,6 +8,13 @@ import { exhibitionList } from "@/mocks/data/exhibition";
 import { BASE_PATH } from "@/__generate__/post/base";
 
 describe("Home Page", () => {
+  const mockIntersectObserver = jest.fn();
+  mockIntersectObserver.mockReturnValue({
+    observe: jest.fn(),
+    disconnect: jest.fn(),
+  });
+  window.IntersectionObserver = mockIntersectObserver;
+
   beforeEach(() => {
     renderWithClient(<Page />);
   });
@@ -45,6 +52,6 @@ describe("Home Page", () => {
 
   test("고정되어 있는 전시의 pin 버튼을 누르면 고정이 해제된다.", async () => {
     fireEvent.click(await screen.findByLabelText("전시 고정 해제하기"));
-    await waitForElementToBeRemoved(() => screen.queryByLabelText("전시 고정 해제하기"));
+    await waitForElementToBeRemoved(screen.queryByLabelText("전시 고정 해제하기"));
   });
 });
