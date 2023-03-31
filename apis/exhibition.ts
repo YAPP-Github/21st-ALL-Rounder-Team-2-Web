@@ -4,7 +4,7 @@ import { ExhibitControllerApiFactory } from "@/__generate__/post";
 const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
 
 export const getAllPostPage = async ({
-  size = 100,
+  size = 10,
   page = 0,
   direction,
   category,
@@ -14,12 +14,8 @@ export const getAllPostPage = async ({
   direction?: "ASC" | "DESC";
   category?: number;
 }) => {
-  try {
-    const response = await factory.getAllPostPage(size, page, direction, category);
-    return response.data;
-  } catch (err) {
-    return null;
-  }
+  const response = await factory.getAllPostPage(size, page, direction, category);
+  return response.data;
 };
 
 export const togglePinById = async (id: number, category?: boolean, pinned?: boolean) => {
