@@ -1,12 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllPostPage, getIndexHtmlByLink, getPostInfoWithCategory, togglePinById } from "@/apis/exhibition";
 
 export const useGetExhibitionList = (direction: "ASC" | "DESC", category?: number) => {
-  return useQuery({
+  const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ["getAllPostPage", { direction, category }],
-    queryFn: () => getAllPostPage({ direction, category }),
-    select: (data) => data?.content ?? [],
+    queryFn: ({ pageParam = 0 }) => getAllPostPage({ page: pageParam, direction, category }),
+    getNextPageParam: (lastPage, pages) => (!lastPage.last ? pages.length : undefined),
   });
+
+  return { allPostInfo: data?.pages.map((page) => page.content ?? []).flat() ?? [], fetchNextPage };
 };
 
 export const useGetPostInfo = (exhibitionId: number) => {

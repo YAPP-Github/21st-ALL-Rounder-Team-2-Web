@@ -9,6 +9,7 @@ import { PostFloatingButton } from "@/components/pages/Home/PostFloatingButton/P
 import { sendMessage } from "@/libs/message/message";
 import { PostDetailInfo } from "@/__generate__/post";
 import ExhibitionListEmpty from "@/components/ui/Empty/ExhibitionListEmpty/ExhibitionListEmpty";
+import { InfiniteScroll } from "@/components/ui/InfiniteScroll/InfiniteScroll";
 import * as S from "./page.styles";
 import { useGetExhibitionList, useTogglePinById } from "@/hooks/exhibition";
 import { useGetCategoryList } from "@/hooks/category";
@@ -25,7 +26,7 @@ function Page() {
   const [categoryId, handleSelectCategoryId] = useSelect(0);
   const [sortBy, handleSelectSortBy] = useSelect<"ASC" | "DESC">("DESC");
   const { data: categories } = useGetCategoryList();
-  const { data: allPostInfo = [] } = useGetExhibitionList(sortBy, categoryId || undefined);
+  const { allPostInfo, fetchNextPage } = useGetExhibitionList(sortBy, categoryId || undefined);
   const { mutate } = useTogglePinById(sortBy);
 
   const fixedExhibition = useMemo(() => {
@@ -62,12 +63,14 @@ function Page() {
         {isEmpty ? (
           <ExhibitionListEmpty onSubmit={handleEditButton} />
         ) : (
-          <ExhibitionCardList
-            fixedExhibition={fixedExhibition}
-            exhibitionList={allPostInfo}
-            onTogglePin={handleTogglePin}
-            onClickItem={handleClickItem}
-          />
+          <InfiniteScroll onIntersect={fetchNextPage} options={{ rootMargin: "30px 0px" }}>
+            <ExhibitionCardList
+              fixedExhibition={fixedExhibition}
+              exhibitionList={allPostInfo}
+              onTogglePin={handleTogglePin}
+              onClickItem={handleClickItem}
+            />
+          </InfiniteScroll>
         )}
       </S.Content>
       <PostFloatingButton onClick={handleEditButton} />

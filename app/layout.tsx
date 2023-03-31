@@ -1,6 +1,7 @@
 "use client";
 
 import QueryClientWrapper from "@/libs/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import StyledComponentsRegistry from "@/libs/styled-components";
 import { GlobalStyle } from "@/styles/globals";
 import AntdMobileProvider from "@/libs/antd-mobile-provider";
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
               </>
             </StyledComponentsRegistry>
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientWrapper>
           <div id="overlay-root" />
         </AntdMobileProvider>
