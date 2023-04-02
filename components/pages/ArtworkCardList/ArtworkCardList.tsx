@@ -65,24 +65,13 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
           </li>
         ))}
       </S.Wrapper>
-      <ActionSheet
-        isOpen={isOpenActionSheet}
-        actionList={[
-          {
-            actionName: "대표이미지로 선택",
-            onActionClick: handleArtworkPin,
-          },
-          {
-            actionName: "게시글 수정",
-            onActionClick: handleArtworkEdit,
-          },
-          {
-            actionName: "삭제",
-            onActionClick: artworkList?.length === 1 ? openAlertModal : handleArtworkDelete,
-          },
-        ]}
-        onClose={closeActionSheet}
-      />
+      <ActionSheet isOpen={isOpenActionSheet} onClose={closeActionSheet}>
+        <ActionSheet.Item onClick={handleArtworkPin}>대표 이미지로 선택</ActionSheet.Item>
+        <ActionSheet.Item onClick={handleArtworkEdit}>게시글 수정</ActionSheet.Item>
+        <ActionSheet.Item onClick={artworkList?.length === 1 ? openAlertModal : handleArtworkDelete}>
+          삭제
+        </ActionSheet.Item>
+      </ActionSheet>
       {isOpenAlertModal ? <ArtworkDeleteAlertModal onClose={closeAlertModal} onConfirm={handleArtworkDelete} /> : null}
     </>
   );
