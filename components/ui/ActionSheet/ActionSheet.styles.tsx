@@ -4,7 +4,6 @@ import { Normal18CSS, Bold18CSS } from "../Typographies";
 
 export const Wrapper = styled.div<{ isOpen: boolean }>`
   position: fixed;
-  bottom: 0;
   left: 18px;
   right: 18px;
   bottom: 53px;
