@@ -6,12 +6,13 @@ export default {
   component: ActionSheet,
 } as Meta;
 
-const Template: StoryFn<typeof ActionSheet> = (args) => <ActionSheet {...args} />;
-
-export const Primary = Template.bind({});
-Primary.args = {
-  actionList: [
-    { actionName: "게시글 수정", onActionClick: () => {} },
-    { actionName: "삭제", onActionClick: () => {} },
-  ],
+export const Default: StoryFn<typeof ActionSheet> = (args) => (
+  <ActionSheet {...args}>
+    <ActionSheet.Item>Action 1</ActionSheet.Item>
+    <ActionSheet.Item>Action 2</ActionSheet.Item>
+    <ActionSheet.Item>Action 3</ActionSheet.Item>
+  </ActionSheet>
+);
+Default.args = {
+  isOpen: true,
 };
