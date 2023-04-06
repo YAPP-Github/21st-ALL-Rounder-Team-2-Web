@@ -12,9 +12,9 @@ type Props = {
 const ActionSheet = ({ isOpen, onClose, children }: PropsWithChildren<Props>) => {
   return (
     <Portal>
+      {isOpen && <Dimmed onClick={onClose} />}
       <Animated isOpen={isOpen}>
-        <Dimmed onClick={onClose} />
-        <S.Wrapper isOpen={isOpen}>
+        <S.Wrapper>
           <S.ActionList>{children}</S.ActionList>
           <S.CloseButton onClick={onClose}>닫기</S.CloseButton>
         </S.Wrapper>

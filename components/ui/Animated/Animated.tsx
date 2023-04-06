@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, cloneElement } from "react";
+import "@/styles/keyframes.css";
 
 type Props = {
   isOpen: boolean;
-  children: React.ReactNode;
+  children: ReactElement;
 };
 
 const Animated = ({ isOpen, children }: Props) => {
@@ -16,7 +17,12 @@ const Animated = ({ isOpen, children }: Props) => {
     if (!isOpen) setIsVisible(false);
   };
 
-  return isVisible ? <div onAnimationEnd={handleAnimationEnd}>{children}</div> : null;
+  return isVisible
+    ? cloneElement(children, {
+        isOpen,
+        onAnimationEnd: handleAnimationEnd,
+      })
+    : null;
 };
 
 export default Animated;

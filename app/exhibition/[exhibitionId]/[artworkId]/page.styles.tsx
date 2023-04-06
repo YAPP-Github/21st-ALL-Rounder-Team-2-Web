@@ -71,7 +71,7 @@ export const ThumbnailItem = styled.li<{ isActive: boolean }>`
   border-radius: 2px;
 `;
 
-export const BottomSheetWrapper = styled.div<{ isOpen: boolean }>`
+export const BottomSheetWrapper = styled.div<{ isOpen?: boolean }>`
   position: fixed;
   left: 0;
   right: 0;

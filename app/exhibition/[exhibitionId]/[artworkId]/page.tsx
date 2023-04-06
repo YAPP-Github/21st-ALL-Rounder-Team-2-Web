@@ -118,7 +118,7 @@ export default function Page({
       <Portal>
         {isOpenBottomSheet && <Dimmed onClick={closeBottomSheet} />}
         <Animated isOpen={isOpenBottomSheet}>
-          <S.BottomSheetWrapper isOpen={isOpenBottomSheet}>
+          <S.BottomSheetWrapper>
             <EditBottomSheet defaultValues={artworkInfo} onSave={handleSave} />
           </S.BottomSheetWrapper>
         </Animated>

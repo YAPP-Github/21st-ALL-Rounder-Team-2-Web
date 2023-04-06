@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import { Normal18CSS, Bold18CSS } from "../Typographies";
+import "@/styles/keyframes.css";
 
-export const Wrapper = styled.div<{ isOpen: boolean }>`
+export const Wrapper = styled.div<{ isOpen?: boolean }>`
   position: fixed;
   left: 18px;
   right: 18px;
