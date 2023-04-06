@@ -33,7 +33,7 @@ export const getIndexHtmlByLink = async (link: string | undefined): Promise<stri
 
   const response = await axiosInstance({
     baseURL: `${process.env.NEXT_PUBLIC_PROXY_URL}`,
-    url: `/${link}`,
+    url: `${link}`,
   });
   return response.data;
 };
