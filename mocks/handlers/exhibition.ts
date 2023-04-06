@@ -38,7 +38,7 @@ export const handlers = [
     return res(ctx.delay(), ctx.status(200), ctx.json(exhibition));
   }),
 
-  rest.get(`${process.env.NEXT_PROXY_URL}/*`, (_, res, ctx) => {
+  rest.get(`${process.env.NEXT_PUBLIC_PROXY_URL}/*`, (_, res, ctx) => {
     return res(
       ctx.delay(),
       ctx.set("Content-Type", "text/html"),
