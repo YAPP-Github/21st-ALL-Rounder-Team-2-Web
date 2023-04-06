@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useGetArtworkList, useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
-import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
+import { useGetArtworkList } from "@/hooks/artwork";
+import { ArtworkEditActionSheet } from "@/components/pages/ArtworkCardList/ArtworkEditActionSheet";
 import ArtworkCard from "../ArtworkCard/ArtworkCard";
-import ArtworkDeleteAlertModal from "@/components/pages/ArtworkDeleteAlertModal/ArtworkDeleteAlertModal";
 import useOverlay from "@/hooks/useOverlay";
 import * as S from "./ArtworkCardList.styles";
 
@@ -15,76 +13,35 @@ interface Props {
 }
 
 const ArtworkCardList = ({ exhibitionId }: Props) => {
-  const router = useRouter();
   const { data: artworkList } = useGetArtworkList(exhibitionId);
-  const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
-  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
-  const { isOpen: isOpenActionSheet, open: openActionSheet, close: closeActionSheet } = useOverlay();
-  const { isOpen: isOpenAlertModal, open: openAlertModal, close: closeAlertModal } = useOverlay();
+  const { isOpen, open, close } = useOverlay();
   const [selectedArtworkId, setSelectedArtworkId] = useState(-1);
 
-  const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSelectedArtworkId(artworkId);
-    openActionSheet();
-  };
-
-  const handleArtworkPin = () => {
-    setMainArtworkMutate(selectedArtworkId, {
-      onSuccess: () => {
-        handleActionSheetClose();
-      },
-    });
-  };
-
-  const handleArtworkEdit = () => {
-    router.push(`/exhibition/${exhibitionId}/${selectedArtworkId}?edit=true`);
-  };
-
-  const handleArtworkDelete = () => {
-    deleteArtworkMutate(selectedArtworkId, {
-      onSuccess: () => {
-        handleActionSheetClose();
-      },
-    });
-  };
-
-  const handleActionSheetClose = () => {
-    setSelectedArtworkId(-1);
-    closeActionSheet();
+  const handleMoreBtnClick = (artworkId: number) => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      setSelectedArtworkId(artworkId);
+      open();
+    };
   };
 
   return (
-    <>
-      <S.Wrapper>
-        {artworkList?.map((artwork) => (
-          <li key={artwork.id}>
-            <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
-              <ArtworkCard {...artwork} onMoreBtnClick={handleMoreBtnClick(artwork.id)} />
-            </Link>
-          </li>
-        ))}
-      </S.Wrapper>
-      <ActionSheet
-        isOpen={isOpenActionSheet}
-        actionList={[
-          {
-            actionName: "대표이미지로 선택",
-            onActionClick: handleArtworkPin,
-          },
-          {
-            actionName: "게시글 수정",
-            onActionClick: handleArtworkEdit,
-          },
-          {
-            actionName: "삭제",
-            onActionClick: artworkList?.length === 1 ? openAlertModal : handleArtworkDelete,
-          },
-        ]}
-        onClose={closeActionSheet}
+    <S.Wrapper>
+      {artworkList?.map((artwork) => (
+        <li key={artwork.id}>
+          <Link href={`/exhibition/${exhibitionId}/${artwork.id}`}>
+            <ArtworkCard {...artwork} onMoreBtnClick={handleMoreBtnClick(artwork.id)} />
+          </Link>
+        </li>
+      ))}
+      <ArtworkEditActionSheet
+        isOpen={isOpen}
+        onClose={close}
+        exhibitionId={exhibitionId}
+        artworkId={selectedArtworkId}
+        isLastArtwork={artworkList?.length === 1}
       />
-      {isOpenAlertModal ? <ArtworkDeleteAlertModal onClose={closeAlertModal} onConfirm={handleArtworkDelete} /> : null}
-    </>
+    </S.Wrapper>
   );
 };
 
