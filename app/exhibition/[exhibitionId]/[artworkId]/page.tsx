@@ -10,7 +10,7 @@ import Tag from "@/components/ui/Tag/Tag/Tag";
 import EditBottomSheet from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
-import Animated from "@/components/ui/Animated/Animated";
+import { AnimatePresence } from "@/components/ui/AnimatePresence/AnimatePresence";
 import { FormData } from "@/components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
 import { useGetArtworkInfo, useGetArtworkList, useUpdateArtworkInfo } from "@/hooks/artwork";
 import useOverlay from "@/hooks/useOverlay";
@@ -117,11 +117,11 @@ export default function Page({
       </S.ThumbnailList>
       <Portal>
         {isOpenBottomSheet && <Dimmed onClick={closeBottomSheet} />}
-        <Animated isOpen={isOpenBottomSheet}>
-          <S.BottomSheetWrapper isOpen={isOpenBottomSheet}>
+        <AnimatePresence isOpen={isOpenBottomSheet}>
+          <S.BottomSheetWrapper>
             <EditBottomSheet defaultValues={artworkInfo} onSave={handleSave} />
           </S.BottomSheetWrapper>
-        </Animated>
+        </AnimatePresence>
       </Portal>
     </S.Wrapper>
   );

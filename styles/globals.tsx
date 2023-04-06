@@ -49,26 +49,4 @@ ul {
   list-style: none;
 }
 
-@keyframes slideup {
-  from {
-    transform: translateY(20%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slidedown {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(20%);
-    opacity: 0;
-  }
-}
-
 `;
