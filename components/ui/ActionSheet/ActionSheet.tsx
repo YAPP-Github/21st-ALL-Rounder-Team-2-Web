@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import Animated from "@/components/ui/Animated/Animated";
+import { AnimatePresence } from "@/components/ui/AnimatePresence/AnimatePresence";
 import Dimmed from "@/components/ui/Dimmed/Dimmed";
 import Portal from "@/components/ui/Portal/Portal";
 import * as S from "./ActionSheet.styles";
@@ -13,12 +13,12 @@ const ActionSheet = ({ isOpen, onClose, children }: PropsWithChildren<Props>) =>
   return (
     <Portal>
       {isOpen && <Dimmed onClick={onClose} />}
-      <Animated isOpen={isOpen}>
+      <AnimatePresence isOpen={isOpen}>
         <S.Wrapper>
           <S.ActionList>{children}</S.ActionList>
           <S.CloseButton onClick={onClose}>닫기</S.CloseButton>
         </S.Wrapper>
-      </Animated>
+      </AnimatePresence>
     </Portal>
   );
 };

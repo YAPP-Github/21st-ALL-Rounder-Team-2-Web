@@ -6,7 +6,7 @@ type Props = {
   children: ReactElement;
 };
 
-const Animated = ({ isOpen, children }: Props) => {
+export const AnimatePresence = ({ isOpen, children }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -24,5 +24,3 @@ const Animated = ({ isOpen, children }: Props) => {
       })
     : null;
 };
-
-export default Animated;
