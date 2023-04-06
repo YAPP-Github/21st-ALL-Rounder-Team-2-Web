@@ -10,9 +10,6 @@ export default {
     },
   },
   staticDirs: ["../public"],
-  // features: {
-  //   babelModeV7: true,
-  // },
   webpackFinal: async (config) => {
     config.module.rules.unshift({
       test: /\.svg$/,
@@ -21,4 +18,8 @@ export default {
 
     return config;
   },
+  env: (config) => ({
+    ...config,
+    NEXT_PROXY_URL: "",
+  }),
 };
