@@ -34,17 +34,16 @@ export const ActionList = styled.div`
 `;
 
 export const ActionItem = styled.button`
-  background-color: ${colors.overlay};
   border-radius: 6px;
-  box-shadow: 0px 2px 80px rgba(0, 0, 0, 0.5);
   width: 100%;
-  padding: 20px;
+  padding: 20px 0;
   color: ${colors.gray400};
   ${Normal18CSS};
   letter-spacing: -0.3px;
 `;
 
 export const CloseButton = styled(ActionItem)`
+  box-shadow: 0px 2px 80px rgba(0, 0, 0, 0.5);
   ${Bold18CSS};
   color: white;
 `;
