@@ -17,10 +17,12 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
   const { isOpen, open, close } = useOverlay();
   const [selectedArtworkId, setSelectedArtworkId] = useState(-1);
 
-  const handleMoreBtnClick = (artworkId: number) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSelectedArtworkId(artworkId);
-    open();
+  const handleMoreBtnClick = (artworkId: number) => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      setSelectedArtworkId(artworkId);
+      open();
+    };
   };
 
   return (
