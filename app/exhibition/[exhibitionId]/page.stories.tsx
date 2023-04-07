@@ -1,9 +1,13 @@
 import { Meta } from "@storybook/react";
-import Page from "./page";
+import { Suspense } from "react";
+import { ExhibitionInfoHeader } from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
+import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
+import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
+import styles from "./page.module.css";
 
 export default {
   title: "app/exhibit",
-  component: Page,
   parameters: {
     viewport: {
       defaultViewport: "mobile2",
@@ -13,9 +17,13 @@ export default {
 } as Meta;
 
 export const Template = () => (
-  <Page
-    params={{
-      exhibitionId: "3",
-    }}
-  />
+  <>
+    <ExhibitionInfoHeader exhibitionId={3} />
+    <div className={styles.content}>
+      <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>
+        <LinkPreviewCard link="artie.com" />
+      </CustomSuspense>
+      <ArtworkCardList exhibitionId={3} />
+    </div>
+  </>
 );

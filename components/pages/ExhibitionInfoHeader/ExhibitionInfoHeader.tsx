@@ -7,16 +7,17 @@ import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectM
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
 import { sendMessage } from "@/libs/message/message";
-import { PostDetailInfo } from "@/__generate__/post";
 import * as S from "./ExhibitionInfoHeader.styles";
+import { useGetPostInfo } from "@/hooks/exhibition";
 
 type Props = {
-  postInfo?: PostDetailInfo;
+  exhibitionId: number;
 };
 
-const ExhibitionInfoHeader = ({ postInfo }: Props) => {
-  const { isOpen: isOpenModal, open, close } = useOverlay();
+export const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
+  const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
+  const { isOpen: isOpenModal, open, close } = useOverlay();
 
   const handleGoBackClick = () => {
     sendMessage(["GO_BACK"]);
@@ -54,5 +55,3 @@ const ExhibitionInfoHeader = ({ postInfo }: Props) => {
     </>
   );
 };
-
-export default ExhibitionInfoHeader;
