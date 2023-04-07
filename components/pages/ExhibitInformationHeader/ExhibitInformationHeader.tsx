@@ -7,14 +7,14 @@ import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectM
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
 import { sendMessage } from "@/libs/message/message";
-import * as S from "./ExhibitionInfoHeader.styles";
 import { useGetPostInfo } from "@/hooks/exhibition";
+import * as S from "./ExhibitInformationHeader.styles";
 
 type Props = {
   exhibitionId: number;
 };
 
-export const ExhibitionInfoHeader = ({ exhibitionId }: Props) => {
+export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
   const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
   const { isOpen: isOpenModal, open, close } = useOverlay();

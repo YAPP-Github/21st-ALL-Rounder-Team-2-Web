@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
 import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
-import { ExhibitionInfoHeader } from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
+import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
 import { ArtworkCardList } from "@/components/pages/ArtworkCardList/ArtworkCardList.server";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { exhibitionId: string 
 
   return (
     <Hydrate state={dehydratedState}>
-      <ExhibitionInfoHeader exhibitionId={exhibitionId} />
+      <ExhibitInformationHeader exhibitionId={exhibitionId} />
       <div className={styles.content}>
         {postInfo.attachedLink && (
           <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>

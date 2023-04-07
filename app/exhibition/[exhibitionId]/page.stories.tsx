@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/react";
 import { Suspense } from "react";
-import { ExhibitionInfoHeader } from "@/components/pages/ExhibitionInfoHeader/ExhibitionInfoHeader";
+import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
 import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
 import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
@@ -18,7 +18,7 @@ export default {
 
 export const Template = () => (
   <>
-    <ExhibitionInfoHeader exhibitionId={3} />
+    <ExhibitInformationHeader exhibitionId={3} />
     <div className={styles.content}>
       <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>
         <LinkPreviewCard link="artie.com" />
