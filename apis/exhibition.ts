@@ -32,9 +32,8 @@ export const getIndexHtmlByLink = async (link: string | undefined): Promise<stri
   if (typeof link === "undefined") return Promise.reject(new Error("Invalid link"));
 
   const response = await axiosInstance({
-    baseURL: `${process.env.NEXT_PUBLIC_PROXY_URL}`,
     headers: { "X-Requested-With": "XMLHttpRequest" },
-    url: `/${link}`,
+    url: `${process.env.NEXT_PUBLIC_PROXY_URL}/${link}`,
   });
   return response.data;
 };
