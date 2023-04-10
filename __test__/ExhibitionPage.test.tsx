@@ -1,4 +1,3 @@
-import Page from "@/app/exhibition/[exhibitionId]/page";
 import { fireEvent, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import { renderWithClient } from "@/__test__/test-utils";
 import { server } from "@/jest.setup";
@@ -7,6 +6,11 @@ import { useRouter } from "next/navigation";
 import { exhibitionList } from "@/mocks/data/exhibition";
 import { artworkList } from "@/mocks/data/artwork";
 import { BASE_PATH } from "@/__generate__/artwork/base";
+import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
+import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
+import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
+import styles from "@/app/exhibition/page.module.css";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -23,8 +27,20 @@ describe("Exhibition Page", () => {
   const mockRouter = { push: jest.fn() };
   (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
+  const Page = (
+    <>
+      <ExhibitInformationHeader exhibitionId={1} />
+      <div className={styles.content}>
+        <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>
+          <LinkPreviewCard link="artie.com" />
+        </CustomSuspense>
+        <ArtworkCardList exhibitionId={1} />
+      </div>
+    </>
+  );
+
   beforeEach(() => {
-    renderWithClient(<Page params={{ exhibitionId: "1" }} />);
+    renderWithClient(Page);
   });
 
   beforeAll(() => {
@@ -53,7 +69,7 @@ describe("Exhibition Page", () => {
 
   test("[대표이미지로 등록]을 누르면 상단의 이미지가 해당 작품 이미지로 변경된다.", async () => {
     fireEvent.click((await screen.findAllByLabelText("더보기"))[0]);
-    fireEvent.click(screen.getByText("대표이미지로 선택"));
+    fireEvent.click(screen.getByText("대표 이미지로 선택"));
 
     expect(await screen.findByAltText("대표 사진")).toHaveAttribute("src", artworkList[0].imageURL);
   });
@@ -71,7 +87,7 @@ describe("Exhibition Page", () => {
         return res(ctx.json({ content: [artworkList[0]] }));
       })
     );
-    renderWithClient(<Page params={{ exhibitionId: "1" }} />);
+    renderWithClient(Page);
 
     fireEvent.click(await screen.findByLabelText("더보기"));
     fireEvent.click(await screen.findByText("삭제"));

@@ -35,5 +35,6 @@ export const useGetIndexHtmlByLink = (link: string | undefined) => {
     queryKey: ["indexHtmlByLink", link],
     queryFn: () => getIndexHtmlByLink(link),
     enabled: Boolean(link),
+    suspense: true,
   });
 };

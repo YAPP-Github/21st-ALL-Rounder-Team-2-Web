@@ -7,16 +7,17 @@ import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectM
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
 import { sendMessage } from "@/libs/message/message";
-import { PostDetailInfo } from "@/__generate__/post";
-import * as S from "./ExhibitionInfoHeader.styles";
+import { useGetPostInfo } from "@/hooks/exhibition";
+import * as S from "./ExhibitInformationHeader.styles";
 
 type Props = {
-  postInfo?: PostDetailInfo;
+  exhibitionId: number;
 };
 
-const ExhibitionInfoHeader = ({ postInfo }: Props) => {
-  const { isOpen: isOpenModal, open, close } = useOverlay();
+export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
+  const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
+  const { isOpen: isOpenModal, open, close } = useOverlay();
 
   const handleGoBackClick = () => {
     sendMessage(["GO_BACK"]);
@@ -35,7 +36,7 @@ const ExhibitionInfoHeader = ({ postInfo }: Props) => {
     <>
       {isOpenModal && <ImageUploadSelectModal onClose={close} />}
       <S.Header>
-        {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} />}
+        {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>
           <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
           <S.Content>
@@ -54,5 +55,3 @@ const ExhibitionInfoHeader = ({ postInfo }: Props) => {
     </>
   );
 };
-
-export default ExhibitionInfoHeader;

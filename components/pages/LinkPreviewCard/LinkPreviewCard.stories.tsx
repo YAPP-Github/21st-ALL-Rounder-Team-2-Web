@@ -1,31 +1,35 @@
-import type { Meta, StoryFn } from "@storybook/react";
-import { LinkPreviewCard } from "./LinkPreviewCard";
-import { Skeleton } from "@/components/pages/LinkPreviewCard/Skeleton";
+import type { Meta } from "@storybook/react";
+import { LinkPreviewCard, LinkPreviewCardSkeleton } from "./LinkPreviewCard";
+import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
+import * as S from "./LinkPreviewCard.styles";
 
 export default {
   title: "pages/LinkPreviewCard",
   component: LinkPreviewCard,
 } as Meta;
 
-const Template: StoryFn<typeof LinkPreviewCard> = (args) => <LinkPreviewCard {...args} />;
+export const Default = () => <LinkPreviewCard link="artie.com" />;
 
-export const Default = Template.bind({});
-Default.args = {
-  url: "artie.com",
-  image: "https://picsum.photos/900",
-  title: "Example Website",
-};
+export const NoImage = () => (
+  <S.Wrapper>
+    <S.ImageSkeleton />
+    <S.Info>
+      <S.Url>artie.com</S.Url>
+      <S.Title>Example Website</S.Title>
+    </S.Info>
+    <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} />
+  </S.Wrapper>
+);
 
-export const NoImage = Template.bind({});
-NoImage.args = {
-  ...Default.args,
-  image: undefined,
-};
+export const NoTitle = () => (
+  <S.Wrapper>
+    <S.ImageSkeleton />
+    <S.Info>
+      <S.Url>artie.com</S.Url>
+      <S.Title></S.Title>
+    </S.Info>
+    <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} />
+  </S.Wrapper>
+);
 
-export const NoTitle = Template.bind({});
-NoTitle.args = {
-  ...Default.args,
-  title: undefined,
-};
-
-export const Loading: StoryFn<typeof Skeleton> = () => <Skeleton />;
+export const Loading = () => <LinkPreviewCardSkeleton />;
