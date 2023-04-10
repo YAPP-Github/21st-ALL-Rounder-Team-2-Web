@@ -36,7 +36,7 @@ export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
     <>
       {isOpenModal && <ImageUploadSelectModal onClose={close} />}
       <S.Header>
-        {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} />}
+        {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>
           <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
           <S.Content>
