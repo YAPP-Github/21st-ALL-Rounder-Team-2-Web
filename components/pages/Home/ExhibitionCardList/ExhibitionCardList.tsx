@@ -17,6 +17,7 @@ export const ExhibitionCardList = (props: Props) => {
   const handleTogglePin = useCallback(
     (item: PostDetailInfo) => {
       return (e: React.MouseEvent) => {
+        e.stopPropagation();
         onTogglePin?.(e, item);
       };
     },

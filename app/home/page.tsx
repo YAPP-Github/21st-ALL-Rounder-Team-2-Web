@@ -35,12 +35,11 @@ function Page() {
 
   const isEmpty = allPostInfo.length === 0;
 
-  const handleTogglePin = async (e: React.MouseEvent, item: PostDetailInfo) => {
+  const handleTogglePin = (e: React.MouseEvent, item: PostDetailInfo) => {
     mutate({ id: item.id, category: categoryId || undefined, pinned: !(item.id === fixedExhibition?.id) });
   };
 
-  const handleClickItem = useCallback(async (e: React.MouseEvent, item: PostDetailInfo) => {
-    e.preventDefault();
+  const handleClickItem = useCallback((e: React.MouseEvent, item: PostDetailInfo) => {
     sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", item]);
   }, []);
 
