@@ -21,13 +21,14 @@ export const Information = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   gap: 6px;
 `;
 
 export const Title = styled.span`
   ${Bold16CSS}
-  color: #ffffff;
-  word-wrap: break-word;
+  color: ${colors.white};
+  word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

@@ -25,7 +25,7 @@ export const Information = styled.div`
 export const Title = styled.span`
   ${Bold20CSS}
   color: ${colors.white};
-  word-wrap: break-word;
+  word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
