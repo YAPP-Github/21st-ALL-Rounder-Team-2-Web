@@ -11,7 +11,7 @@ export type Actions = {
   };
   NAVIGATE_TO_EDIT: {};
   NAVIGATE_TO_EXHIBITION_DETAIL: {
-    payload: PostDetailInfo;
+    payload: PostDetailInfo | { exhibitId: number };
   };
   EDIT_BOTTOM_SHEET_SAVE: {
     payload: {
