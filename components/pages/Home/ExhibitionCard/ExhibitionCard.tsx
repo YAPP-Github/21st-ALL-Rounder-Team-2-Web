@@ -22,10 +22,10 @@ export const ExhibitionCard = (props: Props) => {
         fill
         style={{ objectFit: "cover", borderRadius: "32px" }}
       />
-      <S.InfoContainer>
-        <S.TitleTextSpan>{name}</S.TitleTextSpan>
-        <S.DateTextSpan>{postDate}</S.DateTextSpan>
-      </S.InfoContainer>
+      <S.Information>
+        <S.Title>{name}</S.Title>
+        <S.Date>{postDate}</S.Date>
+      </S.Information>
       <S.PinButton>
         <IconButton
           iconProps={{

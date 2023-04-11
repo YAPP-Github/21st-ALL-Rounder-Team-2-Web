@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   aspect-ratio: 390/372;
 `;
 
-export const InfoContainer = styled.div`
+export const Information = styled.div`
   position: absolute;
   left: 0px;
   right: 0px;
@@ -22,10 +22,10 @@ export const InfoContainer = styled.div`
   align-items: center;
 `;
 
-export const TitleTextSpan = styled.span`
+export const Title = styled.span`
   ${Bold20CSS}
   color: ${colors.white};
-  word-wrap: break-word;
+  word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -33,7 +33,7 @@ export const TitleTextSpan = styled.span`
   margin-bottom: 4px;
 `;
 
-export const DateTextSpan = styled.span`
+export const Date = styled.span`
   ${Normal14CSS}
   color: ${colors.gray400};
   opacity: 0.8;

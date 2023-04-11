@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   border-radius: 32px;
 `;
 
-export const InfoContainer = styled.div`
+export const Information = styled.div`
   position: absolute;
   left: 0;
   right: 0;
@@ -21,20 +21,21 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   gap: 6px;
 `;
 
-export const TitleTextSpan = styled.span`
+export const Title = styled.span`
   ${Bold16CSS}
-  color: #ffffff;
-  word-wrap: break-word;
+  color: ${colors.white};
+  word-break: break-all;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
 
-export const DateTextSpan = styled.span`
+export const Date = styled.span`
   ${Normal12CSS}
   color: ${colors.gray400};
   opacity: 0.8;

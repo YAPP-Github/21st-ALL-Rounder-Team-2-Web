@@ -40,6 +40,7 @@ export const ExhibitionCardList = (props: Props) => {
           {...fixedExhibition}
           onTogglePin={handleTogglePin(fixedExhibition)}
           onClickItem={handleClickItem(fixedExhibition)}
+          isPin
         />
       )}
       <S.Content>

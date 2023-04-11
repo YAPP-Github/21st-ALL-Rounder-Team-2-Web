@@ -16,7 +16,7 @@ export const SortDirectionSelect = (props: Props) => {
   return (
     <Select value={selectedValue} onValueChange={handleSelect}>
       <Select.Trigger>
-        <S.SelectValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectValue>
+        <S.SelectedValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
         <Select.Icon>{(isOpen) => <S.IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
       </Select.Trigger>
       <S.SelectList align="end">

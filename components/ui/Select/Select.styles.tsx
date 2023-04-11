@@ -49,6 +49,7 @@ export const SelectItem = styled.li`
   padding: 12px 16px;
   ${Medium14CSS}
   border-bottom: 0.4px solid ${colors.gray700};
+  color: ${colors.gray400};
 
   &:nth-last-child(1) {
     border-bottom: none;
