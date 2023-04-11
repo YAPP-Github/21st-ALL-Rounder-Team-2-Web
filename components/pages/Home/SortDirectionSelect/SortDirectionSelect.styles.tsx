@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Select from "@/components/ui/Select/Select";
 import Icon from "@/components/ui/Icon/Icon/Icon";
 
-export const SelectValue = styled.span`
+export const SelectedValue = styled.span`
   margin-right: 4px;
 `;
 
