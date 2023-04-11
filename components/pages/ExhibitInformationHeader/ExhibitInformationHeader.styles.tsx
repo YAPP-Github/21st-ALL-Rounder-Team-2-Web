@@ -19,6 +19,7 @@ export const Content = styled.div`
 `;
 
 export const ArtworkAddButton = styled.button`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
