@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   border-radius: 32px;
 `;
 
-export const InfoContainer = styled.div`
+export const Information = styled.div`
   position: absolute;
   left: 0;
   right: 0;
@@ -24,7 +24,7 @@ export const InfoContainer = styled.div`
   gap: 6px;
 `;
 
-export const TitleTextSpan = styled.span`
+export const Title = styled.span`
   ${Bold16CSS}
   color: #ffffff;
   word-wrap: break-word;
@@ -34,7 +34,7 @@ export const TitleTextSpan = styled.span`
   overflow: hidden;
 `;
 
-export const DateTextSpan = styled.span`
+export const Date = styled.span`
   ${Normal12CSS}
   color: ${colors.gray400};
   opacity: 0.8;
