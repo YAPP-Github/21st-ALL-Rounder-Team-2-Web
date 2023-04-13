@@ -3,11 +3,7 @@ import { Hydrate } from "@tanstack/react-query";
 import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary/ErrorBoundary";
 import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
-import {
-  LinkPreviewCard,
-  LinkPreviewCardError,
-  LinkPreviewCardSkeleton,
-} from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard";
 import { ArtworkCardList } from "@/components/pages/ArtworkCardList/ArtworkCardList.server";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
