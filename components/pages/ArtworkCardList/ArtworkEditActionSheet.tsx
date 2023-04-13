@@ -3,6 +3,7 @@ import { useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
 import ArtworkDeleteAlertModal from "@/components/pages/ArtworkDeleteAlertModal/ArtworkDeleteAlertModal";
 import useOverlay from "@/hooks/useOverlay";
+import { sendMessage } from "@/libs/message/message";
 
 type Props = {
   isOpen: boolean;
@@ -15,7 +16,7 @@ type Props = {
 export const ArtworkEditActionSheet = ({ isOpen, onClose, exhibitionId, artworkId, isLastArtwork }: Props) => {
   const router = useRouter();
   const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
-  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
+  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId, isLastArtwork);
   const { isOpen: isOpenAlertModal, open: openAlertModal, close: closeAlertModal } = useOverlay();
 
   const handleArtworkPin = () => {
@@ -34,6 +35,7 @@ export const ArtworkEditActionSheet = ({ isOpen, onClose, exhibitionId, artworkI
     deleteArtworkMutate(artworkId, {
       onSuccess: () => {
         onClose();
+        if (isLastArtwork) sendMessage(["NAVIGATE_TO_HOME"]);
       },
     });
   };

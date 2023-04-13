@@ -27,11 +27,12 @@ export const useSetMainArtwork = (exhibitionId: number) => {
   });
 };
 
-export const useDeleteArtwork = (exhibitionId: number) => {
+export const useDeleteArtwork = (exhibitionId: number, isLastArtwork: boolean) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (artworkId: number) => deleteArtwork(artworkId),
     onSuccess: () => {
+      if (isLastArtwork) return;
       queryClient.invalidateQueries({
         queryKey: ["artworkList", exhibitionId],
       });
