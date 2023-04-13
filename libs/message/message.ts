@@ -2,6 +2,7 @@ import { isBrowser } from "@/utils/browser";
 import { PostDetailInfo } from "@/__generate__/post";
 
 export type Actions = {
+  NAVIGATE_TO_HOME: {};
   NAVIGATE_TO_BELL: {};
   NAVIGATE_TO_CALENDAR: {};
   NAVIGATE_TO_MY: {

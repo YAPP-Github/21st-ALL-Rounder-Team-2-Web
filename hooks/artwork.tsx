@@ -39,6 +39,12 @@ export const useDeleteArtwork = (exhibitionId: number) => {
   });
 };
 
+export const useDeleteLastArtwork = () => {
+  return useMutation({
+    mutationFn: (artworkId: number) => deleteArtwork(artworkId),
+  });
+};
+
 export const useUpdateArtworkInfo = () => {
   const queryClient = useQueryClient();
   return useMutation({
