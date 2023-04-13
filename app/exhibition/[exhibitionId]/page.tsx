@@ -1,8 +1,13 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
 import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary/ErrorBoundary";
 import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
-import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import {
+  LinkPreviewCard,
+  LinkPreviewCardError,
+  LinkPreviewCardSkeleton,
+} from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
 import { ArtworkCardList } from "@/components/pages/ArtworkCardList/ArtworkCardList.server";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
@@ -19,7 +24,9 @@ export default async function Page({ params }: { params: { exhibitionId: string 
       <div className={styles.content}>
         {postInfo.attachedLink && (
           <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>
-            <LinkPreviewCard link={postInfo.attachedLink} />
+            <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
+              <LinkPreviewCard link={postInfo.attachedLink} />
+            </ErrorBoundary>
           </CustomSuspense>
         )}
         <Suspense>
