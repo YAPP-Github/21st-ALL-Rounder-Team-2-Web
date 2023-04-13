@@ -12,7 +12,6 @@ export const Default = () => <LinkPreviewCard link="artie.com" />;
 
 export const NoImage = () => (
   <S.Wrapper>
-    <S.ImageSkeleton />
     <S.Info>
       <S.Url>artie.com</S.Url>
       <S.Title>Example Website</S.Title>
@@ -23,10 +22,8 @@ export const NoImage = () => (
 
 export const NoTitle = () => (
   <S.Wrapper>
-    <S.ImageSkeleton />
     <S.Info>
       <S.Url>artie.com</S.Url>
-      <S.Title></S.Title>
     </S.Info>
     <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} />
   </S.Wrapper>

@@ -25,7 +25,7 @@ export const LinkPreviewCard = ({ link }: Props) => {
       {image && <Image src={image} width={62} height={62} style={{ objectFit: "cover", borderRadius: "8px" }} alt="" />}
       <S.Info>
         <S.Url>{link}</S.Url>
-        <S.Title>{title}</S.Title>
+        {title && <S.Title>{title}</S.Title>}
       </S.Info>
       <IconButton iconProps={{ name: "ChevronRightIcon", size: 24 }} onClick={handleClickLink} />
     </S.Wrapper>

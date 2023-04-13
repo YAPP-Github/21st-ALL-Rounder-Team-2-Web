@@ -15,12 +15,14 @@ export const Wrapper = styled.div`
 
 export const Info = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 `;
 
 export const Url = styled.div`
   ${Normal12CSS}
   color: ${colors.gray600};
-  margin-bottom: 6px;
 `;
 
 export const Title = styled.div`
