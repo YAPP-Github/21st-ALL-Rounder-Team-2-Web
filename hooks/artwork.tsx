@@ -27,16 +27,21 @@ export const useSetMainArtwork = (exhibitionId: number) => {
   });
 };
 
-export const useDeleteArtwork = (exhibitionId: number, isLastArtwork: boolean) => {
+export const useDeleteArtwork = (exhibitionId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (artworkId: number) => deleteArtwork(artworkId),
     onSuccess: () => {
-      if (isLastArtwork) return;
       queryClient.invalidateQueries({
         queryKey: ["artworkList", exhibitionId],
       });
     },
+  });
+};
+
+export const useDeleteLastArtwork = () => {
+  return useMutation({
+    mutationFn: (artworkId: number) => deleteArtwork(artworkId),
   });
 };
 

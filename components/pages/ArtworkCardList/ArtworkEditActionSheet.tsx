@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useSetMainArtwork, useDeleteArtwork } from "@/hooks/artwork";
+import { useSetMainArtwork, useDeleteArtwork, useDeleteLastArtwork } from "@/hooks/artwork";
 import ActionSheet from "@/components/ui/ActionSheet/ActionSheet";
 import ArtworkDeleteAlertModal from "@/components/pages/ArtworkDeleteAlertModal/ArtworkDeleteAlertModal";
 import useOverlay from "@/hooks/useOverlay";
@@ -16,7 +16,8 @@ type Props = {
 export const ArtworkEditActionSheet = ({ isOpen, onClose, exhibitionId, artworkId, isLastArtwork }: Props) => {
   const router = useRouter();
   const { mutate: setMainArtworkMutate } = useSetMainArtwork(exhibitionId);
-  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId, isLastArtwork);
+  const { mutate: deleteArtworkMutate } = useDeleteArtwork(exhibitionId);
+  const { mutate: deleteLastArtworkMutate } = useDeleteLastArtwork();
   const { isOpen: isOpenAlertModal, open: openAlertModal, close: closeAlertModal } = useOverlay();
 
   const handleArtworkPin = () => {
@@ -35,7 +36,14 @@ export const ArtworkEditActionSheet = ({ isOpen, onClose, exhibitionId, artworkI
     deleteArtworkMutate(artworkId, {
       onSuccess: () => {
         onClose();
-        if (isLastArtwork) sendMessage(["NAVIGATE_TO_HOME"]);
+      },
+    });
+  };
+
+  const handleLastArtworkDelete = () => {
+    deleteLastArtworkMutate(artworkId, {
+      onSuccess: () => {
+        sendMessage(["NAVIGATE_TO_HOME"]);
       },
     });
   };
@@ -45,7 +53,7 @@ export const ArtworkEditActionSheet = ({ isOpen, onClose, exhibitionId, artworkI
       <ActionSheet.Item onClick={handleArtworkPin}>대표 이미지로 선택</ActionSheet.Item>
       <ActionSheet.Item onClick={handleArtworkEdit}>게시글 수정</ActionSheet.Item>
       <ActionSheet.Item onClick={isLastArtwork ? openAlertModal : handleArtworkDelete}>삭제</ActionSheet.Item>
-      {isOpenAlertModal && <ArtworkDeleteAlertModal onClose={closeAlertModal} onConfirm={handleArtworkDelete} />}
+      {isOpenAlertModal && <ArtworkDeleteAlertModal onClose={closeAlertModal} onConfirm={handleLastArtworkDelete} />}
     </ActionSheet>
   );
 };
