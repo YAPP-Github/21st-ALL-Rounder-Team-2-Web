@@ -3,14 +3,14 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Select from "@/components/ui/Select/Select";
-import { useCreateQueryString } from "@/hooks/useCreateQueryString";
+import { useQueryString } from "@/hooks/useQueryString";
 import * as S from "./SortDirectionSelect.styles";
 
 export const SortDirectionSelect = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { createQueryString } = useCreateQueryString();
+  const { createQueryString } = useQueryString();
 
   const handleSelectDirection = (value: string) => {
     router.replace(pathname + "?" + createQueryString("direction", value));
