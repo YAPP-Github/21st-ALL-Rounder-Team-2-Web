@@ -6,4 +6,4 @@ export default {
   component: SortDirectionSelect,
 } as Meta;
 
-export const Default: StoryFn<typeof SortDirectionSelect> = (args) => <SortDirectionSelect {...args} />;
+export const Default: StoryFn = () => <SortDirectionSelect />;

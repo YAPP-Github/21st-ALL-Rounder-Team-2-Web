@@ -1,5 +1,5 @@
 import type { Meta } from "@storybook/react";
-import { LinkPreviewCard, LinkPreviewCardSkeleton } from "./LinkPreviewCard";
+import { LinkPreviewCard, LinkPreviewCardSkeleton } from "./";
 import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 import * as S from "./LinkPreviewCard.styles";
 
