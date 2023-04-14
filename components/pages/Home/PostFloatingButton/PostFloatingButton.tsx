@@ -1,15 +1,21 @@
-import React from "react";
+"use client";
+
 import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 import { colors } from "@/styles/colors";
+import { sendMessage } from "@/libs/message/message";
 import * as S from "./PostFloatingButton.styles";
 
 export interface Props {
   className?: string;
-  onClick: (e: React.MouseEvent) => void;
 }
 
 export const PostFloatingButton = (props: Props) => {
-  const { className, onClick } = props;
+  const { className } = props;
+
+  const handleEditButton = (e: React.MouseEvent) => {
+    sendMessage(["NAVIGATE_TO_EDIT"]);
+  };
+
   return (
     <S.Wrapper className={className}>
       <IconButton
@@ -18,7 +24,7 @@ export const PostFloatingButton = (props: Props) => {
           color: colors.black2,
           size: 36,
         }}
-        onClick={onClick}
+        onClick={handleEditButton}
       />
     </S.Wrapper>
   );

@@ -1,22 +1,20 @@
+"use client";
+
 import Select from "@/components/ui/Select/Select";
+import { useSelect } from "@/hooks/useSelect";
 import * as S from "./SortDirectionSelect.styles";
 
-interface Props {
-  selectedValue?: string;
-  onSelected: (item: "ASC" | "DESC") => void;
-}
+export const SortDirectionSelect = () => {
+  const [direction, selectDirection] = useSelect<"ASC" | "DESC">("DESC");
 
-export const SortDirectionSelect = (props: Props) => {
-  const { selectedValue = "DESC", onSelected } = props;
-
-  const handleSelect = (value: string) => {
-    if (value === "DESC" || value === "ASC") onSelected(value);
+  const handleSelectDirection = (value: string) => {
+    if (value === "DESC" || value === "ASC") selectDirection(value);
   };
 
   return (
-    <Select value={selectedValue} onValueChange={handleSelect}>
+    <Select value={direction} onValueChange={handleSelectDirection}>
       <Select.Trigger>
-        <S.SelectedValue>{selectedValue === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
+        <S.SelectedValue>{direction === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
         <Select.Icon>{(isOpen) => <S.IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
       </Select.Trigger>
       <S.SelectList align="end">

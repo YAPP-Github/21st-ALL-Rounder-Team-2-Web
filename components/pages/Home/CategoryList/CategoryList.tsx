@@ -1,32 +1,25 @@
-import { CategoryDto } from "@/__generate__/category";
-import React, { useCallback } from "react";
+"use client";
+
 import { Category } from "../Category/Category";
+import { useSelect } from "@/hooks/useSelect";
+import { useGetCategoryList } from "@/hooks/category";
 import * as S from "./CategoryList.styles";
 
-interface Props {
-  className?: string;
-  activeIndex?: number;
-  items: CategoryDto[];
-  onSelected: (index: number) => void;
-}
+export const CategoryList = () => {
+  const { data: categories } = useGetCategoryList();
+  const [categoryId, selectCategoryId] = useSelect(0);
 
-export const CategoryList = (props: Props) => {
-  const { className, activeIndex, items = [], onSelected } = props;
-
-  const handleSelectCategory = useCallback(
-    (index: number) => {
-      return () => {
-        onSelected(index);
-      };
-    },
-    [onSelected]
-  );
+  const handleSelectCategoryId = (index: number) => {
+    return (e: React.MouseEvent) => {
+      selectCategoryId(index);
+    };
+  };
 
   return (
-    <S.Wrapper className={className}>
-      {items.map((item) => {
+    <S.Wrapper>
+      {[{ id: 0, name: "전체 기록" }, ...(categories ?? [])].map((item) => {
         const { id, name } = item;
-        return <Category key={id} active={activeIndex === id} text={name} onClick={handleSelectCategory(id ?? 0)} />;
+        return <Category key={id} active={categoryId === id} text={name} onClick={handleSelectCategoryId(id ?? 0)} />;
       })}
     </S.Wrapper>
   );
