@@ -1,20 +1,27 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Select from "@/components/ui/Select/Select";
-import { useSelect } from "@/hooks/useSelect";
+import { useCreateQueryString } from "@/hooks/useCreateQueryString";
 import * as S from "./SortDirectionSelect.styles";
 
 export const SortDirectionSelect = () => {
-  const [direction, selectDirection] = useSelect<"ASC" | "DESC">("DESC");
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { createQueryString } = useCreateQueryString();
 
   const handleSelectDirection = (value: string) => {
-    if (value === "DESC" || value === "ASC") selectDirection(value);
+    router.replace(pathname + "?" + createQueryString("direction", value));
   };
 
+  const selectedDirection = searchParams.get("direction");
+
   return (
-    <Select value={direction} onValueChange={handleSelectDirection}>
+    <Select value={selectedDirection ?? "DESC"} onValueChange={handleSelectDirection}>
       <Select.Trigger>
-        <S.SelectedValue>{direction === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
+        <S.SelectedValue>{selectedDirection === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
         <Select.Icon>{(isOpen) => <S.IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
       </Select.Trigger>
       <S.SelectList align="end">
