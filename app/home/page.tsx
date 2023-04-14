@@ -12,7 +12,7 @@ export default async function Page({
   searchParams?: { direction?: "ASC" | "DESC"; category?: number };
 }) {
   const direction = searchParams?.direction ?? "DESC";
-  const category = searchParams?.category || undefined;
+  const category = searchParams?.category;
 
   return (
     <>

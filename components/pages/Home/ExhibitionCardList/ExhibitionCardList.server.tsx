@@ -14,7 +14,7 @@ export const ExhibitionCardList = async ({ direction, category }: Props) => {
 
   return (
     <Hydrate state={dehydratedState}>
-      <ExhibitionCardListClient direction={direction} category={category || undefined} />
+      <ExhibitionCardListClient direction={direction} category={category} />
     </Hydrate>
   );
 };
