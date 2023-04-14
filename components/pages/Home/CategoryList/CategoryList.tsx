@@ -18,14 +18,11 @@ export const CategoryList = () => {
       <Link href={pathname}>
         <Category active={!searchParams.get("category")} text="전체 기록" />
       </Link>
-      {categories?.map((item) => {
-        const { id, name } = item;
-        return (
-          <Link href={pathname + "?" + createQueryString("category", String(id))} key={id} prefetch={false}>
-            <Category active={searchParams.get("category") === String(id)} text={name} />;
-          </Link>
-        );
-      })}
+      {categories?.map(({ id, name }) => (
+        <Link href={pathname + "?" + createQueryString("category", String(id))} key={id} prefetch={false}>
+          <Category active={searchParams.get("category") === String(id)} text={name} />;
+        </Link>
+      ))}
     </S.Wrapper>
   );
 };
