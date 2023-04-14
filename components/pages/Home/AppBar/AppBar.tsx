@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback } from "react";
 import * as S from "./AppBar.styles";
 import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
@@ -8,7 +10,8 @@ interface Props {
 }
 
 export const AppBar = (props: Props) => {
-  const { className } = props
+  const { className } = props;
+
   const handleCalendar = useCallback(() => {
     sendMessage(["NAVIGATE_TO_CALENDAR"]);
   }, []);
