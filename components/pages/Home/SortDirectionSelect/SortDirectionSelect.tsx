@@ -16,10 +16,10 @@ export const SortDirectionSelect = () => {
     router.replace(pathname + "?" + createQueryString("direction", value));
   };
 
-  const selectedDirection = searchParams.get("direction");
+  const selectedDirection = searchParams.get("direction") ?? "DESC";
 
   return (
-    <Select value={selectedDirection ?? "DESC"} onValueChange={handleSelectDirection}>
+    <Select value={selectedDirection} onValueChange={handleSelectDirection}>
       <Select.Trigger>
         <S.SelectedValue>{selectedDirection === "DESC" ? "최신순" : "오래된순"}</S.SelectedValue>
         <Select.Icon>{(isOpen) => <S.IconStyled name="ChevronDownIcon" $isOpen={isOpen} />}</Select.Icon>
