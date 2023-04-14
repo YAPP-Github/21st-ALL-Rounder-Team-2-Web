@@ -20,7 +20,7 @@ export const CategoryList = () => {
       </Link>
       {categories?.map(({ id, name }) => (
         <Link href={pathname + "?" + createQueryString("category", String(id))} key={id} prefetch={false}>
-          <Category active={searchParams.get("category") === String(id)} text={name} />;
+          <Category active={searchParams.get("category") === String(id)} text={name} />
         </Link>
       ))}
     </S.Wrapper>
