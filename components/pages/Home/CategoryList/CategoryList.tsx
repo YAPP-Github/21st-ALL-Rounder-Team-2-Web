@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Category } from "../Category/Category";
 import { useGetCategoryList } from "@/hooks/category";
-import { useCreateQueryString } from "@/hooks/useCreateQueryString";
+import { useQueryString } from "@/hooks/useQueryString";
 import * as S from "./CategoryList.styles";
 
 export const CategoryList = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { createQueryString } = useCreateQueryString();
+  const { replaceQueryString } = useQueryString();
   const { data: categories } = useGetCategoryList();
 
   return (
@@ -19,7 +19,7 @@ export const CategoryList = () => {
         <Category active={!searchParams.get("category")} text="전체 기록" />
       </Link>
       {categories?.map(({ id, name }) => (
-        <Link href={pathname + "?" + createQueryString("category", String(id))} key={id} prefetch={false}>
+        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id} prefetch={false}>
           <Category active={searchParams.get("category") === String(id)} text={name} />
         </Link>
       ))}
