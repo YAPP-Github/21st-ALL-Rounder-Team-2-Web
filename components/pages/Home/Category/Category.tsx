@@ -3,7 +3,7 @@ import * as S from "./Category.styles";
 interface Props {
   text?: string;
   active: boolean;
-  onClick: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export const Category = (props: Props) => {
