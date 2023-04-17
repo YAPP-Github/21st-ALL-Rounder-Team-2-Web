@@ -25,12 +25,15 @@ export const ExhibitionCardList = ({ direction, category }: Props) => {
 
   const isEmpty = exhibitionList.length === 0;
 
-  const handleTogglePin = useCallback((item: PostDetailInfo) => {
-    return (e: React.MouseEvent) => {
-      e.stopPropagation();
-      mutate({ id: item.id, category, pinned: !(item.id === fixedExhibition?.id) });
-    };
-  }, []);
+  const handleTogglePin = useCallback(
+    (item: PostDetailInfo) => {
+      return (e: React.MouseEvent) => {
+        e.stopPropagation();
+        mutate({ id: item.id, category, pinned: !(item.id === fixedExhibition?.id) });
+      };
+    },
+    [category, fixedExhibition?.id, mutate]
+  );
 
   const handleClickItem = useCallback((item: PostDetailInfo) => {
     return (e: React.MouseEvent) => {
