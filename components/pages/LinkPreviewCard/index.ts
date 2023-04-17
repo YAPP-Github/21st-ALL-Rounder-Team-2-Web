@@ -1,3 +1,3 @@
-export * from "./LinkPreviewCard";
-export * from "./LinkPreviewCard.skeleton";
-export * from "./LinkPreviewCard.error";
+export { LinkPreviewCard } from "./LinkPreviewCard";
+export { LinkPreviewCardSkeleton } from "./LinkPreviewCard.skeleton";
+export { LinkPreviewCardError } from "./LinkPreviewCard.error";
