@@ -15,11 +15,11 @@ export const CategoryList = () => {
 
   return (
     <S.Wrapper>
-      <Link href={pathname}>
+      <Link href={pathname} replace={true}>
         <Category active={!searchParams.get("category")} text="전체 기록" />
       </Link>
       {categories?.map(({ id, name }) => (
-        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id}>
+        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id} replace={true}>
           <Category active={searchParams.get("category") === String(id)} text={name} />
         </Link>
       ))}
