@@ -1,33 +1,28 @@
-import { CategoryDto } from "@/__generate__/category";
-import React, { useCallback } from "react";
+"use client";
+
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Category } from "../Category/Category";
+import { useGetCategoryList } from "@/hooks/category";
+import { useQueryString } from "@/hooks/useQueryString";
 import * as S from "./CategoryList.styles";
 
-interface Props {
-  className?: string;
-  activeIndex?: number;
-  items: CategoryDto[];
-  onSelected: (index: number) => void;
-}
-
-export const CategoryList = (props: Props) => {
-  const { className, activeIndex, items = [], onSelected } = props;
-
-  const handleSelectCategory = useCallback(
-    (index: number) => {
-      return () => {
-        onSelected(index);
-      };
-    },
-    [onSelected]
-  );
+export const CategoryList = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replaceQueryString } = useQueryString();
+  const { data: categories } = useGetCategoryList();
 
   return (
-    <S.Wrapper className={className}>
-      {items.map((item) => {
-        const { id, name } = item;
-        return <Category key={id} active={activeIndex === id} text={name} onClick={handleSelectCategory(id ?? 0)} />;
-      })}
+    <S.Wrapper>
+      <Link href={pathname} replace={true}>
+        <Category active={!searchParams.get("category")} text="전체 기록" />
+      </Link>
+      {categories?.map(({ id, name }) => (
+        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id} replace={true}>
+          <Category active={searchParams.get("category") === String(id)} text={name} />
+        </Link>
+      ))}
     </S.Wrapper>
   );
 };

@@ -8,8 +8,3 @@ export const Wrapper = styled.div`
   overflow: auto;
   white-space: nowrap;
 `;
-
-export const PlusButton = styled.button`
-  margin-left: 5px;
-  padding: 5px;
-`;

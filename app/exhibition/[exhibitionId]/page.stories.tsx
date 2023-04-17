@@ -1,7 +1,6 @@
 import { Meta } from "@storybook/react";
-import { Suspense } from "react";
 import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
-import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
+import { LinkPreviewCard, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard";
 import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
 import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
 import styles from "./page.module.css";

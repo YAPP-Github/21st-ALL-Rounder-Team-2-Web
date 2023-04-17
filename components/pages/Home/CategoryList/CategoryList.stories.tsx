@@ -6,12 +6,4 @@ export default {
   component: CategoryList,
 } as Meta;
 
-const Template: StoryFn<typeof CategoryList> = (args) => <CategoryList {...args} />;
-
-export const Primary = Template.bind({});
-Primary.args = {
-  items: [
-    { name: "cat1", id: 0 },
-    { name: "cat2", id: 1 },
-  ],
-};
+export const Default: StoryFn = () => <CategoryList />;
