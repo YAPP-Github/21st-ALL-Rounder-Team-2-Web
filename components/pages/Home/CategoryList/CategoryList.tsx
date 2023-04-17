@@ -19,7 +19,7 @@ export const CategoryList = () => {
         <Category active={!searchParams.get("category")} text="전체 기록" />
       </Link>
       {categories?.map(({ id, name }) => (
-        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id} prefetch={false}>
+        <Link href={pathname + "?" + replaceQueryString("category", String(id))} key={id}>
           <Category active={searchParams.get("category") === String(id)} text={name} />
         </Link>
       ))}
