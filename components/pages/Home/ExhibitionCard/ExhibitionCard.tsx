@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 import { PostDetailInfo } from "@/__generate__/post";
-import { DEFAULT_IMAGE } from "@/utils/image";
+import { DEFAULT_IMAGE, blurDataURL } from "@/utils/image";
 
 import * as S from "./ExhibitionCard.styles";
 import React from "react";
@@ -20,7 +20,10 @@ export const ExhibitionCard = (props: Props) => {
         alt="thumbnail"
         src={mainImage ?? DEFAULT_IMAGE}
         fill
+        sizes="50vw"
         style={{ objectFit: "cover", borderRadius: "32px" }}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
       />
       <S.Information>
         <S.Title>{name}</S.Title>

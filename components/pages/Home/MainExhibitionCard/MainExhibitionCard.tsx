@@ -4,7 +4,7 @@ import { IconButton } from "@/components/ui/Button/IconButton/IconButton";
 
 import * as S from "./MainExhibitionCard.styles";
 import { PostDetailInfo } from "@/__generate__/post";
-import { DEFAULT_IMAGE } from "@/utils/image";
+import { DEFAULT_IMAGE, blurDataURL } from "@/utils/image";
 
 interface Props extends PostDetailInfo {
   isPin?: boolean;
@@ -20,7 +20,11 @@ export const MainExhibitionCard = (props: Props) => {
         alt="thumbnail"
         src={mainImage ?? DEFAULT_IMAGE}
         fill
+        sizes="100vw"
         style={{ objectFit: "cover", borderRadius: "0 240px 0 0" }}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
+        priority
       />
       <S.Information>
         <S.Title>{name}</S.Title>
