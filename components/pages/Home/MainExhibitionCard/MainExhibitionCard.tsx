@@ -24,6 +24,7 @@ export const MainExhibitionCard = (props: Props) => {
         style={{ objectFit: "cover", borderRadius: "0 240px 0 0" }}
         placeholder="blur"
         blurDataURL={blurDataURL}
+        priority
       />
       <S.Information>
         <S.Title>{name}</S.Title>
