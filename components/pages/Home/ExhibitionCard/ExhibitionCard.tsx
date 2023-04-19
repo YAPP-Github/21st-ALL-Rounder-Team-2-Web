@@ -20,6 +20,7 @@ export const ExhibitionCard = (props: Props) => {
         alt="thumbnail"
         src={mainImage ?? DEFAULT_IMAGE}
         fill
+        sizes="50vw"
         style={{ objectFit: "cover", borderRadius: "32px" }}
       />
       <S.Information>

@@ -11,7 +11,7 @@ const ArtworkCard = ({ imageURL, name, artist, onMoreBtnClick }: Props) => {
   return (
     <S.Wrapper>
       <S.ImageWrapper>
-        <Image alt="" src={imageURL} fill style={{ objectFit: "cover", borderRadius: "12px" }} />
+        <Image alt="" src={imageURL} fill sizes="50vw" style={{ objectFit: "cover", borderRadius: "12px" }} />
         <S.IconWrapper>
           <IconButton iconProps={{ name: "MoreVerticalIcon" }} onClick={onMoreBtnClick} ariaLabel="더보기" />
         </S.IconWrapper>
