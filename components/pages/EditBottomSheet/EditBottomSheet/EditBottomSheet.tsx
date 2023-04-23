@@ -36,7 +36,9 @@ export const EditBottomSheet = (props: Props) => {
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const enterKey = "Enter";
       if (e.key === enterKey) {
-        setTags((tags) => [...tags, inputTags]);
+        if (inputTags?.trim().length > 0) {
+          setTags((tags) => [...tags, inputTags.trim()]);
+        }
         resetField("inputTag");
       }
     },
@@ -53,7 +55,9 @@ export const EditBottomSheet = (props: Props) => {
   const handleSave = useCallback(
     (e: React.MouseEvent) => {
       const onSubmit: SubmitHandler<FormStates> = (data) => {
-        onSave?.(e, { ...data, tags });
+        const artist = data.artist.trim();
+        const name = data.name.trim();
+        onSave?.(e, { artist, name, tags });
       };
       handleSubmit(onSubmit)(e);
     },
@@ -63,7 +67,9 @@ export const EditBottomSheet = (props: Props) => {
   const handleContinue = useCallback(
     (e: React.MouseEvent) => {
       const onSubmit: SubmitHandler<FormStates> = (data) => {
-        onContinue?.(e, { ...data, tags });
+        const artist = data.artist.trim();
+        const name = data.name.trim();
+        onContinue?.(e, { artist, name, tags });
       };
       handleSubmit(onSubmit)(e);
     },
