@@ -30,11 +30,10 @@ export const useTogglePinById = (direction: "ASC" | "DESC") => {
   });
 };
 
-export const useGetIndexHtmlByLink = (link: string | undefined) => {
+export const useGetIndexHtmlByLink = (link: string) => {
   return useQuery({
     queryKey: ["indexHtmlByLink", link],
     queryFn: () => getIndexHtmlByLink(link),
-    enabled: Boolean(link),
-    suspense: true,
+    staleTime: Infinity,
   });
 };
