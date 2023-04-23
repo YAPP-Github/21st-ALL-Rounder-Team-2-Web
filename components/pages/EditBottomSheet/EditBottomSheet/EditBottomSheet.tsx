@@ -78,13 +78,18 @@ export const EditBottomSheet = (props: Props) => {
         </Button>
       </S.SaveButton>
       <S.EditInputForm label="작가이름">
-        <TextInput placeholder="작가 이름을 적어주세요." {...register("artist")} />
+        <TextInput placeholder="작가 이름을 적어주세요." {...register("artist")} maxLength={20} />
       </S.EditInputForm>
       <S.EditInputForm label="작품명">
-        <TextInput placeholder="작품명을 적어주세요." {...register("name")} />
+        <TextInput placeholder="작품명을 적어주세요." {...register("name")} maxLength={20} />
       </S.EditInputForm>
       <S.EditInputForm label="감정태그">
-        <TextInput placeholder="#감정 태그를 적어주세요." {...register("inputTag")} onKeyDown={handleInputTagKeyDown} />
+        <TextInput
+          placeholder="#감정 태그를 적어주세요."
+          {...register("inputTag")}
+          onKeyDown={handleInputTagKeyDown}
+          maxLength={20}
+        />
         <S.EditTagList tags={tags} onDelete={handleDeleteTag} />
       </S.EditInputForm>
       {onContinue && (
