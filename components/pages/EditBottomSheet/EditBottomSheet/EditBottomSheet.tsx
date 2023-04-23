@@ -36,7 +36,9 @@ export const EditBottomSheet = (props: Props) => {
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const enterKey = "Enter";
       if (e.key === enterKey) {
-        setTags((tags) => [...tags, inputTags]);
+        if (inputTags?.trim().length > 0) {
+          setTags((tags) => [...tags, inputTags.trim()]);
+        }
         resetField("inputTag");
       }
     },
@@ -53,7 +55,9 @@ export const EditBottomSheet = (props: Props) => {
   const handleSave = useCallback(
     (e: React.MouseEvent) => {
       const onSubmit: SubmitHandler<FormStates> = (data) => {
-        onSave?.(e, { ...data, tags });
+        const artist = data.artist.trim();
+        const name = data.name.trim();
+        onSave?.(e, { artist, name, tags });
       };
       handleSubmit(onSubmit)(e);
     },
@@ -63,7 +67,9 @@ export const EditBottomSheet = (props: Props) => {
   const handleContinue = useCallback(
     (e: React.MouseEvent) => {
       const onSubmit: SubmitHandler<FormStates> = (data) => {
-        onContinue?.(e, { ...data, tags });
+        const artist = data.artist.trim();
+        const name = data.name.trim();
+        onContinue?.(e, { artist, name, tags });
       };
       handleSubmit(onSubmit)(e);
     },
@@ -78,13 +84,18 @@ export const EditBottomSheet = (props: Props) => {
         </Button>
       </S.SaveButton>
       <S.EditInputForm label="작가이름">
-        <TextInput placeholder="작가 이름을 적어주세요." {...register("artist")} />
+        <TextInput placeholder="작가 이름을 적어주세요." {...register("artist")} maxLength={20} />
       </S.EditInputForm>
       <S.EditInputForm label="작품명">
-        <TextInput placeholder="작품명을 적어주세요." {...register("name")} />
+        <TextInput placeholder="작품명을 적어주세요." {...register("name")} maxLength={20} />
       </S.EditInputForm>
-      <S.EditInputForm label="감정태그">
-        <TextInput placeholder="#감정 태그를 적어주세요." {...register("inputTag")} onKeyDown={handleInputTagKeyDown} />
+      <S.EditInputForm label="감정태그 (최대 5개)">
+        <TextInput
+          placeholder={tags.length < 5 ? "#감정 태그를 적어주세요." : "#감정 태그는 최대 5개까지 가능합니다."}
+          {...register("inputTag", { disabled: tags.length === 5 })}
+          onKeyDown={handleInputTagKeyDown}
+          maxLength={20}
+        />
         <S.EditTagList tags={tags} onDelete={handleDeleteTag} />
       </S.EditInputForm>
       {onContinue && (
