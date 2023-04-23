@@ -1,6 +1,10 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 21px 16px;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.preview {
+  margin-bottom: 16px;
 }
