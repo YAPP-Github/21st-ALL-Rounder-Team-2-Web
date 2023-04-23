@@ -83,10 +83,10 @@ export const EditBottomSheet = (props: Props) => {
       <S.EditInputForm label="작품명">
         <TextInput placeholder="작품명을 적어주세요." {...register("name")} maxLength={20} />
       </S.EditInputForm>
-      <S.EditInputForm label="감정태그">
+      <S.EditInputForm label="감정태그 (최대 5개)">
         <TextInput
-          placeholder="#감정 태그를 적어주세요."
-          {...register("inputTag")}
+          placeholder={tags.length < 5 ? "#감정 태그를 적어주세요." : "#감정 태그는 최대 5개까지 가능합니다."}
+          {...register("inputTag", { disabled: tags.length === 5 })}
           onKeyDown={handleInputTagKeyDown}
           maxLength={20}
         />
