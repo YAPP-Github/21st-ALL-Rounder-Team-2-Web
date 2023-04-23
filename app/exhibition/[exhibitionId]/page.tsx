@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
-import { CustomSuspense } from "@/components/ui/CustomSuspense/CustomSuspense";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary/ErrorBoundary";
 import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard";
@@ -24,11 +23,12 @@ export default async function Page({ params }: { params: { exhibitionId: string 
         </Suspense>
         <div className={styles.preview}>
           {postInfo.attachedLink && (
-            <CustomSuspense fallback={<LinkPreviewCardSkeleton />}>
-              <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
+            <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
+              <Suspense fallback={<LinkPreviewCardSkeleton />}>
+                {/* @ts-expect-error Async Server Component */}
                 <LinkPreviewCard link={postInfo.attachedLink} />
-              </ErrorBoundary>
-            </CustomSuspense>
+              </Suspense>
+            </ErrorBoundary>
           )}
         </div>
         <Suspense>
