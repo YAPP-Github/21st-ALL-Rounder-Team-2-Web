@@ -1,5 +1,6 @@
 import { Hydrate } from "@tanstack/react-query";
 import ArtworkCardListClient from "@/components/pages/ArtworkCardList/ArtworkCardList";
+import { ArtworkCount as ArtworkCountClient } from "./ArtworkCount";
 import { useFetchArtworkList } from "@/hooks/artwork.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
 
@@ -14,6 +15,17 @@ export const ArtworkCardList = async ({ exhibitionId }: Props) => {
   return (
     <Hydrate state={dehydratedState}>
       <ArtworkCardListClient exhibitionId={exhibitionId} />
+    </Hydrate>
+  );
+};
+
+export const ArtworkCounter = async ({ exhibitionId }: Props) => {
+  await useFetchArtworkList(exhibitionId);
+  const dehydratedState = getDehydratedState();
+
+  return (
+    <Hydrate state={dehydratedState}>
+      <ArtworkCountClient exhibitionId={exhibitionId} />
     </Hydrate>
   );
 };
