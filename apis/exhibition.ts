@@ -1,6 +1,5 @@
 import { axiosInstance } from "@/libs/axios";
 import { ExhibitControllerApiFactory } from "@/__generate__/post";
-import { BASE_PATH } from "@/__generate__/post/base";
 
 const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
 
@@ -15,15 +14,7 @@ export const getAllPostPage = async ({
   direction?: "ASC" | "DESC";
   category?: number;
 }) => {
-  const response = await axiosInstance({
-    url: `${BASE_PATH}/post/home`,
-    params: {
-      size,
-      page,
-      direction,
-      category,
-    },
-  });
+  const response = await factory.getAllPostPage(size, page, direction, category);
   return response.data;
 };
 
