@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
-import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
 
 export const Wrapper = styled.div`
   display: flex;

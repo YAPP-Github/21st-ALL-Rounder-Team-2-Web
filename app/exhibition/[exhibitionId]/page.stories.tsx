@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/react";
-import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
-import { ArtworkCount } from "@/components/pages/ArtworkCardList/ArtworkCount";
-import { LinkPreviewCard } from "@/components/pages/LinkPreviewCard/LinkPreviewCard";
-import ArtworkCardList from "@/components/pages/ArtworkCardList/ArtworkCardList";
+import { ExhibitInformationHeader } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
+import { ArtworkCount } from "./components/ArtworkCardList/ArtworkCount";
+import { LinkPreviewCard } from "./components/LinkPreviewCard/LinkPreviewCard";
+import ArtworkCardList from "./components/ArtworkCardList/ArtworkCardList";
 import styles from "./page.module.css";
 
 export default {

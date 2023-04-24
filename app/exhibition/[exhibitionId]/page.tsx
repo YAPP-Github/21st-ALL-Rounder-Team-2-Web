@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
-import { ErrorBoundary } from "@/components/ui/ErrorBoundary/ErrorBoundary";
-import { ExhibitInformationHeader } from "@/components/pages/ExhibitInformationHeader/ExhibitInformationHeader";
-import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "@/components/pages/LinkPreviewCard";
-import { ArtworkCardList, ArtworkCounter } from "@/components/pages/ArtworkCardList/ArtworkCardList.server";
+import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
+import { ExhibitInformationHeader } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
+import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "./components/LinkPreviewCard";
+import { ArtworkCardList, ArtworkCounter } from "./components/ArtworkCardList/ArtworkCardList.server";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
 import styles from "./page.module.css";

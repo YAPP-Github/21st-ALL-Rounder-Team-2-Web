@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/react";
-import { AppBar } from "@/components/pages/Home/AppBar/AppBar";
-import { CategoryList } from "@/components/pages/Home/CategoryList/CategoryList";
-import { SortDirectionSelect } from "@/components/pages/Home/SortDirectionSelect/SortDirectionSelect";
-import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList";
+import { AppBar } from "./components/AppBar/AppBar";
+import { CategoryList } from "./components/CategoryList/CategoryList";
+import { SortDirectionSelect } from "./components/SortDirectionSelect/SortDirectionSelect";
+import { ExhibitionCardList } from "./components/ExhibitionCardList/ExhibitionCardList";
 import styles from "./page.module.css";
 
 export default {

@@ -2,8 +2,7 @@
 
 import React, { Suspense, useCallback, useMemo, useState } from "react";
 import * as S from "./page.styles";
-import NavigationBar from "@/components/ui/NavigationBar/NavigationBar";
-import Calendar from "@/components/pages/Calendar/Calendar/Calendar";
+import Calendar from "./components/Calendar/Calendar";
 import "antd-mobile/bundle/style.css";
 import { getDateByYearAndMonth, today, toYYYYMMDD } from "@/utils/datetime";
 import { getPostsByMonthly } from "@/apis/calendar";
@@ -11,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "qs";
 import { sendMessage } from "@/libs/message/message";
-import { ExhibitSelectModal } from "@/components/pages/Calendar/ExhibitSelectModal/ExhibitSelectModal";
+import { ExhibitSelectModal } from "./components/ExhibitSelectModal/ExhibitSelectModal";
 import useOverlay from "@/hooks/useOverlay";
 
 export default function PageWrapper() {
