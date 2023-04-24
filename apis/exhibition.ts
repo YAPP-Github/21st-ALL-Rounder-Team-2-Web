@@ -3,17 +3,13 @@ import { ExhibitControllerApiFactory } from "@/__generate__/post";
 
 const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
 
-export const getAllPostPage = async ({
-  size = 10,
-  page = 0,
-  direction,
-  category,
-}: {
+export const getAllPostPage = async (params: {
   size?: number;
   page?: number;
   direction?: "ASC" | "DESC";
   category?: number;
 }) => {
+  const { size = 10, page = 0, direction, category } = params;
   const response = await factory.getAllPostPage(size, page, direction, category);
   return response.data;
 };
