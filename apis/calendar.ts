@@ -5,7 +5,8 @@ const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance)
 
 export const getPostsByMonthly = async (params: { year: number; month: number }) => {
   const { year, month } = params;
-  return (await factory.getPostsByMonthly(year, month)).data;
+  const response = await factory.getPostsByMonthly(year, month);
+  return response.data;
 };
 
 export const getExhibitsByDate = async (params: { year: number; month: number; day: number }) => {

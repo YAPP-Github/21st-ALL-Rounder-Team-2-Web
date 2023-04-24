@@ -1,35 +1,21 @@
 import { axiosInstance } from "@/libs/axios";
 import { ExhibitControllerApiFactory } from "@/__generate__/post";
-import { BASE_PATH } from "@/__generate__/post/base";
 
 const factory = ExhibitControllerApiFactory(undefined, undefined, axiosInstance);
 
-export const getAllPostPage = async ({
-  size = 10,
-  page = 0,
-  direction,
-  category,
-}: {
+export const getAllPostPage = async (params: {
   size?: number;
   page?: number;
   direction?: "ASC" | "DESC";
   category?: number;
 }) => {
-  const response = await axiosInstance({
-    url: `${BASE_PATH}/post/home`,
-    params: {
-      size,
-      page,
-      direction,
-      category,
-    },
-  });
+  const { size = 10, page = 0, direction, category } = params;
+  const response = await factory.getAllPostPage(size, page, direction, category);
   return response.data;
 };
 
-export const togglePinById = async (id: number, category?: boolean, pinned?: boolean) => {
-  const response = await factory.updatePostPinType(id, category, pinned);
-  return response.data;
+export const togglePinById = (id: number, category?: boolean, pinned?: boolean) => {
+  return factory.updatePostPinType(id, category, pinned);
 };
 
 export const getPostInfoWithCategory = async (id: number) => {
@@ -37,8 +23,8 @@ export const getPostInfoWithCategory = async (id: number) => {
   return response.data;
 };
 
-export const getIndexHtmlByLink = async (link: string): Promise<string> => {
-  const response = await axiosInstance({
+export const getIndexHtmlByLink = async (link: string) => {
+  const response = await axiosInstance<string>({
     url: link,
   });
   return response.data;
