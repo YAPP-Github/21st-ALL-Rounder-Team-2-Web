@@ -23,8 +23,8 @@ export const getPostInfoWithCategory = async (id: number) => {
   return response.data;
 };
 
-export const getIndexHtmlByLink = async (link: string): Promise<string> => {
-  const response = await axiosInstance({
+export const getIndexHtmlByLink = async (link: string) => {
+  const response = await axiosInstance<string>({
     url: link,
   });
   return response.data;
