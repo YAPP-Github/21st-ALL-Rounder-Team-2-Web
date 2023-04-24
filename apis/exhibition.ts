@@ -18,9 +18,8 @@ export const getAllPostPage = async ({
   return response.data;
 };
 
-export const togglePinById = async (id: number, category?: boolean, pinned?: boolean) => {
-  const response = await factory.updatePostPinType(id, category, pinned);
-  return response.data;
+export const togglePinById = (id: number, category?: boolean, pinned?: boolean) => {
+  return factory.updatePostPinType(id, category, pinned);
 };
 
 export const getPostInfoWithCategory = async (id: number) => {
