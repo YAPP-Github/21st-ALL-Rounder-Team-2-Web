@@ -4,7 +4,7 @@ import React, { Suspense, useCallback, useMemo, useState } from "react";
 import {
   EditBottomSheet,
   FormData,
-} from "../../../components/pages/EditBottomSheet/EditBottomSheet/EditBottomSheet";
+} from "@/app/exhibition/[exhibitionId]/[artworkId]/components/EditBottomSheet/EditBottomSheet";
 import { sendMessage } from "../../../libs/message/message";
 import * as S from "./page.styles";
 

@@ -3,7 +3,7 @@
 import { axiosInstance } from "@/libs/axios";
 import { BASE_PATH } from "@/__generate__/artwork/base";
 import { useQuery } from "@tanstack/react-query";
-import Button from "@/components/ui/Button/Button/Button";
+import Button from "@/components/Button/Button/Button";
 import { useState, useEffect } from "react";
 
 const getMe = async () => {

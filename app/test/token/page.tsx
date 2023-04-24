@@ -3,7 +3,7 @@ import { axiosInstance } from "@/libs/axios";
 import { BASE_PATH } from "@/__generate__/artwork/base";
 import { cookies, headers } from "next/headers";
 import Link from "next/link";
-import Button from "@/components/ui/Button/Button/Button";
+import Button from "@/components/Button/Button/Button";
 
 async function getMe() {
   const headerInstance = headers();

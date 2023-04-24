@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ExhibitionCardList } from "@/components/pages/Home/ExhibitionCardList/ExhibitionCardList.server";
+import { ExhibitionCardList } from "./components/ExhibitionCardList/ExhibitionCardList.server";
 
 export default async function Page({
   searchParams,

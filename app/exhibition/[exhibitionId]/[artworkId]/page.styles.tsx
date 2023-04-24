@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ExtraBold24CSS, Normal16CSS } from "@/components/ui/Typographies";
+import { ExtraBold24CSS, Normal16CSS } from "@/components/Typographies";
 import { colors } from "@/styles/colors";
 
 export const Wrapper = styled.div`
