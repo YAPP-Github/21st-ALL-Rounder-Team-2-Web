@@ -10,6 +10,5 @@ const Template: StoryFn<typeof Modal> = (args) => <Modal {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  headline: "HEADLINE",
-  children: "children",
+  onClose: () => {},
 };
