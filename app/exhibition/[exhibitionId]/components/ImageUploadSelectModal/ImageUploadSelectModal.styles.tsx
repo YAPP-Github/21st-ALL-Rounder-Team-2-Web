@@ -15,9 +15,6 @@ export const SelectItem = styled.li`
   gap: 16px;
   padding: 16px;
 
-  list-style: none;
-  cursor: pointer;
-
   & > span {
     ${Normal16CSS}
     color: ${colors.gray400};

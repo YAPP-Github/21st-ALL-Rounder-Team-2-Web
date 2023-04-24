@@ -1,23 +1,20 @@
 import styled from "styled-components";
-import { Normal14CSS, Bold18CSS } from "@/components/Typographies";
+import { Bold18CSS } from "@/components/Typographies";
 import { colors } from "@/styles/colors";
+import Modal from "@/components/Modal/Modal";
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   margin-top: 25px;
   margin-bottom: 16px;
 `;
 
-export const Title = styled.div`
+export const ModalTitle = styled(Modal.Title)`
+  line-height: 150%;
   margin-bottom: 8px;
-  ${Bold18CSS};
 `;
 
-export const Description = styled.div`
+export const ModalDescription = styled(Modal.Description)`
   margin-bottom: 32px;
-  color: ${colors.gray600};
-  ${Normal14CSS};
 `;
 
 export const Options = styled.div`
