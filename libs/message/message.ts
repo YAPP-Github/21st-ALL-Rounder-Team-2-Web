@@ -37,6 +37,7 @@ export type Actions = {
   OPEN_NEW_WINDOW: {
     payload: { url: string };
   };
+  TEST_MESSAGE: {};
 };
 
 export type ActionNames = keyof Actions;
