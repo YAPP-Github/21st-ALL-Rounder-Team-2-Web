@@ -1,4 +1,4 @@
-import { Client } from "@/app/test-token/client";
+import { Client } from "@/app/test/token/client";
 import { axiosInstance } from "@/libs/axios";
 import { BASE_PATH } from "@/__generate__/artwork/base";
 import { cookies, headers } from "next/headers";
