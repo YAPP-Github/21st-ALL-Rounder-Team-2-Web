@@ -2,6 +2,7 @@
 
 import React, { useCallback } from "react";
 import * as S from "./AppBar.styles";
+import Icon from "@/components/Icon/Icon/Icon";
 import { IconButton } from "@/components/Button/IconButton/IconButton";
 import { sendMessage } from "@/libs/message/message";
 
@@ -11,10 +12,6 @@ interface Props {
 
 export const AppBar = (props: Props) => {
   const { className } = props;
-
-  const handleCalendar = useCallback(() => {
-    sendMessage(["NAVIGATE_TO_CALENDAR"]);
-  }, []);
 
   const handleMy = useCallback(() => {
     sendMessage(["NAVIGATE_TO_MY", { userId: "1" }]);
@@ -30,12 +27,9 @@ export const AppBar = (props: Props) => {
         />
       </S.LogoGroup>
       <S.MenuGroup>
-        <IconButton
-          iconProps={{
-            name: "CalendarIcon",
-          }}
-          onClick={handleCalendar}
-        />
+        <S.IconLink href="/calendar">
+          <Icon name="CalendarIcon" />
+        </S.IconLink>
         <IconButton
           iconProps={{
             name: "UserIcon",

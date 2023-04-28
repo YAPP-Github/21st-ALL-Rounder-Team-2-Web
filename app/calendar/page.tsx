@@ -49,7 +49,7 @@ function Page() {
   });
 
   const handleGoBackClick = useCallback(() => {
-    sendMessage(["GO_BACK"]);
+    router.back();
   }, []);
 
   const handleYearMonth = useCallback(

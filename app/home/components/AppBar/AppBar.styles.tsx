@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
+import Link from "next/link";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -21,4 +22,8 @@ export const MenuGroup = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 12px;
+`;
+
+export const IconLink = styled(Link)`
+  display: flex;
 `;
