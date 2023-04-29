@@ -7,6 +7,7 @@ export const toYYYYMMDD = (date: Date = new Date()) => {
 
 export const getDateByYearAndMonth = (year: number, month: number) => {
   const val = new Date();
+  val.setDate(1);
   val.setFullYear(year);
   val.setMonth(month);
   return val;
