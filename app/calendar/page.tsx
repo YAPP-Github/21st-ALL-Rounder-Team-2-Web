@@ -26,7 +26,7 @@ function Page() {
   const router = useRouter();
   const year = searchParams.get("year") ?? today().getFullYear();
   const yearNum = Number(year);
-  const month = searchParams.get("month") ?? today().getMonth();
+  const month = searchParams.get("month") ?? today().getMonth() + 1;
   const monthNum = Number(month) - 1;
   const [value, setValue] = useState(new Date());
   const { isOpen, open, close } = useOverlay();
