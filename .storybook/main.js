@@ -18,8 +18,4 @@ export default {
 
     return config;
   },
-  env: (config) => ({
-    ...config,
-    NEXT_PUBLIC_PROXY_URL: "",
-  }),
 };
