@@ -25,7 +25,6 @@ jobs:
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
   storybook-deploy:
-    if: ${{ false }}
     name: Storybook Deployment
     runs-on: ubuntu-latest
     steps:
