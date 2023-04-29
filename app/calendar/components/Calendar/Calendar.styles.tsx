@@ -66,7 +66,7 @@ export const Calendar = styled(AntdCalendar)`
     background: transparent;
   }
   & .adm-calendar-cell-disabled {
-    visibility: hidden;
+    opacity: 0.3;
   }
 `;
 
