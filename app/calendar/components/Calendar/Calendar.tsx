@@ -4,7 +4,6 @@ import Icon from "@/components/Icon/Icon/Icon";
 import React, { useRef, useCallback, useEffect, useState } from "react";
 import DatePicker from "@/components/Picker/DatePicker/DatePicker";
 import * as S from "./Calendar.styles";
-import { PickerDate } from "antd-mobile/es/components/date-picker/util";
 import { CalendarRef } from "antd-mobile";
 import { toYYYYMMDD } from "@/utils/datetime";
 
@@ -42,8 +41,9 @@ export const Calendar = (props: Props) => {
   }, []);
 
   const handleConfirmPicker = useCallback(
-    (val: PickerDate) => {
+    (val: Date) => {
       onYearMonth?.(val);
+      setShowPicker(false);
     },
     [onYearMonth]
   );
