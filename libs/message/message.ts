@@ -12,7 +12,7 @@ export type Actions = {
   };
   NAVIGATE_TO_EDIT: {};
   NAVIGATE_TO_EXHIBITION_DETAIL: {
-    payload: PostDetailInfo | { exhibitId: number };
+    payload: PostDetailInfo | { id: number };
   };
   EDIT_BOTTOM_SHEET_SAVE: {
     payload: {
