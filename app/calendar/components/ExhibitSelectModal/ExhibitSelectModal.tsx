@@ -13,9 +13,9 @@ type Props = {
 export const ExhibitSelectModal = ({ selectedDate, onClose }: Props) => {
   const { data: exhibitsByDate } = useGetExhibitsByDate(selectedDate);
 
-  const handleSelectExhibit = (exhibitId: number) => {
+  const handleSelectExhibit = (id: number) => {
     return (e: React.MouseEvent) => {
-      sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", { exhibitId }]);
+      sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", { id }]);
     };
   };
 
