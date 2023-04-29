@@ -1,18 +1,20 @@
-import React, { useCallback } from "react";
-import { PickerDate } from "antd-mobile/es/components/date-picker/util";
+import React, { useCallback, useState } from "react";
+import Dimmed from "@/components/Dimmed/Dimmed";
+import { AnimatePresence } from "@/components/AnimatePresence/AnimatePresence";
 
 import * as S from "./DatePicker.styles";
 
 export interface Props {
   className?: string;
-  defaultValue?: PickerDate | null | undefined;
+  defaultValue?: Date | undefined;
   open: boolean;
   onClose: () => void;
-  onConfirm: (val: PickerDate) => void;
+  onConfirm: (val: Date) => void;
 }
 
 export const DatePicker = (props: Props) => {
-  const { className, defaultValue, open, onClose, onConfirm } = props;
+  const { className, defaultValue = new Date(), open, onClose, onConfirm } = props;
+  const [selectedDate, setSelectedDate] = useState(defaultValue);
 
   const labelRenderer = useCallback((type: string, data: number) => {
     switch (type) {
@@ -25,21 +27,34 @@ export const DatePicker = (props: Props) => {
     }
   }, []);
 
+  const handleChangeDate = (date: Date) => {
+    setSelectedDate(date);
+  };
+
+  const handleConfirm = () => {
+    onConfirm(selectedDate);
+  };
+
   return (
-    <S.Wrapper
-      className={className}
-      defaultValue={defaultValue}
-      title=""
-      visible={open}
-      onClose={onClose}
-      onConfirm={onConfirm}
-      precision="month"
-      confirmText={<S.ConfirmButton>확인</S.ConfirmButton>}
-      cancelText=""
-      renderLabel={labelRenderer}
-      max={new Date()}
-      min={new Date(2022, 0)}
-    />
+    <>
+      {open && <Dimmed onClick={onClose} />}
+      <AnimatePresence isOpen={open}>
+        <S.Wrapper>
+          <S.Header>
+            <S.ConfirmButton onClick={handleConfirm}>완료</S.ConfirmButton>
+          </S.Header>
+          <S.DatePicker
+            className={className}
+            defaultValue={defaultValue}
+            onChange={handleChangeDate}
+            precision="month"
+            renderLabel={labelRenderer}
+            max={new Date()}
+            min={new Date(2022, 0)}
+          />
+        </S.Wrapper>
+      </AnimatePresence>
+    </>
   );
 };
 
