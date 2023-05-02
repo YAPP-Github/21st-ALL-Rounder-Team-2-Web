@@ -8,6 +8,7 @@ export const Header = styled.header`
 
 export const GradientOverlay = styled.div`
   position: relative;
+  padding-top: 100px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #161616 97.31%);
 `;
 
@@ -15,7 +16,7 @@ export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 14px 20px;
 `;
 
 export const ArtworkAddButton = styled.button`
