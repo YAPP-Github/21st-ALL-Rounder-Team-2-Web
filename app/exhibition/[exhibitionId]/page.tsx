@@ -4,6 +4,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import { ExhibitInformationHeader } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "./components/LinkPreviewCard";
 import { ArtworkCardList, ArtworkCounter } from "./components/ArtworkCardList/ArtworkCardList.server";
+import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
 import styles from "./page.module.css";
@@ -15,6 +16,7 @@ export default async function Page({ params }: { params: { exhibitionId: string 
 
   return (
     <Hydrate state={dehydratedState}>
+      <NavigationBar exhibitionId={exhibitionId} />
       <ExhibitInformationHeader exhibitionId={exhibitionId} />
       <div className={styles.content}>
         <Suspense>

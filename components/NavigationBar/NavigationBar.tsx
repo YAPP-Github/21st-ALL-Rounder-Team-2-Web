@@ -1,4 +1,4 @@
-import Icon, { IconType } from "@/components/Icon/Icon/Icon";
+import { IconType } from "@/components/Icon/Icon/Icon";
 import * as S from "./NavigationBar.styles";
 
 export interface Props {
@@ -21,9 +21,7 @@ const NavigationBar = ({
 }: Props) => {
   return (
     <S.Wrapper className={className}>
-      <S.Button onClick={onGoBackClick}>
-        <Icon name={goBack.name} size={goBack.size} />
-      </S.Button>
+      <S.GoBackButton iconProps={{ name: goBack.name, size: goBack.size }} onClick={onGoBackClick} />
       <S.Title>{current}</S.Title>
       {onEditClick && <S.Button onClick={onEditClick}>편집</S.Button>}
     </S.Wrapper>

@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import Icon from "@/components/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
-import { sendMessage } from "@/libs/message/message";
 import { useGetPostInfo } from "@/hooks/exhibition";
 import * as S from "./ExhibitInformationHeader.styles";
 
@@ -19,15 +17,6 @@ export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
   const { isOpen: isOpenModal, open, close } = useOverlay();
 
-  const handleGoBackClick = () => {
-    sendMessage(["GO_BACK"]);
-  };
-
-  const handleEditClick = () => {
-    if (!postInfo) return;
-    sendMessage(["NAVIGATE_TO_EXHIBIT_EDIT", postInfo]);
-  };
-
   const handleArtworkAdd = () => {
     open();
   };
@@ -38,7 +27,6 @@ export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
       <S.Header>
         {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>
-          <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
           <S.Content>
             <S.ExhibitionInfo>
               <S.Category>{categoryName}</S.Category>
