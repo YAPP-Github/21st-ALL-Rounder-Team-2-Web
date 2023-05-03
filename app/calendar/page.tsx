@@ -68,10 +68,10 @@ function Page() {
       if (date && postsByMontly?.[toYYYYMMDD(date)]) {
         setValue(date);
         const { postId, postNum = 1 } = postsByMontly[toYYYYMMDD(date)];
-        postNum > 1 ? open() : router.push(`exhibition/${postId}`);
+        postNum > 1 ? open() : sendMessage(["NAVIGATE_TO_EXHIBITION_DETAIL", { id: postId }]);
       }
     },
-    [postsByMontly, open, router]
+    [postsByMontly, open]
   );
 
   return (
