@@ -5,11 +5,7 @@ export type Actions = {
   NAVIGATE_TO_HOME: {};
   NAVIGATE_TO_BELL: {};
   NAVIGATE_TO_CALENDAR: {};
-  NAVIGATE_TO_MY: {
-    payload: {
-      userId: string;
-    };
-  };
+  NAVIGATE_TO_MY: {};
   NAVIGATE_TO_EDIT: {};
   NAVIGATE_TO_EXHIBITION_DETAIL: {
     payload: PostDetailInfo | { id: number };

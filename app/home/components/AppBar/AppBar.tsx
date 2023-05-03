@@ -14,7 +14,7 @@ export const AppBar = (props: Props) => {
   const { className } = props;
 
   const handleMy = useCallback(() => {
-    sendMessage(["NAVIGATE_TO_MY", { userId: "1" }]);
+    sendMessage(["NAVIGATE_TO_MY"]);
   }, []);
 
   return (
