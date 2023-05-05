@@ -14,5 +14,5 @@ export const Wrapper = styled.div`
 
 export const TagName = styled.div`
   ${Medium14CSS}
-  margin-right: 7px;
+  margin-right: 6px;
 `;
