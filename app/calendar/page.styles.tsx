@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CalendarNavigationBar = styled(NavigationBar)`
-  padding-top: 0px;
+  padding-top: 50px;
 `;
 
 export const Content = styled.div`
