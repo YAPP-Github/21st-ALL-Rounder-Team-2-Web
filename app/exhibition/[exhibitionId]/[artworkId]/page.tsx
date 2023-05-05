@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as TSwiper } from "swiper/types";
-import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import Tag from "@/components/Tag/Tag/Tag";
 import EditBottomSheet from "./components/EditBottomSheet/EditBottomSheet";
 import Dimmed from "@/components/Dimmed/Dimmed";
@@ -36,7 +35,7 @@ export default function Page({
 
   const { data: artworkThumbnailList } = useGetArtworkList(exhibitionId);
   const { data: artworkInfo } = useGetArtworkInfo(activeArtworkId);
-  const { mutate } = useUpdateArtworkInfo();
+  const { mutate } = useUpdateArtworkInfo(exhibitionId);
 
   const changeActiveArtworkId = (index: number) => {
     const activeArtworkId = artworkThumbnailList?.[index]?.id ?? 0;
@@ -80,9 +79,7 @@ export default function Page({
 
   return (
     <S.Wrapper>
-      <S.Overlay>
-        <NavigationBar onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
-      </S.Overlay>
+      <S.NavigationBarStyled onGoBackClick={handleGoBackClick} onEditClick={handleEditClick} />
       <Swiper
         className="main-swiper"
         onSwiper={(swiper) => setSwiper(swiper)}

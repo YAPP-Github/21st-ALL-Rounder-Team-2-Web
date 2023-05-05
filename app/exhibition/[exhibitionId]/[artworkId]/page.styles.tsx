@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ExtraBold24CSS, Normal16CSS } from "@/components/Typographies";
 import { colors } from "@/styles/colors";
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -37,10 +38,11 @@ export const TagList = styled.ul`
   padding: 0;
 `;
 
-export const Overlay = styled.div`
+export const NavigationBarStyled = styled(NavigationBar)`
   position: absolute;
   width: 100%;
-  z-index: 1000;
+  padding-top: 50px;
+  z-index: 100;
 `;
 
 export const ThumbnailList = styled.ul`
