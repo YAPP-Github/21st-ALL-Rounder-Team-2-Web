@@ -6,6 +6,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 24px 16px;
+  padding: 22px 16px;
   gap: 8px;
 `;
