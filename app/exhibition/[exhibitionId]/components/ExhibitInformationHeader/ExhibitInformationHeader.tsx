@@ -5,7 +5,9 @@ import Icon from "@/components/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
+import { useToast } from "@/hooks/useToast";
 import { useGetPostInfo } from "@/hooks/exhibition";
+import { useGetArtworkQueryData } from "@/hooks/artwork";
 import * as S from "./ExhibitInformationHeader.styles";
 
 type Props = {
@@ -15,15 +17,21 @@ type Props = {
 export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
   const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
-  const { isOpen: isOpenModal, open, close } = useOverlay();
+  const { getArtworkListFromQueryCache } = useGetArtworkQueryData();
+  const overlay = useOverlay();
+  const toast = useToast();
 
   const handleArtworkAdd = () => {
-    open();
+    const artworkList = getArtworkListFromQueryCache(exhibitionId);
+    if (!artworkList?.totalElements) return;
+
+    if (artworkList.totalElements < 5) overlay.open();
+    else toast.open({ type: "alert", content: "작품은 5개까지 등록할 수 있어요!" });
   };
 
   return (
     <>
-      {isOpenModal && <ImageUploadSelectModal onClose={close} />}
+      {overlay.isOpen && <ImageUploadSelectModal exhibitionId={exhibitionId} onClose={overlay.close} />}
       <S.Header>
         {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>

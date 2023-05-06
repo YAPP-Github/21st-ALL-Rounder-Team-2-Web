@@ -2,19 +2,26 @@ import Modal from "@/components/Modal/Modal";
 import Icon from "@/components/Icon/Icon/Icon";
 import { Divider } from "@/components/Divider/Divider";
 import { sendMessage } from "@/libs/message/message";
+import { useGetArtworkQueryData } from "@/hooks/artwork";
 import * as S from "./ImageUploadSelectModal.styles";
 
 type Props = {
+  exhibitionId: number;
   onClose: () => void;
 };
 
-const ImageUploadSelectModal = ({ onClose }: Props) => {
+const ImageUploadSelectModal = ({ exhibitionId, onClose }: Props) => {
+  const { getArtworkListFromQueryCache } = useGetArtworkQueryData();
+
   const handleCameraSelect = () => {
     sendMessage(["NAVIGATE_TO_CAMERA"]);
   };
 
   const handleGallerySelect = () => {
-    sendMessage(["NAVIGATE_TO_GALLERY"]);
+    const artworkList = getArtworkListFromQueryCache(exhibitionId);
+    if (!artworkList?.totalElements) return;
+
+    sendMessage(["NAVIGATE_TO_GALLERY", { count: artworkList.totalElements }]);
   };
 
   return (
