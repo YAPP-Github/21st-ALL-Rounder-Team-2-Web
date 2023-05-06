@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useQueryClient } from "@tanstack/react-query";
 import Icon from "@/components/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";
 import useOverlay from "@/hooks/useOverlay";
 import { useToast } from "@/hooks/useToast";
 import { useGetPostInfo } from "@/hooks/exhibition";
-import { ArtworkThumbnailDtoPage } from "@/__generate__/artwork";
+import { useGetArtworkQueryData } from "@/hooks/artwork";
 import * as S from "./ExhibitInformationHeader.styles";
 
 type Props = {
@@ -18,16 +17,15 @@ type Props = {
 export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
   const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
+  const { getArtworkListFromQueryCache } = useGetArtworkQueryData();
   const { isOpen: isOpenModal, open, close } = useOverlay();
   const toast = useToast();
 
-  const queryClient = useQueryClient();
-
   const handleArtworkAdd = () => {
-    const artworkList = queryClient.getQueryData<ArtworkThumbnailDtoPage>(["artworkList", exhibitionId]);
+    const artworkList = getArtworkListFromQueryCache(exhibitionId);
     if (!artworkList?.totalElements) return;
 
-    if (artworkList?.totalElements < 5) open();
+    if (artworkList.totalElements < 5) open();
     else toast.open({ type: "alert", content: "작품은 5개까지 등록할 수 있어요!" });
   };
 

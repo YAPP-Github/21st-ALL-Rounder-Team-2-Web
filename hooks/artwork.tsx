@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getArtworkPageFromPost, getArtworkInfo, setMainArtwork, deleteArtwork, updateArtwork } from "@/apis/artwork";
-import { UpdateArtworkRequestDto } from "@/__generate__/artwork";
+import { ArtworkThumbnailDtoPage, UpdateArtworkRequestDto } from "@/__generate__/artwork";
 
 export const useGetArtworkList = (exhibitionId: number) => {
   return useQuery({
@@ -55,4 +55,14 @@ export const useUpdateArtworkInfo = (exhibitionId: number) => {
       queryClient.invalidateQueries(["artworkList", exhibitionId]);
     },
   });
+};
+
+export const useGetArtworkQueryData = () => {
+  const queryClient = useQueryClient();
+
+  return {
+    getArtworkListFromQueryCache(exhibitionId: number) {
+      return queryClient.getQueryData<ArtworkThumbnailDtoPage>(["artworkList", exhibitionId]);
+    },
+  };
 };
