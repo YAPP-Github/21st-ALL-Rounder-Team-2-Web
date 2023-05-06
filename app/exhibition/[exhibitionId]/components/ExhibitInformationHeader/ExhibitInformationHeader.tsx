@@ -18,20 +18,20 @@ export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
   const { data: postInfo } = useGetPostInfo(exhibitionId);
   const { mainImage, categoryName, name, postDate } = { ...postInfo };
   const { getArtworkListFromQueryCache } = useGetArtworkQueryData();
-  const { isOpen: isOpenModal, open, close } = useOverlay();
+  const overlay = useOverlay();
   const toast = useToast();
 
   const handleArtworkAdd = () => {
     const artworkList = getArtworkListFromQueryCache(exhibitionId);
     if (!artworkList?.totalElements) return;
 
-    if (artworkList.totalElements < 5) open();
+    if (artworkList.totalElements < 5) overlay.open();
     else toast.open({ type: "alert", content: "작품은 5개까지 등록할 수 있어요!" });
   };
 
   return (
     <>
-      {isOpenModal && <ImageUploadSelectModal exhibitionId={exhibitionId} onClose={close} />}
+      {overlay.isOpen && <ImageUploadSelectModal exhibitionId={exhibitionId} onClose={overlay.close} />}
       <S.Header>
         {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>
