@@ -45,13 +45,14 @@ export const useDeleteLastArtwork = () => {
   });
 };
 
-export const useUpdateArtworkInfo = () => {
+export const useUpdateArtworkInfo = (exhibitionId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ artworkId, newArtworkInfo }: { artworkId: number; newArtworkInfo: UpdateArtworkRequestDto }) =>
       updateArtwork(artworkId, newArtworkInfo),
     onSuccess: (_, { artworkId }) => {
       queryClient.invalidateQueries(["artworkInfo", artworkId]);
+      queryClient.invalidateQueries(["artworkList", exhibitionId]);
     },
   });
 };
