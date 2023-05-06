@@ -1,20 +1,28 @@
+import { useQueryClient } from "@tanstack/react-query";
 import Modal from "@/components/Modal/Modal";
 import Icon from "@/components/Icon/Icon/Icon";
 import { Divider } from "@/components/Divider/Divider";
 import { sendMessage } from "@/libs/message/message";
+import { ArtworkThumbnailDtoPage } from "@/__generate__/artwork";
 import * as S from "./ImageUploadSelectModal.styles";
 
 type Props = {
+  exhibitionId: number;
   onClose: () => void;
 };
 
-const ImageUploadSelectModal = ({ onClose }: Props) => {
+const ImageUploadSelectModal = ({ exhibitionId, onClose }: Props) => {
   const handleCameraSelect = () => {
     sendMessage(["NAVIGATE_TO_CAMERA"]);
   };
 
+  const queryClient = useQueryClient();
+
   const handleGallerySelect = () => {
-    sendMessage(["NAVIGATE_TO_GALLERY"]);
+    const artworkList = queryClient.getQueryData<ArtworkThumbnailDtoPage>(["artworkList", exhibitionId]);
+    if (!artworkList?.totalElements) return;
+
+    sendMessage(["NAVIGATE_TO_GALLERY", { count: artworkList?.totalElements }]);
   };
 
   return (

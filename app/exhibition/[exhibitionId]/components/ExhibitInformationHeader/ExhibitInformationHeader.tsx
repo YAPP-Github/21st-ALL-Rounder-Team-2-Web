@@ -33,7 +33,7 @@ export const ExhibitInformationHeader = ({ exhibitionId }: Props) => {
 
   return (
     <>
-      {isOpenModal && <ImageUploadSelectModal onClose={close} />}
+      {isOpenModal && <ImageUploadSelectModal exhibitionId={exhibitionId} onClose={close} />}
       <S.Header>
         {mainImage && <Image alt="대표 사진" src={mainImage} fill style={{ objectFit: "cover" }} priority />}
         <S.GradientOverlay>

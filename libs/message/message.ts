@@ -25,7 +25,11 @@ export type Actions = {
     };
   };
   NAVIGATE_TO_CAMERA: {};
-  NAVIGATE_TO_GALLERY: {};
+  NAVIGATE_TO_GALLERY: {
+    payload: {
+      count: number;
+    };
+  };
   GO_BACK: {};
   NAVIGATE_TO_EXHIBIT_EDIT: {
     payload: PostDetailInfo;
