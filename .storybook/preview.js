@@ -7,6 +7,7 @@ import { initialize, mswDecorator } from "msw-storybook-addon";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { handlers } from "@/mocks/handlers";
 import { GlobalStyle } from "@/styles/globals";
+import { ToastProvider } from "../components/Toast/Toast.provider";
 
 const OriginalNextImage = NextImage.default;
 
@@ -40,8 +41,10 @@ const preview = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <ConfigProvider locale={koKR}>
-          <GlobalStyle />
-          <Story />
+          <ToastProvider>
+            <GlobalStyle />
+            <Story />
+          </ToastProvider>
         </ConfigProvider>
       </QueryClientProvider>
     ),

@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import StyledComponentsRegistry from "@/libs/styled-components";
 import { GlobalStyle } from "@/styles/globals";
 import AntdMobileProvider from "@/libs/antd-mobile-provider";
+import { ToastProvider } from "@/components/Toast/Toast.provider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,8 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AntdMobileProvider>
           <QueryClientWrapper>
             <StyledComponentsRegistry>
-              <GlobalStyle />
-              {children}
+              <ToastProvider>
+                <GlobalStyle />
+                {children}
+              </ToastProvider>
             </StyledComponentsRegistry>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientWrapper>
