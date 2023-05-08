@@ -9,7 +9,12 @@ export default {
   component: LinkPreviewCard,
 } as Meta;
 
-export const Default = () => <LinkPreviewCard link="artie.com" />;
+export const Default = () => (
+  <LinkPreviewCard
+    link="artie.com"
+    html='<html><head><meta property="og:image" content="https://picsum.photos/900" /><meta property="og:title" content="Example Website" /><meta property="og:description" content="" /></head></html>'
+  />
+);
 
 export const NoImage = () => (
   <S.Wrapper>

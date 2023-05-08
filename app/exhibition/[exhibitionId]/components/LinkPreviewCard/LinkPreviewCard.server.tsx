@@ -1,19 +1,12 @@
 import { useFetchIndexHtmlByLink } from "@/hooks/exhibition.server";
 import { LinkPreviewCard as LinkPreviewCardClient } from "./LinkPreviewCard";
-import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
-import { Hydrate } from "@tanstack/react-query";
 
 type Props = {
   link: string;
 };
 
 export const LinkPreviewCard = async ({ link }: Props) => {
-  await useFetchIndexHtmlByLink(link);
-  const dehydratedState = getDehydratedState();
+  const html = await useFetchIndexHtmlByLink(link);
 
-  return (
-    <Hydrate state={dehydratedState}>
-      <LinkPreviewCardClient link={link} />
-    </Hydrate>
-  );
+  return <LinkPreviewCardClient link={link} html={html} />;
 };

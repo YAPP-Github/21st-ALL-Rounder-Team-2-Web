@@ -5,15 +5,14 @@ import Image from "next/image";
 import { IconButton } from "@/components/Button/IconButton/IconButton";
 import { sendMessage } from "@/libs/message/message";
 import { extractOpenGraph } from "@/utils/extractOpenGraph";
-import { useGetIndexHtmlByLink } from "@/hooks/exhibition";
 import * as S from "./LinkPreviewCard.styles";
 
 type Props = {
   link: string;
+  html: string;
 };
 
-export const LinkPreviewCard = ({ link }: Props) => {
-  const { data: html } = useGetIndexHtmlByLink(link);
+export const LinkPreviewCard = ({ link, html }: Props) => {
   const { title, image } = useMemo(() => extractOpenGraph(html), [html]);
 
   const handleClickLink = () => {
