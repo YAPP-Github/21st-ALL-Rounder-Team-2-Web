@@ -21,7 +21,10 @@ export const Template = () => (
     <div className={styles.content}>
       <ArtworkCount exhibitionId={3} />
       <div className={styles.preview}>
-        <LinkPreviewCard link="artie.com" />
+        <LinkPreviewCard
+          link="artie.com"
+          html='<html><head><meta property="og:image" content="https://picsum.photos/900" /><meta property="og:title" content="Example Website" /><meta property="og:description" content="" /></head></html>'
+        />
       </div>
       <ArtworkCardList exhibitionId={3} />
     </div>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllPostPage, getIndexHtmlByLink, getPostInfoWithCategory, togglePinById } from "@/apis/exhibition";
+import { getAllPostPage, getPostInfoWithCategory, togglePinById } from "@/apis/exhibition";
 
 export const useGetExhibitionList = (direction: "ASC" | "DESC", category?: number) => {
   const { data, fetchNextPage } = useInfiniteQuery({
@@ -27,13 +27,5 @@ export const useTogglePinById = (direction: "ASC" | "DESC") => {
     onSuccess: (_, { category }) => {
       queryClient.invalidateQueries(["getAllPostPage", { direction, category }]);
     },
-  });
-};
-
-export const useGetIndexHtmlByLink = (link: string) => {
-  return useQuery({
-    queryKey: ["indexHtmlByLink", link],
-    queryFn: () => getIndexHtmlByLink(link),
-    staleTime: Infinity,
   });
 };

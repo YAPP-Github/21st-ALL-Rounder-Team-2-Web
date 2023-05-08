@@ -1,10 +1,12 @@
+export type OgData = {
+  [key: string]: string | undefined;
+};
+
 export const extractOpenGraph = (html: string = "") => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
 
-  const ogData: {
-    [key: string]: string | undefined;
-  } = {};
+  const ogData: OgData = {};
 
   const metaTags = doc.querySelectorAll('meta[property^="og:"]');
   metaTags.forEach((tag: Element) => {

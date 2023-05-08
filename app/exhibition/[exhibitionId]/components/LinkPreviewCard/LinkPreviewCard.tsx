@@ -1,24 +1,32 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { IconButton } from "@/components/Button/IconButton/IconButton";
+import { LinkPreviewCardSkeleton } from "./LinkPreviewCard.skeleton";
 import { sendMessage } from "@/libs/message/message";
 import { extractOpenGraph } from "@/utils/extractOpenGraph";
-import { useGetIndexHtmlByLink } from "@/hooks/exhibition";
+import { OgData } from "@/utils/extractOpenGraph";
 import * as S from "./LinkPreviewCard.styles";
 
 type Props = {
   link: string;
+  html: string;
 };
 
-export const LinkPreviewCard = ({ link }: Props) => {
-  const { data: html } = useGetIndexHtmlByLink(link);
-  const { title, image } = useMemo(() => extractOpenGraph(html), [html]);
+export const LinkPreviewCard = ({ link, html }: Props) => {
+  const [ogData, setOgData] = useState<OgData>();
+  const { title, image } = ogData ?? {};
+
+  useEffect(() => {
+    setOgData(extractOpenGraph(html));
+  }, [html]);
 
   const handleClickLink = () => {
     sendMessage(["OPEN_NEW_WINDOW", { url: link }]);
   };
+
+  if (!ogData) return <LinkPreviewCardSkeleton />;
 
   return (
     <S.Wrapper>
