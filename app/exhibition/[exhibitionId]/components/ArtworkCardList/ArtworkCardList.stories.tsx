@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from "@storybook/react";
-import ArtworkCardList from "./ArtworkCardList";
+import { ArtworkCardList } from "./ArtworkCardList";
 
 export default {
   title: "pages/ArtworkCardList",

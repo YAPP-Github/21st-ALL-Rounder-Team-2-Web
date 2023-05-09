@@ -12,7 +12,7 @@ interface Props {
   exhibitionId: number;
 }
 
-const ArtworkCardList = ({ exhibitionId }: Props) => {
+export const ArtworkCardList = ({ exhibitionId }: Props) => {
   const { data: artworkList } = useGetArtworkList(exhibitionId);
   const { isOpen, open, close } = useOverlay();
   const [selectedArtworkId, setSelectedArtworkId] = useState(-1);
@@ -44,5 +44,3 @@ const ArtworkCardList = ({ exhibitionId }: Props) => {
     </S.Wrapper>
   );
 };
-
-export default ArtworkCardList;
