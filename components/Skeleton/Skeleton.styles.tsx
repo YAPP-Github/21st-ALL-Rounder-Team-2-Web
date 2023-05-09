@@ -22,7 +22,7 @@ export const Skeleton = styled.div<Props>`
         left: 0;
         bottom: 0;
         right: 0;
-        background: linear-gradient(90deg, transparent, ${colors.gray800} 60%, transparent);
+        background: linear-gradient(90deg, transparent, ${colors.gray900} 60%, transparent);
         opacity: 0.3;
         transform: translateX(-100%);
         animation: wave 1.6s linear 0.8s infinite;
