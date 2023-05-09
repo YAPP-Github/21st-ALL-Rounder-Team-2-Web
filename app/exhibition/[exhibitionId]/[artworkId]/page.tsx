@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, MouseEvent, useEffect } from "react";
-import Image from "next/image";
+import { Image } from "@/components/Image/Image";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as TSwiper } from "swiper/types";

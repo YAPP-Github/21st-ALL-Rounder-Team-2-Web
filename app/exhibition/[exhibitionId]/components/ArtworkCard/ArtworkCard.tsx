@@ -1,7 +1,7 @@
-import Image from "next/image";
+import { Image } from "@/components/Image/Image";
+import { Skeleton } from "@/components/Skeleton/Skeleton";
 import { ArtworkThumbnailDto } from "@/__generate__/artwork";
 import { IconButton } from "@/components/Button/IconButton/IconButton";
-import { blurDataURL } from "@/utils/image";
 import * as S from "./ArtworkCard.styles";
 
 interface Props extends ArtworkThumbnailDto {
@@ -18,8 +18,7 @@ const ArtworkCard = ({ imageURL, name, artist, onMoreBtnClick }: Props) => {
           fill
           sizes="50vw"
           style={{ objectFit: "cover", borderRadius: "12px" }}
-          placeholder="blur"
-          blurDataURL={blurDataURL}
+          loadingFallback={<Skeleton borderRadius="12px" />}
         />
         <S.IconWrapper>
           <IconButton iconProps={{ name: "MoreVerticalIcon" }} onClick={onMoreBtnClick} ariaLabel="더보기" />
