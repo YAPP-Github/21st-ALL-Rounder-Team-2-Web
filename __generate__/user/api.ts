@@ -22,15 +22,97 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
+ * 
+ * @export
+ * @interface ErrorResponse
+ */
+export interface ErrorResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ErrorResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ErrorResponse
+     */
+    'status'?: number;
+    /**
+     * 
+     * @type {Array<FieldError>}
+     * @memberof ErrorResponse
+     */
+    'errors'?: Array<FieldError>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ErrorResponse
+     */
+    'code'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface FieldError
+ */
+export interface FieldError {
+    /**
+     * 
+     * @type {string}
+     * @memberof FieldError
+     */
+    'field'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FieldError
+     */
+    'value'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FieldError
+     */
+    'reason'?: string;
+}
+/**
+ * 테스트 유저 토큰 발급 Response
+ * @export
+ * @interface GetTestUserTokenResponse
+ */
+export interface GetTestUserTokenResponse {
+    /**
+     * 테스트 유저 토큰
+     * @type {string}
+     * @memberof GetTestUserTokenResponse
+     */
+    'token'?: string;
+}
+/**
+ * 유저 가입일 조회 Response
+ * @export
+ * @interface GetUserJoinDateResponse
+ */
+export interface GetUserJoinDateResponse {
+    /**
+     * 유저 가입일
+     * @type {string}
+     * @memberof GetUserJoinDateResponse
+     */
+    'joinDate'?: string;
+}
+/**
  * 회원 Response
  * @export
- * @interface CreateUserResponseDto
+ * @interface RegisterUserResponse
  */
-export interface CreateUserResponseDto {
+export interface RegisterUserResponse {
     /**
      * 아이디
      * @type {number}
-     * @memberof CreateUserResponseDto
+     * @memberof RegisterUserResponse
      */
     'id'?: number;
 }
@@ -40,18 +122,6 @@ export interface CreateUserResponseDto {
  * @interface User
  */
 export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'createdAt'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    'updatedAt'?: string;
     /**
      * 
      * @type {number}
@@ -69,20 +139,165 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    'name'?: string;
+    'profileImage'?: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
+    'name'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UserJpaEntity
+ */
+export interface UserJpaEntity {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserJpaEntity
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserJpaEntity
+     */
+    'updatedAt'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserJpaEntity
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserJpaEntity
+     */
+    'uid'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserJpaEntity
+     */
     'profileImage'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserJpaEntity
+     */
+    'name'?: string;
 }
 
 /**
- * UserControllerApi - axios parameter creator
+ * GetTestUserTokenControllerApi - axios parameter creator
  * @export
  */
-export const UserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const GetTestUserTokenControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 테스트 유저에 대한 Firebase Custom Token을 발급하여 반환함
+         * @summary 테스트 유저 토큰 발급 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTestUserToken: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/test/token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * GetTestUserTokenControllerApi - functional programming interface
+ * @export
+ */
+export const GetTestUserTokenControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GetTestUserTokenControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 테스트 유저에 대한 Firebase Custom Token을 발급하여 반환함
+         * @summary 테스트 유저 토큰 발급 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTestUserToken(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTestUserTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTestUserToken(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * GetTestUserTokenControllerApi - factory interface
+ * @export
+ */
+export const GetTestUserTokenControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GetTestUserTokenControllerApiFp(configuration)
+    return {
+        /**
+         * 테스트 유저에 대한 Firebase Custom Token을 발급하여 반환함
+         * @summary 테스트 유저 토큰 발급 API
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTestUserToken(options?: any): AxiosPromise<GetTestUserTokenResponse> {
+            return localVarFp.getTestUserToken(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GetTestUserTokenControllerApi - object-oriented interface
+ * @export
+ * @class GetTestUserTokenControllerApi
+ * @extends {BaseAPI}
+ */
+export class GetTestUserTokenControllerApi extends BaseAPI {
+    /**
+     * 테스트 유저에 대한 Firebase Custom Token을 발급하여 반환함
+     * @summary 테스트 유저 토큰 발급 API
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GetTestUserTokenControllerApi
+     */
+    public getTestUserToken(options?: AxiosRequestConfig) {
+        return GetTestUserTokenControllerApiFp(this.configuration).getTestUserToken(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * GetUserControllerApi - axios parameter creator
+ * @export
+ */
+export const GetUserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 토큰 기반 유저 조회
@@ -118,6 +333,176 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+    }
+};
+
+/**
+ * GetUserControllerApi - functional programming interface
+ * @export
+ */
+export const GetUserControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GetUserControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 토큰 기반 유저 조회
+         * @summary 유저 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async me(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.me(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * GetUserControllerApi - factory interface
+ * @export
+ */
+export const GetUserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GetUserControllerApiFp(configuration)
+    return {
+        /**
+         * 토큰 기반 유저 조회
+         * @summary 유저 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        me(options?: any): AxiosPromise<User> {
+            return localVarFp.me(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GetUserControllerApi - object-oriented interface
+ * @export
+ * @class GetUserControllerApi
+ * @extends {BaseAPI}
+ */
+export class GetUserControllerApi extends BaseAPI {
+    /**
+     * 토큰 기반 유저 조회
+     * @summary 유저 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GetUserControllerApi
+     */
+    public me(options?: AxiosRequestConfig) {
+        return GetUserControllerApiFp(this.configuration).me(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * GetUserJoinDateControllerApi - axios parameter creator
+ * @export
+ */
+export const GetUserJoinDateControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 유저 가입일(createdAt) 조회
+         * @summary 유저 가입일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserJoinDate: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/join`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * GetUserJoinDateControllerApi - functional programming interface
+ * @export
+ */
+export const GetUserJoinDateControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GetUserJoinDateControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 유저 가입일(createdAt) 조회
+         * @summary 유저 가입일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserJoinDate(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserJoinDateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserJoinDate(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * GetUserJoinDateControllerApi - factory interface
+ * @export
+ */
+export const GetUserJoinDateControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GetUserJoinDateControllerApiFp(configuration)
+    return {
+        /**
+         * 유저 가입일(createdAt) 조회
+         * @summary 유저 가입일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserJoinDate(options?: any): AxiosPromise<GetUserJoinDateResponse> {
+            return localVarFp.getUserJoinDate(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GetUserJoinDateControllerApi - object-oriented interface
+ * @export
+ * @class GetUserJoinDateControllerApi
+ * @extends {BaseAPI}
+ */
+export class GetUserJoinDateControllerApi extends BaseAPI {
+    /**
+     * 유저 가입일(createdAt) 조회
+     * @summary 유저 가입일 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GetUserJoinDateControllerApi
+     */
+    public getUserJoinDate(options?: AxiosRequestConfig) {
+        return GetUserJoinDateControllerApiFp(this.configuration).getUserJoinDate(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * GetUserThumbnailControllerApi - axios parameter creator
+ * @export
+ */
+export const GetUserThumbnailControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
         /**
          * 사용자 닉네임, 전시 개수 조회
          * @summary 마이페이지 썸네일 조회
@@ -152,6 +537,74 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+    }
+};
+
+/**
+ * GetUserThumbnailControllerApi - functional programming interface
+ * @export
+ */
+export const GetUserThumbnailControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = GetUserThumbnailControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 사용자 닉네임, 전시 개수 조회
+         * @summary 마이페이지 썸네일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async my(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserJpaEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.my(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * GetUserThumbnailControllerApi - factory interface
+ * @export
+ */
+export const GetUserThumbnailControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = GetUserThumbnailControllerApiFp(configuration)
+    return {
+        /**
+         * 사용자 닉네임, 전시 개수 조회
+         * @summary 마이페이지 썸네일 조회
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        my(options?: any): AxiosPromise<UserJpaEntity> {
+            return localVarFp.my(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * GetUserThumbnailControllerApi - object-oriented interface
+ * @export
+ * @class GetUserThumbnailControllerApi
+ * @extends {BaseAPI}
+ */
+export class GetUserThumbnailControllerApi extends BaseAPI {
+    /**
+     * 사용자 닉네임, 전시 개수 조회
+     * @summary 마이페이지 썸네일 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GetUserThumbnailControllerApi
+     */
+    public my(options?: AxiosRequestConfig) {
+        return GetUserThumbnailControllerApiFp(this.configuration).my(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * RegisterUserControllerApi - axios parameter creator
+ * @export
+ */
+export const RegisterUserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
         /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
@@ -197,32 +650,12 @@ export const UserControllerApiAxiosParamCreator = function (configuration?: Conf
 };
 
 /**
- * UserControllerApi - functional programming interface
+ * RegisterUserControllerApi - functional programming interface
  * @export
  */
-export const UserControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UserControllerApiAxiosParamCreator(configuration)
+export const RegisterUserControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = RegisterUserControllerApiAxiosParamCreator(configuration)
     return {
-        /**
-         * 토큰 기반 유저 조회
-         * @summary 유저 조회
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async me(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.me(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 사용자 닉네임, 전시 개수 조회
-         * @summary 마이페이지 썸네일 조회
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async my(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.my(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
         /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
@@ -230,7 +663,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async register(uid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUserResponseDto>> {
+        async register(uid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegisterUserResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.register(uid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -238,30 +671,12 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * UserControllerApi - factory interface
+ * RegisterUserControllerApi - factory interface
  * @export
  */
-export const UserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UserControllerApiFp(configuration)
+export const RegisterUserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = RegisterUserControllerApiFp(configuration)
     return {
-        /**
-         * 토큰 기반 유저 조회
-         * @summary 유저 조회
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        me(options?: any): AxiosPromise<User> {
-            return localVarFp.me(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 사용자 닉네임, 전시 개수 조회
-         * @summary 마이페이지 썸네일 조회
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        my(options?: any): AxiosPromise<User> {
-            return localVarFp.my(options).then((request) => request(axios, basePath));
-        },
         /**
          * Firebase를 통해 생성한 UID 기반 유저 생성
          * @summary 유저 생성
@@ -269,51 +684,243 @@ export const UserControllerApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        register(uid: string, options?: any): AxiosPromise<CreateUserResponseDto> {
+        register(uid: string, options?: any): AxiosPromise<RegisterUserResponse> {
             return localVarFp.register(uid, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * UserControllerApi - object-oriented interface
+ * RegisterUserControllerApi - object-oriented interface
  * @export
- * @class UserControllerApi
+ * @class RegisterUserControllerApi
  * @extends {BaseAPI}
  */
-export class UserControllerApi extends BaseAPI {
-    /**
-     * 토큰 기반 유저 조회
-     * @summary 유저 조회
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserControllerApi
-     */
-    public me(options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).me(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 사용자 닉네임, 전시 개수 조회
-     * @summary 마이페이지 썸네일 조회
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserControllerApi
-     */
-    public my(options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).my(options).then((request) => request(this.axios, this.basePath));
-    }
-
+export class RegisterUserControllerApi extends BaseAPI {
     /**
      * Firebase를 통해 생성한 UID 기반 유저 생성
      * @summary 유저 생성
      * @param {string} uid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserControllerApi
+     * @memberof RegisterUserControllerApi
      */
     public register(uid: string, options?: AxiosRequestConfig) {
-        return UserControllerApiFp(this.configuration).register(uid, options).then((request) => request(this.axios, this.basePath));
+        return RegisterUserControllerApiFp(this.configuration).register(uid, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * RenameUserControllerApi - axios parameter creator
+ * @export
+ */
+export const RenameUserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 유저의 서비스 닉네임 수정
+         * @summary 유저 닉네임 수정
+         * @param {string} name 변경할 닉네임
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rename: async (name: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('rename', 'name', name)
+            const localVarPath = `/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * RenameUserControllerApi - functional programming interface
+ * @export
+ */
+export const RenameUserControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = RenameUserControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 유저의 서비스 닉네임 수정
+         * @summary 유저 닉네임 수정
+         * @param {string} name 변경할 닉네임
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rename(name: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rename(name, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * RenameUserControllerApi - factory interface
+ * @export
+ */
+export const RenameUserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = RenameUserControllerApiFp(configuration)
+    return {
+        /**
+         * 유저의 서비스 닉네임 수정
+         * @summary 유저 닉네임 수정
+         * @param {string} name 변경할 닉네임
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rename(name: string, options?: any): AxiosPromise<void> {
+            return localVarFp.rename(name, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * RenameUserControllerApi - object-oriented interface
+ * @export
+ * @class RenameUserControllerApi
+ * @extends {BaseAPI}
+ */
+export class RenameUserControllerApi extends BaseAPI {
+    /**
+     * 유저의 서비스 닉네임 수정
+     * @summary 유저 닉네임 수정
+     * @param {string} name 변경할 닉네임
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RenameUserControllerApi
+     */
+    public rename(name: string, options?: AxiosRequestConfig) {
+        return RenameUserControllerApiFp(this.configuration).rename(name, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserWithdrawalControllerApi - axios parameter creator
+ * @export
+ */
+export const UserWithdrawalControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 회원 탈퇴
+         * @summary 유저 삭제
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUser: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication jwt token required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserWithdrawalControllerApi - functional programming interface
+ * @export
+ */
+export const UserWithdrawalControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserWithdrawalControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 회원 탈퇴
+         * @summary 유저 삭제
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteUser(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserWithdrawalControllerApi - factory interface
+ * @export
+ */
+export const UserWithdrawalControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserWithdrawalControllerApiFp(configuration)
+    return {
+        /**
+         * 회원 탈퇴
+         * @summary 유저 삭제
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUser(options?: any): AxiosPromise<string> {
+            return localVarFp.deleteUser(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserWithdrawalControllerApi - object-oriented interface
+ * @export
+ * @class UserWithdrawalControllerApi
+ * @extends {BaseAPI}
+ */
+export class UserWithdrawalControllerApi extends BaseAPI {
+    /**
+     * 회원 탈퇴
+     * @summary 유저 삭제
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserWithdrawalControllerApi
+     */
+    public deleteUser(options?: AxiosRequestConfig) {
+        return UserWithdrawalControllerApiFp(this.configuration).deleteUser(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
