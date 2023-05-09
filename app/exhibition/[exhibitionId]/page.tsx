@@ -7,7 +7,7 @@ import { ArtworkCardList, ArtworkCounter } from "./components/ArtworkCardList/Ar
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
-import styles from "./page.module.css";
+import * as S from "./page.styles";
 
 export default async function PageWrapper({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
@@ -34,12 +34,12 @@ async function Page({ exhibitionId }: Props) {
     <Hydrate state={dehydratedState}>
       <NavigationBar exhibitionId={exhibitionId} />
       <ExhibitInformationHeader exhibitionId={exhibitionId} />
-      <div className={styles.content}>
+      <S.Content>
         <Suspense>
           {/* @ts-expect-error Async Server Component */}
           <ArtworkCounter exhibitionId={exhibitionId} />
         </Suspense>
-        <div className={styles.preview}>
+        <S.LinkPreviewCardWrapper>
           {postInfo.attachedLink && (
             <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
               <Suspense fallback={<LinkPreviewCardSkeleton />}>
@@ -48,12 +48,12 @@ async function Page({ exhibitionId }: Props) {
               </Suspense>
             </ErrorBoundary>
           )}
-        </div>
+        </S.LinkPreviewCardWrapper>
         <Suspense>
           {/* @ts-expect-error Async Server Component */}
           <ArtworkCardList exhibitionId={exhibitionId} />
         </Suspense>
-      </div>
+      </S.Content>
     </Hydrate>
   );
 }
