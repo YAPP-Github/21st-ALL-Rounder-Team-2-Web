@@ -9,7 +9,6 @@ export const Wrapper = styled.div<{ $active: boolean }>`
   padding: 10px 20px;
   background-color: ${colors.green900};
   color: #000000;
-
   ${({ $active }) =>
     $active
       ? css`
@@ -20,4 +19,5 @@ export const Wrapper = styled.div<{ $active: boolean }>`
           border-radius: 4px 30px 30px 4px;
           background-color: ${colors.blue};
         `}
+  transition: all .3s ease;
 `;
