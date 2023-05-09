@@ -9,8 +9,24 @@ import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
 import styles from "./page.module.css";
 
-export default async function Page({ params }: { params: { exhibitionId: string } }) {
+export default async function PageWrapper({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
+  return (
+    <>
+      <NavigationBar exhibitionId={exhibitionId} />
+      <Suspense>
+        {/* @ts-expect-error Async Server Component */}
+        <Page exhibitionId={exhibitionId} />
+      </Suspense>
+    </>
+  );
+}
+
+type Props = {
+  exhibitionId: number;
+};
+
+async function Page({ exhibitionId }: Props) {
   const postInfo = await useFetchPostInfo(exhibitionId);
   const dehydratedState = getDehydratedState();
 
