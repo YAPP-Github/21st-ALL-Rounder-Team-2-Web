@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/Image/Image";
 import Icon from "@/components/Icon/Icon/Icon";
 import ImageUploadSelectModal from "../ImageUploadSelectModal/ImageUploadSelectModal";
 import { colors } from "@/styles/colors";

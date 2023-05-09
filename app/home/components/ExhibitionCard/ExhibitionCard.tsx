@@ -1,10 +1,9 @@
-import Image from "next/image";
+import { Image } from "@/components/Image/Image";
+import { Skeleton } from "@/components/Skeleton/Skeleton";
 import { IconButton } from "@/components/Button/IconButton/IconButton";
 import { PostDetailInfo } from "@/__generate__/post";
-import { DEFAULT_IMAGE, blurDataURL } from "@/utils/image";
-
+import { DEFAULT_IMAGE } from "@/utils/image";
 import * as S from "./ExhibitionCard.styles";
-import React from "react";
 
 interface Props extends PostDetailInfo {
   isPin?: boolean;
@@ -22,8 +21,7 @@ export const ExhibitionCard = (props: Props) => {
         fill
         sizes="50vw"
         style={{ objectFit: "cover", borderRadius: "32px" }}
-        placeholder="blur"
-        blurDataURL={blurDataURL}
+        loadingFallback={<Skeleton borderRadius="32px" />}
       />
       <S.Information>
         <S.Title>{name}</S.Title>
