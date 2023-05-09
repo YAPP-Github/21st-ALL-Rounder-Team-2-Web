@@ -6,6 +6,7 @@ import DatePicker from "@/components/Picker/DatePicker/DatePicker";
 import * as S from "./Calendar.styles";
 import { CalendarRef } from "antd-mobile";
 import { toYYYYMMDD } from "@/utils/datetime";
+import { useGetUserJoinDate } from "@/hooks/user";
 
 export interface Props {
   className?: string;
@@ -21,6 +22,7 @@ export const Calendar = (props: Props) => {
   const calendarRef = useRef<CalendarRef | null>(null);
   const [showPicker, setShowPicker] = useState(false);
   const yearMonthKey = `${yearMonth.getFullYear()}${yearMonth.getMonth()}`;
+  const { data: userJoinDate } = useGetUserJoinDate();
 
   useEffect(() => {
     if (!yearMonth) {
@@ -91,6 +93,7 @@ export const Calendar = (props: Props) => {
       </S.Wrapper>
       <DatePicker
         defaultValue={yearMonth}
+        min={userJoinDate ? new Date(userJoinDate) : undefined}
         open={showPicker}
         onClose={handleClosePicker}
         onConfirm={handleConfirmPicker}
