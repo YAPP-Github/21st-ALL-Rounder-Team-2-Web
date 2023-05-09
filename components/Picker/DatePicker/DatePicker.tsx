@@ -7,13 +7,15 @@ import * as S from "./DatePicker.styles";
 export interface Props {
   className?: string;
   defaultValue?: Date | undefined;
+  max?: Date;
+  min?: Date;
   open: boolean;
   onClose: () => void;
   onConfirm: (val: Date) => void;
 }
 
 export const DatePicker = (props: Props) => {
-  const { className, defaultValue = new Date(), open, onClose, onConfirm } = props;
+  const { className, defaultValue = new Date(), max = new Date(), min, open, onClose, onConfirm } = props;
   const [selectedDate, setSelectedDate] = useState(defaultValue);
 
   const labelRenderer = useCallback((type: string, data: number) => {
@@ -49,8 +51,8 @@ export const DatePicker = (props: Props) => {
             onChange={handleChangeDate}
             precision="month"
             renderLabel={labelRenderer}
-            max={new Date()}
-            min={new Date(2022, 0)}
+            max={max}
+            min={min}
           />
         </S.Wrapper>
       </AnimatePresence>

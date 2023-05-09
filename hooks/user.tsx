@@ -5,6 +5,7 @@ export const useGetUserJoinDate = () => {
   return useQuery({
     queryKey: ["userJoinDate"],
     queryFn: getUserJoinDate,
+    select: (data) => data.joinDate,
     staleTime: Infinity,
   });
 };
