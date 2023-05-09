@@ -44,13 +44,11 @@ export const ExhibitionInfo = styled.div`
 
   & > span {
     ${Normal14CSS}
-    letter-spacing: -0.3px;
   }
 `;
 
 export const Category = styled.span`
   color: ${colors.gray400};
-  letter-spacing: -0.3px;
 `;
 
 export const Title = styled.h2`
@@ -58,10 +56,8 @@ export const Title = styled.h2`
   margin: 0;
   line-height: 130%;
   ${Bold24CSS}
-  letter-spacing: -0.3px;
 `;
 
 export const Date = styled.span`
   color: ${colors.gray700};
-  letter-spacing: -0.3px;
 `;
