@@ -3,7 +3,7 @@ import { Hydrate } from "@tanstack/react-query";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import { ExhibitInformationHeader as ExhibitInformationHeaderClient } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "./components/LinkPreviewCard";
-import { ArtworkCardList, ArtworkCounter } from "./components/ArtworkCardList/ArtworkCardList.server";
+import { ArtworkCardList } from "./components/ArtworkCardList/ArtworkCardList";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
 import { useFetchArtworkList } from "@/hooks/artwork.server";
@@ -45,16 +45,13 @@ async function ExhibitInformationHeader({ exhibitionId }: Props) {
 async function PageContent({ exhibitionId }: Props) {
   const postInfoData = useFetchPostInfo(exhibitionId);
   const artworkListData = useFetchArtworkList(exhibitionId);
-  const [postInfo] = await Promise.all([postInfoData, artworkListData]);
+  const [postInfo, artworkList] = await Promise.all([postInfoData, artworkListData]);
   const dehydratedState = getDehydratedState();
 
   return (
     <Hydrate state={dehydratedState}>
       <S.Content>
-        <Suspense>
-          {/* @ts-expect-error Async Server Component */}
-          <ArtworkCounter exhibitionId={exhibitionId} />
-        </Suspense>
+        <S.ArtworkCount>{artworkList?.totalElements}개의 작품</S.ArtworkCount>
         <S.LinkPreviewCardWrapper>
           {postInfo.attachedLink && (
             <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
@@ -65,10 +62,7 @@ async function PageContent({ exhibitionId }: Props) {
             </ErrorBoundary>
           )}
         </S.LinkPreviewCardWrapper>
-        <Suspense>
-          {/* @ts-expect-error Async Server Component */}
-          <ArtworkCardList exhibitionId={exhibitionId} />
-        </Suspense>
+        <ArtworkCardList exhibitionId={exhibitionId} />
       </S.Content>
     </Hydrate>
   );
