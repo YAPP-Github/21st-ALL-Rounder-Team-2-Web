@@ -10,7 +10,7 @@ import { useFetchArtworkList } from "@/hooks/artwork.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
 import * as S from "./page.styles";
 
-export default async function PageWrapper({ params }: { params: { exhibitionId: string } }) {
+export default async function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
   return (
     <>
@@ -21,7 +21,7 @@ export default async function PageWrapper({ params }: { params: { exhibitionId: 
       </Suspense>
       <Suspense>
         {/* @ts-expect-error Async Server Component */}
-        <PageContent exhibitionId={exhibitionId} />
+        <Content exhibitionId={exhibitionId} />
       </Suspense>
     </>
   );
@@ -42,7 +42,7 @@ async function ExhibitInformationHeader({ exhibitionId }: Props) {
   );
 }
 
-async function PageContent({ exhibitionId }: Props) {
+async function Content({ exhibitionId }: Props) {
   const postInfoData = useFetchPostInfo(exhibitionId);
   const artworkListData = useFetchArtworkList(exhibitionId);
   const [postInfo, artworkList] = await Promise.all([postInfoData, artworkListData]);
