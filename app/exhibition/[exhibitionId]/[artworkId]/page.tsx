@@ -50,7 +50,7 @@ export default function Page({
   };
 
   const handleGoBackClick = () => {
-    router.push(`exhibition/${exhibitionId}`);
+    router.replace(`exhibition/${exhibitionId}`);
   };
 
   const handleEditClick = () => {
