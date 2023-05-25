@@ -18,6 +18,7 @@ import { ReactComponent as CameraIcon } from "./camera.svg";
 import { ReactComponent as ImageIcon } from "./image.svg";
 import { ReactComponent as ChevronRightIcon } from "./chevron-right.svg";
 import { ReactComponent as AlertCircleIcon } from "./mdi_alert-circle.svg";
+import { ReactComponent as PictureIcon } from "./icon-park-outline_picture-one.svg";
 
 export const SvgIcons = {
   ARTIEIcon,
@@ -40,4 +41,5 @@ export const SvgIcons = {
   ImageIcon,
   ChevronRightIcon,
   AlertCircleIcon,
+  PictureIcon,
 } as const;
