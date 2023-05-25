@@ -10,6 +10,15 @@ export const Wrapper = styled.div`
   background-color: ${colors.bgColor};
 `;
 
+export const Background = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6) 17.77%, rgba(0, 0, 0, 0) 56.22%),
+    linear-gradient(rgba(0, 0, 0, 0.6) -7.76%, rgba(0, 0, 0, 0.175125) 5.02%, rgba(0, 0, 0, 0) 13.32%);
+  transform: rotate(-180deg);
+`;
+
 export const ArtworkInfoWrapper = styled.div`
   position: absolute;
   left: 24px;

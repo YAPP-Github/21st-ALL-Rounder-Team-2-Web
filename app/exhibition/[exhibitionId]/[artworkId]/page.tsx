@@ -91,6 +91,7 @@ export default function Page({
         {artworkThumbnailList?.map(({ id, imageURL }) => (
           <SwiperSlide key={id}>
             <Image alt="작품 사진" src={imageURL} fill style={{ objectFit: "contain" }} />
+            <S.Background />
             <S.ArtworkInfoWrapper>
               <S.Title>{artworkInfo?.name}</S.Title>
               <S.Artist>{artworkInfo?.artist} 작가</S.Artist>
