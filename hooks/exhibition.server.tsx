@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getAllPostPage, getPostInfoWithCategory, getIndexHtmlByLink } from "@/apis/exhibition";
 import { getQueryClient } from "@/libs/react-query-ssr/getQueryClient";
 
@@ -10,14 +11,14 @@ export const useFetchExhibitionList = async (direction: "ASC" | "DESC", category
   return data;
 };
 
-export const useFetchPostInfo = async (exhibitionId: number) => {
+export const useFetchPostInfo = cache(async (exhibitionId: number) => {
   const queryClient = getQueryClient();
   const data = await queryClient.fetchQuery({
     queryKey: ["postInfo", exhibitionId],
     queryFn: () => getPostInfoWithCategory(exhibitionId),
   });
   return data;
-};
+});
 
 export const useFetchIndexHtmlByLink = async (link: string) => {
   const queryClient = getQueryClient();

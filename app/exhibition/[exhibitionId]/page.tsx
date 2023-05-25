@@ -1,29 +1,58 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
-import { ExhibitInformationHeader } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
+import { ExhibitInformationHeader as ExhibitInformationHeaderClient } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "./components/LinkPreviewCard";
-import { ArtworkCardList, ArtworkCounter } from "./components/ArtworkCardList/ArtworkCardList.server";
+import { ArtworkCardList } from "./components/ArtworkCardList/ArtworkCardList";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 import { useFetchPostInfo } from "@/hooks/exhibition.server";
+import { useFetchArtworkList } from "@/hooks/artwork.server";
 import { getDehydratedState } from "@/libs/react-query-ssr/getDehydratedState";
-import styles from "./page.module.css";
+import * as S from "./page.styles";
 
 export default async function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
-  const postInfo = await useFetchPostInfo(exhibitionId);
+  return (
+    <>
+      <NavigationBar exhibitionId={exhibitionId} />
+      <Suspense>
+        {/* @ts-expect-error Async Server Component */}
+        <ExhibitInformationHeader exhibitionId={exhibitionId} />
+      </Suspense>
+      <Suspense>
+        {/* @ts-expect-error Async Server Component */}
+        <Content exhibitionId={exhibitionId} />
+      </Suspense>
+    </>
+  );
+}
+
+type Props = {
+  exhibitionId: number;
+};
+
+async function ExhibitInformationHeader({ exhibitionId }: Props) {
+  await useFetchPostInfo(exhibitionId);
   const dehydratedState = getDehydratedState();
 
   return (
     <Hydrate state={dehydratedState}>
-      <NavigationBar exhibitionId={exhibitionId} />
-      <ExhibitInformationHeader exhibitionId={exhibitionId} />
-      <div className={styles.content}>
-        <Suspense>
-          {/* @ts-expect-error Async Server Component */}
-          <ArtworkCounter exhibitionId={exhibitionId} />
-        </Suspense>
-        <div className={styles.preview}>
+      <ExhibitInformationHeaderClient exhibitionId={exhibitionId} />
+    </Hydrate>
+  );
+}
+
+async function Content({ exhibitionId }: Props) {
+  const postInfoData = useFetchPostInfo(exhibitionId);
+  const artworkListData = useFetchArtworkList(exhibitionId);
+  const [postInfo, artworkList] = await Promise.all([postInfoData, artworkListData]);
+  const dehydratedState = getDehydratedState();
+
+  return (
+    <Hydrate state={dehydratedState}>
+      <S.Content>
+        <S.ArtworkCount>{artworkList?.totalElements}개의 작품</S.ArtworkCount>
+        <S.LinkPreviewCardWrapper>
           {postInfo.attachedLink && (
             <ErrorBoundary fallback={<LinkPreviewCardError link={postInfo.attachedLink} />}>
               <Suspense fallback={<LinkPreviewCardSkeleton />}>
@@ -32,12 +61,9 @@ export default async function Page({ params }: { params: { exhibitionId: string 
               </Suspense>
             </ErrorBoundary>
           )}
-        </div>
-        <Suspense>
-          {/* @ts-expect-error Async Server Component */}
-          <ArtworkCardList exhibitionId={exhibitionId} />
-        </Suspense>
-      </div>
+        </S.LinkPreviewCardWrapper>
+        <ArtworkCardList exhibitionId={exhibitionId} />
+      </S.Content>
     </Hydrate>
   );
 }
