@@ -1,4 +1,3 @@
-import { AuthProvider } from "@/components/AuthProvider/AuthProvider";
 import { ClientProvider } from "./provider.client";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,9 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <AuthProvider>
-          <ClientProvider>{children}</ClientProvider>
-        </AuthProvider>
+        <ClientProvider>{children}</ClientProvider>
         <div id="overlay-root" />
       </body>
     </html>

@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { AuthProvider } from "@/components/AuthProvider/AuthProvider";
 import { ExhibitionCardList } from "./components/ExhibitionCardList/ExhibitionCardList.server";
 
 export default async function Page({
@@ -10,10 +11,12 @@ export default async function Page({
   const category = searchParams?.category;
 
   return (
-    <Suspense>
-      {/* @ts-expect-error Async Server Component */}
-      <ExhibitionCardList direction={direction} category={category} />
-    </Suspense>
+    <AuthProvider>
+      <Suspense>
+        {/* @ts-expect-error Async Server Component */}
+        <ExhibitionCardList direction={direction} category={category} />
+      </Suspense>
+    </AuthProvider>
   );
 }
 
