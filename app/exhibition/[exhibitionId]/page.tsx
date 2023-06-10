@@ -13,18 +13,22 @@ import * as S from "./page.styles";
 
 export default async function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
+
   return (
-    <AuthProvider>
-      <NavigationBar exhibitionId={exhibitionId} />
-      <Suspense>
-        {/* @ts-expect-error Async Server Component */}
-        <ExhibitInformationHeader exhibitionId={exhibitionId} />
-      </Suspense>
-      <Suspense>
-        {/* @ts-expect-error Async Server Component */}
-        <Content exhibitionId={exhibitionId} />
-      </Suspense>
-    </AuthProvider>
+    <>
+      {/* @ts-expect-error Async Server Component */}
+      <AuthProvider>
+        <NavigationBar exhibitionId={exhibitionId} />
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <ExhibitInformationHeader exhibitionId={exhibitionId} />
+        </Suspense>
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <Content exhibitionId={exhibitionId} />
+        </Suspense>
+      </AuthProvider>
+    </>
   );
 }
 

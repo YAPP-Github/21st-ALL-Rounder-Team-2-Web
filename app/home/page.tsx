@@ -11,12 +11,15 @@ export default async function Page({
   const category = searchParams?.category;
 
   return (
-    <AuthProvider>
-      <Suspense>
-        {/* @ts-expect-error Async Server Component */}
-        <ExhibitionCardList direction={direction} category={category} />
-      </Suspense>
-    </AuthProvider>
+    <>
+      {/* @ts-expect-error Async Server Component */}
+      <AuthProvider>
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <ExhibitionCardList direction={direction} category={category} />
+        </Suspense>
+      </AuthProvider>
+    </>
   );
 }
 
