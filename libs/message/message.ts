@@ -37,6 +37,7 @@ export type Actions = {
   OPEN_NEW_WINDOW: {
     payload: { url: string };
   };
+  REQUEST_REFRESH_TOKEN: {};
   TEST_MESSAGE: {};
 };
 
