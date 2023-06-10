@@ -7,7 +7,7 @@ import { useTimeout } from "@/hooks/useTimeout";
 import { sendMessage } from "@/libs/message/message";
 import * as S from "./Fallback.styles";
 
-export const UnauthorizedErrorFallback = () => {
+export const UnauthorizedError = () => {
   const [isTimeout, setIsTimeout] = useState(false);
   const router = useRouter();
 
