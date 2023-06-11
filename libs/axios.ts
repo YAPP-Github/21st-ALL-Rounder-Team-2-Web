@@ -1,9 +1,7 @@
 import axios from "axios";
 import { isBrowser } from "@/utils/browser";
 
-export const axiosInstance = axios.create({
-  withCredentials: true,
-});
+export const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use((config) => {
   if (isBrowser()) {
