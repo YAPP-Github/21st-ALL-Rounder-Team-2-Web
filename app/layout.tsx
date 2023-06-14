@@ -1,11 +1,4 @@
-"use client";
-
-import QueryClientWrapper from "@/libs/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import StyledComponentsRegistry from "@/libs/styled-components";
-import { GlobalStyle } from "@/styles/globals";
-import AntdMobileProvider from "@/libs/antd-mobile-provider";
-import { ToastProvider } from "@/components/Toast/Toast.provider";
+import { ClientProvider } from "./provider.client";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,18 +11,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <AntdMobileProvider>
-          <QueryClientWrapper>
-            <StyledComponentsRegistry>
-              <ToastProvider>
-                <GlobalStyle />
-                {children}
-              </ToastProvider>
-            </StyledComponentsRegistry>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientWrapper>
-          <div id="overlay-root" />
-        </AntdMobileProvider>
+        <ClientProvider>{children}</ClientProvider>
+        <div id="overlay-root" />
       </body>
     </html>
   );

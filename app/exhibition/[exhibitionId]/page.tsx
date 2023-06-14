@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Hydrate } from "@tanstack/react-query";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
+import { AuthProvider } from "@/components/AuthProvider/AuthProvider";
 import { ExhibitInformationHeader as ExhibitInformationHeaderClient } from "./components/ExhibitInformationHeader/ExhibitInformationHeader";
 import { LinkPreviewCard, LinkPreviewCardError, LinkPreviewCardSkeleton } from "./components/LinkPreviewCard";
 import { ArtworkCardList } from "./components/ArtworkCardList/ArtworkCardList";
@@ -12,17 +13,21 @@ import * as S from "./page.styles";
 
 export default async function Page({ params }: { params: { exhibitionId: string } }) {
   const exhibitionId = Number(params.exhibitionId);
+
   return (
     <>
-      <NavigationBar exhibitionId={exhibitionId} />
-      <Suspense>
-        {/* @ts-expect-error Async Server Component */}
-        <ExhibitInformationHeader exhibitionId={exhibitionId} />
-      </Suspense>
-      <Suspense>
-        {/* @ts-expect-error Async Server Component */}
-        <Content exhibitionId={exhibitionId} />
-      </Suspense>
+      {/* @ts-expect-error Async Server Component */}
+      <AuthProvider>
+        <NavigationBar exhibitionId={exhibitionId} />
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <ExhibitInformationHeader exhibitionId={exhibitionId} />
+        </Suspense>
+        <Suspense>
+          {/* @ts-expect-error Async Server Component */}
+          <Content exhibitionId={exhibitionId} />
+        </Suspense>
+      </AuthProvider>
     </>
   );
 }
